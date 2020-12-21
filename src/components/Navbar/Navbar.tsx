@@ -31,7 +31,7 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink className="link" exact to={RouteNames.ViewCharacterPage}>
+          <NavLink className="link" exact to={RouteNames.ListCharactersPage}>
             Characters
           </NavLink>
         </li>
