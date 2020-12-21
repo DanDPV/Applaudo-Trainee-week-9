@@ -1,5 +1,9 @@
 @import '../../styles/base/settings';
 
+body {
+  background-color: #e4e6eb;
+}
+
 .intro-block {
   display: flex;
   align-items: center;
@@ -26,22 +30,57 @@
   }
 }
 
+.stan-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px 40px;
+}
+
+.stan-image {
+  background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/8f46196d-8fd8-474c-a14c-4bdd45ec224c/dd3fww9-fb77eb17-f515-45d3-8a9d-0841eef14d22.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvOGY0NjE5NmQtOGZkOC00NzRjLWExNGMtNGJkZDQ1ZWMyMjRjXC9kZDNmd3c5LWZiNzdlYjE3LWY1MTUtNDVkMy04YTlkLTA4NDFlZWYxNGQyMi5qcGcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.LfMvDD2iDKhhJJ9HxInGXnLbRWcaQ09E5PloAUes6a0');
+  width: 350px;
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 8px 8px #e4e6eb inset;
+}
+
+.stan-text {
+  margin-left: 30px;
+  margin-right: 30px;
+  font-size: 25px;
+  max-width: 60%;
+  text-align: justify;
+}
+
 @media screen and (max-width: 1000px) {
   .intro-text {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+
+  .stan-text {
     font-size: 20px;
     margin-top: 20px;
   }
 }
 
 @media screen and (max-width: 780px) {
-  .intro-text {
-    margin-top: 20px;
-  }
-
   .intro-image {
     img {
       width: 200px;
     }
+  }
+
+  .stan-block {
+    padding: 20px 10px;
+  }
+
+  .stan-image {
+    width: 250px;
+    height: 340px;
   }
 }
 
@@ -49,16 +88,17 @@
   .intro-text {
     margin-left: 0;
     margin-right: 10px;
-    font-size: 20px;
+  }
+
+  .stan-text {
+    margin-left: 10px;
+    margin-right: 0;
+    max-width: 100%;
   }
 }
 
 @media screen and (max-width: 630px) {
   .intro-block {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
     padding-left: 15px;
     padding-right: 15px;
   }
@@ -68,9 +108,14 @@
     margin-right: 0px;
   }
 
+  .stan-text {
+    max-width: 100%;
+    margin-right: 0px;
+  }
+
   .intro-image {
     img {
-      width: 150;
+      width: 150px;
     }
   }
 }
