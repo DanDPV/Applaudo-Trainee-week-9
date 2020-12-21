@@ -16,6 +16,21 @@ const HomePage = () => (
         <img src={spiderman} alt="spiderman" />
       </div>
     </div>
+
+    <div className="stan-block">
+      <div className="stan-image" />
+      <div className="stan-text">
+        Under Mr. Lee, Marvel transformed the comic book world by imbuing its
+        characters with the self-doubts and neuroses of average people, as well
+        an awareness of trends and social causes and, often, a sense of humor.
+        <br />
+        <br />
+        In humanizing his heroes, giving them character flaws and insecurities
+        that belied their supernatural strengths, Mr. Lee tried “to make them
+        real flesh-and-blood characters with personality,” he told The
+        Washington Post in 1992.
+      </div>
+    </div>
   </div>
 );
 
