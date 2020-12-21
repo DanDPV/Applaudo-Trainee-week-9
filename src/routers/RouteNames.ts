@@ -2,6 +2,7 @@
 /* eslint no-unused-vars: 0 */
 enum RouteNames {
     Home = '/',
+    ListCharactersPage = '/characters',
     ViewCharacterPage = '/characters/:idCharacter',
 }
 
