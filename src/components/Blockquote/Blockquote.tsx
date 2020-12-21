@@ -7,7 +7,7 @@ interface IBlockquote {
 }
 
 const Blockquote = ({ author, quote }: IBlockquote) => (
-  <div className="quote">
+  <div className="quote fade-in">
     <span className="left">❝</span>
     <blockquote>{quote}</blockquote>
     <small className="blockquote-author">{author}</small>
