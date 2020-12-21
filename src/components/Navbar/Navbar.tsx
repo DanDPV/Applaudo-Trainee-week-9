@@ -4,11 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import RouteNames from 'routers/RouteNames';
+import 'components/Navbar/Navbar.scss';
 
 const Navbar = () => (
   <nav>
-    <button type="button" className="logo">
-      TM
+    <button type="button" className="logo logo-button">
+      Marvel Heroes
     </button>
     <label htmlFor="toggle" className="menu-label">
       <FontAwesomeIcon icon={faBars} />
