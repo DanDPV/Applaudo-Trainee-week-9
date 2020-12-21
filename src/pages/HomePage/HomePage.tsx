@@ -22,7 +22,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="stan-block">
+      <div className="stan-block fade-in">
         <div className="stan-image" />
         <div className="stan-text">
           Under Mr. Lee, Marvel transformed the comic book world by imbuing its
