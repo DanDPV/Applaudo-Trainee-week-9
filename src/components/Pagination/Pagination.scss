@@ -20,6 +20,13 @@
   margin-right: 10%;
 }
 
+.current-pagination-page {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10%;
+  margin-top: 20px;
+}
+
 .multi-button {
   display: flex;
   width: 60%;
@@ -73,6 +80,11 @@
 
 @media screen and (max-width: 800px) {
   .pagination-options {
+    justify-content: center;
+    margin-right: 0;
+  }
+
+  .current-pagination-page {
     justify-content: center;
     margin-right: 0;
   }
