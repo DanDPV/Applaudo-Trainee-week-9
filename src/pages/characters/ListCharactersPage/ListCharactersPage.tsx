@@ -13,7 +13,12 @@ import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
 import Pagination from 'components/Pagination/Pagination';
 import { getQueryVariable } from 'utils/utils';
-import { reset, setAllParams, setBaseUrl } from 'actions/search';
+import {
+  reset,
+  setAllParams,
+  setBaseUrl,
+  setName,
+} from 'actions/search';
 import 'pages/characters/ListCharactersPage/ListCharactersPage.scss';
 
 const ListCharactersPage = () => {
@@ -44,12 +49,7 @@ const ListCharactersPage = () => {
   const handleInputChange = ({
     target,
   }: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: 'SET_NAME',
-      payload: {
-        name: target.value,
-      },
-    });
+    dispatch(setName(target.value));
 
     const newPage = getQueryVariable(QuerysParams.Page)
       ? +getQueryVariable(QuerysParams.Page)
