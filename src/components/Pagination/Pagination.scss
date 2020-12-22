@@ -17,11 +17,13 @@
 .pagination-options {
   display: flex;
   justify-content: flex-end;
+  margin-right: 10%;
 }
 
 .multi-button {
   display: flex;
   width: 60%;
+  max-width: 600px;
   box-shadow: var(--shadow) 4px 4px;
 }
 
@@ -72,6 +74,7 @@
 @media screen and (max-width: 800px) {
   .pagination-options {
     justify-content: center;
+    margin-right: 0;
   }
 
   .multi-button {
