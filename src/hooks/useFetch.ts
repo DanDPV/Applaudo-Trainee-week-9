@@ -24,19 +24,26 @@ const useFetch = <T>(url: string) => {
   useEffect(() => {
     setState({ data: null, loading: true, error: null });
 
-    get<T>(url)
-      .then(data => {
-        if (isMounted.current) {
-          setState(previusState => ({ ...previusState, loading: false, data }));
-        }
-      })
-      .catch(() => {
-        setState({
-          data: null,
-          loading: false,
-          error: 'Can not load info',
+    if (url) {
+      get<T>(url)
+        .then(data => {
+          if (isMounted.current) {
+            setState(previusState => ({
+              ...previusState,
+              error: null,
+              loading: false,
+              data,
+            }));
+          }
+        })
+        .catch(() => {
+          setState({
+            data: null,
+            loading: false,
+            error: 'Can not load info',
+          });
         });
-      });
+    }
   }, [url]);
 
   return state;
