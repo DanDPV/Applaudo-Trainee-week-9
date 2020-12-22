@@ -2,6 +2,7 @@ import {
   ISetOffset,
   ISetBaseUrl,
   IReset,
+  ISetAllParams,
 } from 'reducers/search/search.actions';
 
 const setBaseUrl = (baseUrl: string): ISetBaseUrl => ({
@@ -18,8 +19,21 @@ const setOffset = (offset: number): ISetOffset => ({
   },
 });
 
+const setAllParams = (offset: number, name: string): ISetAllParams => ({
+  type: 'SET_ALL_PARAMS',
+  payload: {
+    offset,
+    name,
+  },
+});
+
 const reset = (): IReset => ({
   type: 'RESET',
 });
 
-export { setBaseUrl, setOffset, reset };
+export {
+  setBaseUrl,
+  setOffset,
+  setAllParams,
+  reset,
+};
