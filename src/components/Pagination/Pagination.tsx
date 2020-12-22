@@ -1,5 +1,6 @@
 /* eslint no-unused-vars: 0 */
 import React, { useEffect, useState } from 'react';
+import 'components/Pagination/Pagination.scss';
 
 interface PaginationProps {
   offset: number;
@@ -70,16 +71,18 @@ const Pagination = React.memo(({
   return (
     <>
       <div className="pagination-options">
-        {paginationOptions.map(option => (
-          <button
-            type="button"
-            onClick={option.action}
-            key={option.name}
-            className="pagination-option"
-          >
-            {option.name}
-          </button>
-        ))}
+        <div className="multi-button">
+          {paginationOptions.map(option => (
+            <button
+              type="button"
+              onClick={option.action}
+              key={option.name}
+              className="pagination-option"
+            >
+              {option.name}
+            </button>
+          ))}
+        </div>
       </div>
       <div className="current-pagination-page">
         <p>
