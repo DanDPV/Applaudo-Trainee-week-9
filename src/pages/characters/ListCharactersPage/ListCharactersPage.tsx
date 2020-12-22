@@ -43,6 +43,7 @@ const ListCharactersPage = () => {
   const handleChangePage = (newPage: number) => history.push(
     `?${queryString.stringify({
       page: newPage,
+      name,
     })}`,
   );
 
@@ -51,13 +52,9 @@ const ListCharactersPage = () => {
   }: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setName(target.value));
 
-    const newPage = getQueryVariable(QuerysParams.Page)
-      ? +getQueryVariable(QuerysParams.Page)
-      : 1;
-
     history.push(
       `?${queryString.stringify({
-        page: newPage,
+        page: 1,
         name: target.value,
       })}`,
     );
