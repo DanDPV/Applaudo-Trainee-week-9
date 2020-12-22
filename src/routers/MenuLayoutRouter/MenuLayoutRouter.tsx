@@ -3,6 +3,7 @@ import Navbar from 'components/Navbar/Navbar';
 import React, { Suspense, lazy } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import RouteNames from 'routers/RouteNames';
+import Footer from 'components/Footer/Footer';
 import 'routers/MenuLayoutRouter/MenuLayoutRouter.scss';
 
 const HomePage = lazy(() => import('pages/HomePage/HomePage'));
@@ -19,6 +20,7 @@ const MenuLayoutRouter = () => (
         </Switch>
       </Suspense>
     </div>
+    <Footer />
   </div>
 );
 
