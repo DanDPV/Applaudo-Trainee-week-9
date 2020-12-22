@@ -5,8 +5,7 @@ async function http<T>(path: string, config: RequestInit): Promise<T> {
   if (!response.ok) {
     throw new Error('Could not load info');
   }
-  // may error if there is no body, return empty array
-  return response.json().catch(() => ({}));
+  return response.json().catch(() => { throw new Error('Error while getting response'); });
 }
 export async function get<T>(path: string, config?: RequestInit): Promise<T> {
   const init = { method: 'get', ...config };
