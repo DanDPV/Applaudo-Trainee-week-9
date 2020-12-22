@@ -8,7 +8,15 @@ const initState = {
   limit: 12,
   baseUrl: '',
   url: '',
+  name: '',
 };
+
+type searchQueryType = {
+  apikey: string,
+  limit: number,
+  offset: number,
+  nameStartsWith: string | undefined,
+}
 
 const searchReducer = (
   state: ISearchState = initState,
@@ -49,6 +57,33 @@ const searchReducer = (
         ...state,
         baseUrl: action.payload.baseUrl,
         url: setBaseUrlUrl,
+      };
+
+    case 'SET_NAME':
+      return {
+        ...state,
+        name: action.payload.name,
+      };
+
+    case 'SET_ALL_PARAMS':
+      const setAllParamsQuery = {
+        apikey: process.env.REACT_APP_PUBLIC_KEY,
+        limit: state.limit,
+        offset: action.payload.offset,
+        nameStartsWith: undefined,
+      } as searchQueryType;
+
+      if (action.payload.name) setAllParamsQuery.nameStartsWith = action.payload.name;
+
+      const setAllParamsUrl = `${state.baseUrl}?${queryString.stringify(
+        setAllParamsQuery,
+      )}`;
+
+      return {
+        ...state,
+        name: action.payload.name,
+        offset: action.payload.offset,
+        url: setAllParamsUrl,
       };
 
     case 'RESET':
