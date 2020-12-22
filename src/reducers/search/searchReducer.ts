@@ -3,7 +3,19 @@ import ISearchState from 'reducers/search/ISearchState';
 import SearchActions from 'reducers/search/search.actions';
 import queryString from 'query-string';
 
-const searchReducer = (state: ISearchState, action: SearchActions) => {
+const initState = {
+  offset: 0,
+  limit: 0,
+  total: 0,
+  count: 0,
+  baseUrl: '',
+  url: '',
+};
+
+const searchReducer = (
+  state: ISearchState = initState,
+  action: SearchActions,
+) => {
   switch (action.type) {
     case 'SET_LIMIT':
       const setLimitUrl = `${state.baseUrl}?${queryString.stringify({
