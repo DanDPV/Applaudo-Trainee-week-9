@@ -1,28 +1,28 @@
-interface setOffset {
+export interface ISetOffset {
   readonly type: 'SET_OFFSET';
   payload: {
     offset: number;
   };
 }
 
-interface setLimit {
+export interface ISetLimit {
   readonly type: 'SET_LIMIT';
   payload: {
     limit: number;
   };
 }
 
-interface setBaseUrl {
+export interface ISetBaseUrl {
   readonly type: 'SET_BASE_URL';
   payload: {
     baseUrl: string;
   };
 }
 
-interface reset {
+export interface IReset {
   readonly type: 'RESET';
 }
 
-type SearchActions = setOffset | setLimit | setBaseUrl | reset;
+type SearchActions = ISetOffset | ISetLimit | ISetBaseUrl | IReset;
 
 export default SearchActions;
