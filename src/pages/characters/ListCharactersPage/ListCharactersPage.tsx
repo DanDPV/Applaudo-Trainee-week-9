@@ -4,9 +4,9 @@ import { IRootState } from 'store/store';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import ICharacter from 'interfaces/ICharacter';
 import useFetch from 'hooks/useFetch';
-import 'pages/characters/ListCharactersPage/ListCharactersPage.scss';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
+import 'pages/characters/ListCharactersPage/ListCharactersPage.scss';
 
 const ListCharactersPage = () => {
   const dispatch = useDispatch();
