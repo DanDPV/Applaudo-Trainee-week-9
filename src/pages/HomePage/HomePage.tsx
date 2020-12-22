@@ -8,7 +8,7 @@ const HomePage = () => {
   const quote = 'That’s what any story should have, but comics didn’t have until that point, They were all cardboard figures.';
 
   return (
-    <div className="main-content">
+    <div className="main-content mb-5">
       <div className="intro-block">
         <div className="intro-text">
           The Marvel Universe is a fictional universe where the stories in most
