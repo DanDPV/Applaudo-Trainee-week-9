@@ -7,7 +7,7 @@ import Footer from 'components/Footer/Footer';
 import 'routers/MenuLayoutRouter/MenuLayoutRouter.scss';
 
 const HomePage = lazy(() => import('pages/HomePage/HomePage'));
-const ListCharactersPage = lazy(() => import('pages/characters/ListCharactersPage'));
+const ListCharactersPage = lazy(() => import('pages/characters/ListCharactersPage/ListCharactersPage'));
 
 const MenuLayoutRouter = () => (
   <div className="page-container">
