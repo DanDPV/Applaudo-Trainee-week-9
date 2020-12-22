@@ -5,11 +5,26 @@ body {
 .loading-container {
   text-align: center;
   margin: 50px 15%;
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  align-items: center;
+  vertical-align: middle;
 }
 
 @media only screen and (max-width: 900px) {
   .loading-container {
     text-align: center;
     margin: 50px 5%;
+  }
+
+  .loading-image {
+    width: 150px;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .loading-image {
+    display: none;
   }
 }
