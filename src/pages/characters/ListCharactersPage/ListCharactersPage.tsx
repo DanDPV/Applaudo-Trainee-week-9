@@ -6,11 +6,12 @@ import ICharacter from 'interfaces/ICharacter';
 import useFetch from 'hooks/useFetch';
 import 'pages/characters/ListCharactersPage/ListCharactersPage.scss';
 import Card from 'components/Card/Card';
+import Loading from 'components/Loading/Loading';
 
 const ListCharactersPage = () => {
   const dispatch = useDispatch();
   const { url } = useSelector((state: IRootState) => state.search);
-  const { loading, data: genericResponse } = useFetch<IGenericApiResponse<ICharacter>>(url);
+  const { loading, data: genericResponse, error } = useFetch<IGenericApiResponse<ICharacter>>(url);
 
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
@@ -33,7 +34,12 @@ const ListCharactersPage = () => {
   return (
     <div className="main-content mb-5">
       <h1>List Characters Page</h1>
-      <h2>{JSON.stringify(loading)}</h2>
+      {
+        loading && <Loading />
+      }
+      {
+        error && <h2>Could not load characters 😓</h2>
+      }
       <div className="cards">
         <div className="cards-content">
           {results
