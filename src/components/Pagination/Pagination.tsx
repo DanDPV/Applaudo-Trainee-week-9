@@ -87,7 +87,7 @@ const Pagination = React.memo(({
       <div className="current-pagination-page">
         <p>
           <b>Page: </b>
-          {`${currentPaginationPage}/${totalPages}`}
+          {`${currentPaginationPage} / ${totalPages}`}
         </p>
       </div>
     </>
