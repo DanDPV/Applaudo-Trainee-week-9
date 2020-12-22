@@ -17,7 +17,7 @@ const HomePage = () => {
           Four, the Guardians of the Galaxy, the Defenders, the Midnight Sons,
           and many Marvel superheroes live in this universe
         </div>
-        <div className="intro-image">
+        <div className="intro-image fade-in">
           <img src={spiderman} alt="spiderman" />
         </div>
       </div>
