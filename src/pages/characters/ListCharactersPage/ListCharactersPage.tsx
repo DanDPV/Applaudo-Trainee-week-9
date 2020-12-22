@@ -10,8 +10,9 @@ import ICharacter from 'interfaces/ICharacter';
 import useFetch from 'hooks/useFetch';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
-import { getQueryVariable } from 'utils/utils';
 import Pagination from 'components/Pagination/Pagination';
+import { getQueryVariable } from 'utils/utils';
+import { reset, setBaseUrl, setOffset } from 'actions/search';
 import 'pages/characters/ListCharactersPage/ListCharactersPage.scss';
 
 const ListCharactersPage = () => {
@@ -34,17 +35,10 @@ const ListCharactersPage = () => {
   );
 
   useEffect(() => {
-    dispatch({
-      type: 'SET_BASE_URL',
-      payload: {
-        baseUrl: `${process.env.REACT_APP_API_URL}v1/public/characters`,
-      },
-    });
+    dispatch(setBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/characters`));
 
     return () => {
-      dispatch({
-        type: 'RESET',
-      });
+      dispatch(reset());
     };
   }, []);
 
@@ -55,12 +49,7 @@ const ListCharactersPage = () => {
 
     const newOffset = Math.ceil((newPage - 1) * limit);
 
-    dispatch({
-      type: 'SET_OFFSET',
-      payload: {
-        offset: newOffset,
-      },
-    });
+    dispatch(setOffset(newOffset));
   }, [history.location, limit]);
 
   return (
