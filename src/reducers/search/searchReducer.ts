@@ -36,11 +36,14 @@ const searchReducer = (
       };
 
     case 'SET_OFFSET':
-      const setOffsetUrl = `${state.baseUrl}?${queryString.stringify({
+      const setOffsetQuery = {
         apikey: process.env.REACT_APP_PUBLIC_KEY,
         limit: state.limit,
         offset: action.payload.offset,
-      })}`;
+        nameStartsWith: state.name ?? undefined,
+      } as searchQueryType;
+
+      const setOffsetUrl = `${state.baseUrl}?${queryString.stringify(setOffsetQuery)}`;
       return {
         ...state,
         offset: action.payload.offset,
