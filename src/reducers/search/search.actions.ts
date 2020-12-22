@@ -33,6 +33,10 @@ interface setBaseUrl {
   };
 }
 
-type SearchActions = setOffset | setLimit | setTotal | setCount | setBaseUrl;
+interface reset {
+  readonly type: 'RESET';
+}
+
+type SearchActions = setOffset | setLimit | setTotal | setCount | setBaseUrl | reset;
 
 export default SearchActions;
