@@ -13,7 +13,7 @@ body {
 }
 
 .loading-text {
-  font-size: xx-large;
+  font-size: 60px;
   font-family: 'Bangers', cursive;
 }
 
@@ -25,6 +25,10 @@ body {
 
   .loading-image {
     width: 150px;
+  }
+
+  .loading-text {
+    font-size: 40px;
   }
 }
 
