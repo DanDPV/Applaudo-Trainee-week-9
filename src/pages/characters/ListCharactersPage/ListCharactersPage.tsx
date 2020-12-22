@@ -38,7 +38,7 @@ const ListCharactersPage = () => {
         loading && <Loading />
       }
       {
-        error && <h2>Could not load characters 😓</h2>
+        error && <h2 className="error-message">Could not load characters 😓</h2>
       }
       <div className="cards">
         <div className="cards-content">
