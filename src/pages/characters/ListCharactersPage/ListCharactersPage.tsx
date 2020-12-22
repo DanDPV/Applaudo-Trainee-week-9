@@ -33,7 +33,9 @@ const ListCharactersPage = () => {
 
   return (
     <div className="main-content mb-5">
-      <h1>List Characters Page</h1>
+      <div className="page-title-div">
+        <h1>Characters</h1>
+      </div>
       {
         loading && <Loading />
       }
