@@ -5,7 +5,7 @@ import queryString from 'query-string';
 
 const initState = {
   offset: 0,
-  limit: 0,
+  limit: 5,
   total: 0,
   count: 0,
   baseUrl: '',
@@ -39,6 +39,18 @@ const searchReducer = (
         ...state,
         offset: action.payload.offset,
         url: setOffsetUrl,
+      };
+
+    case 'SET_BASE_URL':
+      const setBaseUrlUrl = `${action.payload.baseUrl}?${queryString.stringify({
+        apikey: process.env.REACT_APP_PUBLIC_KEY,
+        limit: state.limit,
+        offset: state.offset,
+      })}`;
+      return {
+        ...state,
+        baseUrl: action.payload.baseUrl,
+        url: setBaseUrlUrl,
       };
 
     default:
