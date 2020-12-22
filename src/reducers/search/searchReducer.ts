@@ -53,6 +53,11 @@ const searchReducer = (
         url: setBaseUrlUrl,
       };
 
+    case 'RESET':
+      return {
+        ...initState,
+      };
+
     default:
       return state;
   }
