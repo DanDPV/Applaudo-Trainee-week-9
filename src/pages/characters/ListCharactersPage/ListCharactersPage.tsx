@@ -60,12 +60,8 @@ const ListCharactersPage = () => {
       <div className="page-title-div">
         <h1>Characters</h1>
       </div>
-      {
-        loading && <Loading />
-      }
-      {
-        error && <h2 className="error-message">Could not load characters 😓</h2>
-      }
+      {loading && <Loading />}
+      {error && <h2 className="error-message">Could not load characters 😓</h2>}
       <div className="cards">
         <div className="cards-content">
           {results
@@ -77,6 +73,9 @@ const ListCharactersPage = () => {
                 imageUrl={`${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`}
               />
             ))}
+          {results && results.length <= 0 && (
+            <h2 className="error-message">Characters not found 😮</h2>
+          )}
         </div>
       </div>
     </div>
