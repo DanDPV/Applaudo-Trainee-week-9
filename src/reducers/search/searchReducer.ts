@@ -5,7 +5,7 @@ import queryString from 'query-string';
 
 const initState = {
   offset: 0,
-  limit: 5,
+  limit: 12,
   total: 0,
   count: 0,
   baseUrl: '',
