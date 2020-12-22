@@ -4,6 +4,11 @@
   --font-sans: 'Rubik', sans-serif;
 }
 
+.error-message {
+  text-align: center;
+  margin: 50px 15%;
+}
+
 .cards {
   display: grid;
   place-items: center;
