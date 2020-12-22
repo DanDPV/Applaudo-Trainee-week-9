@@ -1,3 +1,18 @@
+# Marvel Heroes app
+
+Homework for week 8 of Applaudo Studio Trainee program.
+
+You must run the application on a live server with npm start
+
+**Autor:** Vicente Daniel De Paz Velásquez
+
+You can see the live webpage using the link:
+https://applaudo-trainee-week-8.dan-dp.vercel.app/
+
+or
+
+https://applaudo-trainee-week-8-git-master.dan-dp.vercel.app/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
