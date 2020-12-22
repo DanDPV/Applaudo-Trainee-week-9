@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint no-shadow: 0 */
 /* eslint no-unused-vars: 0 */
 import React, { useEffect } from 'react';
@@ -12,17 +13,23 @@ import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
 import Pagination from 'components/Pagination/Pagination';
 import { getQueryVariable } from 'utils/utils';
-import { reset, setBaseUrl, setOffset } from 'actions/search';
+import { reset, setAllParams, setBaseUrl } from 'actions/search';
 import 'pages/characters/ListCharactersPage/ListCharactersPage.scss';
 
 const ListCharactersPage = () => {
   enum QuerysParams {
     Page = 'page',
+    Name = 'name',
   }
 
-  const dispatch = useDispatch();
   const history = useHistory();
-  const { url, limit, offset } = useSelector((state: IRootState) => state.search);
+  const dispatch = useDispatch();
+  const {
+    url,
+    limit,
+    offset,
+    name,
+  } = useSelector((state: IRootState) => state.search);
   const { loading, data: genericResponse, error } = useFetch<IGenericApiResponse<ICharacter>>(url);
 
   const { data } = genericResponse ?? {};
@@ -33,6 +40,28 @@ const ListCharactersPage = () => {
       page: newPage,
     })}`,
   );
+
+  const handleInputChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: 'SET_NAME',
+      payload: {
+        name: target.value,
+      },
+    });
+
+    const newPage = getQueryVariable(QuerysParams.Page)
+      ? +getQueryVariable(QuerysParams.Page)
+      : 1;
+
+    history.push(
+      `?${queryString.stringify({
+        page: newPage,
+        name: target.value,
+      })}`,
+    );
+  };
 
   useEffect(() => {
     dispatch(setBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/characters`));
@@ -47,9 +76,13 @@ const ListCharactersPage = () => {
       ? +getQueryVariable(QuerysParams.Page)
       : 1;
 
+    const newName = getQueryVariable(QuerysParams.Name)
+      ? getQueryVariable(QuerysParams.Name)
+      : '';
+
     const newOffset = Math.ceil((newPage - 1) * limit);
 
-    dispatch(setOffset(newOffset));
+    dispatch(setAllParams(newOffset, newName));
   }, [history.location, limit]);
 
   return (
@@ -59,6 +92,18 @@ const ListCharactersPage = () => {
       </div>
       {loading && <Loading />}
       {error && <h2 className="error-message">Could not load characters 😓</h2>}
+      <div className="search-filters-form">
+        <form>
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            autoComplete="off"
+            value={name}
+            onChange={handleInputChange}
+          />
+        </form>
+      </div>
       <div className="cards">
         <div className="cards-content">
           {results
