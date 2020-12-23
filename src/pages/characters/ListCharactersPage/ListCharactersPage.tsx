@@ -52,24 +52,29 @@ const ListCharactersPage = () => {
   const { data } = genericResponse ?? {};
   const { results, total } = data ?? {};
 
-  const handleChangePage = (newPage: number) => history.push(
-    `?${queryString.stringify({
-      page: newPage,
-      name,
-      comic,
-      story,
-    })}`,
-  );
+  const changeUrlParams = (
+    newPage: number,
+    newName: string,
+    newComic: string,
+    newStory: string,
+  ) => {
+    history.push(
+      `?${queryString.stringify({
+        story: newStory,
+        page: newPage,
+        comic: newComic,
+        name: newName,
+      })}`,
+    );
+  };
+
+  const handleChangePage = (newPage: number) => changeUrlParams(newPage, name, comic, story);
 
   const debouncedNameChange = useCallback(
-    debounce((name: string, comic: string, story: string) => history.push(
-      `?${queryString.stringify({
-        name,
-        comic,
-        story,
-        page: 1,
-      })}`,
-    ), 1000),
+    debounce((name: string,
+      comic: string,
+      story: string) => changeUrlParams(1, name, comic, story),
+    1000),
     [],
   );
 
@@ -85,14 +90,7 @@ const ListCharactersPage = () => {
   }: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setComic(target.value));
 
-    history.push(
-      `?${queryString.stringify({
-        comic: target.value,
-        page: 1,
-        story,
-        name,
-      })}`,
-    );
+    changeUrlParams(1, name, target.value, story);
   };
 
   const handleStoryChange = ({
@@ -100,14 +98,7 @@ const ListCharactersPage = () => {
   }: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setStory(target.value));
 
-    history.push(
-      `?${queryString.stringify({
-        story: target.value,
-        page: 1,
-        comic,
-        name,
-      })}`,
-    );
+    changeUrlParams(1, name, comic, target.value);
   };
 
   useEffect(() => {
