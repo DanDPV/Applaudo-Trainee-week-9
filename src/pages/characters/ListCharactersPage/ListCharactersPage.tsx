@@ -184,7 +184,7 @@ const ListCharactersPage = () => {
           </div>
 
           <div className="search-value">
-            <select className="search-input" value={comic} onChange={handleComicChange}>
+            <select className="search-select" value={comic} onChange={handleComicChange}>
               <option value="">Select a comic</option>
               {comics
                 && comics.map(comic => (
@@ -196,7 +196,7 @@ const ListCharactersPage = () => {
           </div>
 
           <div className="search-value">
-            <select className="search-input" value={story} onChange={handleStoryChange}>
+            <select className="search-select" value={story} onChange={handleStoryChange}>
               <option value="">Select a story</option>
               {stories
                 && stories.map(story => (
