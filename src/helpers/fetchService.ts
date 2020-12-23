@@ -4,11 +4,12 @@ import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IComic from 'interfaces/IComic';
 import IStory from 'interfaces/IStory';
 
-const getFirstNComics = async (limit: number) => {
+const getComicsByOffsetLimit = async (offset: number, limit: number) => {
   try {
     const data = await get<IGenericApiResponse<IComic>>(
       `${process.env.REACT_APP_API_URL}v1/public/comics?${queryString.stringify(
         {
+          offset,
           limit,
           apikey: process.env.REACT_APP_PUBLIC_KEY,
         },
@@ -20,11 +21,12 @@ const getFirstNComics = async (limit: number) => {
   }
 };
 
-const getFirstNStories = async (limit: number) => {
+const getStoriesByOffsetLimit = async (offset: number, limit: number) => {
   try {
     const data = await get<IGenericApiResponse<IStory>>(
       `${process.env.REACT_APP_API_URL}v1/public/stories?${queryString.stringify(
         {
+          offset,
           limit,
           apikey: process.env.REACT_APP_PUBLIC_KEY,
         },
@@ -36,4 +38,4 @@ const getFirstNStories = async (limit: number) => {
   }
 };
 
-export { getFirstNComics, getFirstNStories };
+export { getComicsByOffsetLimit, getStoriesByOffsetLimit };
