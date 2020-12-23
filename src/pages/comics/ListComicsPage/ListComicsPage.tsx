@@ -8,7 +8,7 @@ import useFetch from 'hooks/useFetch';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IComic from 'interfaces/IComic';
 import Card from 'components/Card/Card';
-import { reset, setBaseUrl } from 'actions/search';
+import { comicReset, setComicBaseUrl } from 'actions/searchComic';
 import 'pages/comics/ListComicsPage/ListComicsPage.scss';
 
 const ListComicsPage = () => {
@@ -19,16 +19,16 @@ const ListComicsPage = () => {
   }
 
   const dispatch = useDispatch();
-  const { url } = useSelector((state: IRootState) => state.search);
+  const { url } = useSelector((state: IRootState) => state.searchComic);
   const { loading, data: genericResponse, error } = useFetch<IGenericApiResponse<IComic>>(url);
 
   const { data } = genericResponse ?? {};
   const { results, total } = data ?? {};
 
   useEffect(() => {
-    dispatch(setBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/comics`));
+    dispatch(setComicBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/comics`));
     return () => {
-      dispatch(reset());
+      dispatch(comicReset());
     };
   }, []);
 
