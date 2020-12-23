@@ -95,14 +95,37 @@ const ListCharactersPage = () => {
       </div>
       <div className="search-filters-form">
         <form>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            autoComplete="off"
-            value={name}
-            onChange={handleNameChange}
-          />
+          <div className="search-header">Name</div>
+          <div className="search-header">Comic</div>
+          <div className="search-header">Story</div>
+          <div>
+            <input
+              type="text"
+              name="name"
+              autoComplete="off"
+              className="search-input"
+              value={name}
+              onChange={handleNameChange}
+            />
+          </div>
+
+          <div>
+            <input
+              type="text"
+              name="comic"
+              autoComplete="off"
+              className="search-input"
+            />
+          </div>
+
+          <div>
+            <input
+              type="text"
+              name="story"
+              autoComplete="off"
+              className="search-input"
+            />
+          </div>
         </form>
       </div>
       {loading && <Loading />}
