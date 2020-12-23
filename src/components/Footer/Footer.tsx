@@ -28,6 +28,13 @@ const Footer = () => (
         >
           Characters
         </NavLink>
+        <NavLink
+          exact
+          to={RouteNames.ListComicsPage}
+          className="footer-link"
+        >
+          Comics
+        </NavLink>
       </p>
       <p>Marvel &copy; 2020</p>
     </div>
