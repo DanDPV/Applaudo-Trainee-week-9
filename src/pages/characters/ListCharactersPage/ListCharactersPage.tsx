@@ -23,6 +23,7 @@ import {
   setBaseUrl,
   setComic,
   setName,
+  setStory,
 } from 'actions/search';
 import 'pages/characters/ListCharactersPage/ListCharactersPage.scss';
 
@@ -31,6 +32,7 @@ const ListCharactersPage = () => {
     Page = 'page',
     Name = 'name',
     Comic = 'comic',
+    Story = 'story'
   }
 
   const history = useHistory();
@@ -43,6 +45,7 @@ const ListCharactersPage = () => {
     offset,
     name,
     comic,
+    story,
   } = useSelector((state: IRootState) => state.search);
   const { loading, data: genericResponse, error } = useFetch<IGenericApiResponse<ICharacter>>(url);
 
@@ -54,14 +57,16 @@ const ListCharactersPage = () => {
       page: newPage,
       name,
       comic,
+      story,
     })}`,
   );
 
   const debouncedNameChange = useCallback(
-    debounce((name: string, comic: string) => history.push(
+    debounce((name: string, comic: string, story: string) => history.push(
       `?${queryString.stringify({
         name,
         comic,
+        story,
         page: 1,
       })}`,
     ), 1000),
@@ -72,7 +77,7 @@ const ListCharactersPage = () => {
     target,
   }: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setName(target.value));
-    debouncedNameChange(target.value, comic);
+    debouncedNameChange(target.value, comic, story);
   };
 
   const handleComicChange = ({
@@ -84,6 +89,22 @@ const ListCharactersPage = () => {
       `?${queryString.stringify({
         comic: target.value,
         page: 1,
+        story,
+        name,
+      })}`,
+    );
+  };
+
+  const handleStoryChange = ({
+    target,
+  }: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(setStory(target.value));
+
+    history.push(
+      `?${queryString.stringify({
+        story: target.value,
+        page: 1,
+        comic,
         name,
       })}`,
     );
@@ -130,9 +151,13 @@ const ListCharactersPage = () => {
       ? decodeURI(getQueryVariable(QuerysParams.Comic))
       : '';
 
+    const newStory = getQueryVariable(QuerysParams.Story)
+      ? decodeURI(getQueryVariable(QuerysParams.Story))
+      : '';
+
     const newOffset = Math.ceil((newPage - 1) * limit);
 
-    dispatch(setAllParams(newOffset, newName, newComic));
+    dispatch(setAllParams(newOffset, newName, newComic, newStory));
   }, [history.location, limit]);
 
   return (
@@ -170,7 +195,7 @@ const ListCharactersPage = () => {
           </div>
 
           <div className="search-value">
-            <select className="search-input">
+            <select className="search-input" value={story} onChange={handleStoryChange}>
               <option value="">Select a story</option>
               {stories
                 && stories.map(story => (
