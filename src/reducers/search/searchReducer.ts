@@ -61,8 +61,13 @@ const searchReducer = (
       setAllParamsQuery.offset = action.payload.offset;
 
       if (action.payload.name) setAllParamsQuery.nameStartsWith = action.payload.name;
+      else setAllParamsQuery.nameStartsWith = undefined;
+
       if (action.payload.comic) setAllParamsQuery.comics = action.payload.comic;
+      else setAllParamsQuery.comics = undefined;
+
       if (action.payload.story) setAllParamsQuery.stories = action.payload.story;
+      else setAllParamsQuery.stories = undefined;
 
       const setAllParamsUrl = `${state.baseUrl}?${queryString.stringify(
         setAllParamsQuery,
