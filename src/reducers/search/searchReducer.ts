@@ -11,24 +11,22 @@ const initState = {
   name: '',
 };
 
-type searchQueryType = {
-  apikey: string,
-  limit: number,
-  offset: number,
-  nameStartsWith: string | undefined,
-}
-
 const searchReducer = (
   state: ISearchState = initState,
   action: SearchActions,
 ) => {
+  const getBaseQueryString = () => ({
+    apikey: process.env.REACT_APP_PUBLIC_KEY,
+    limit: state.limit,
+    offset: state.offset,
+    nameStartsWith: state.name === '' ? undefined : state.name,
+  });
+
   switch (action.type) {
     case 'SET_LIMIT':
-      const setLimitUrl = `${state.baseUrl}?${queryString.stringify({
-        apikey: process.env.REACT_APP_PUBLIC_KEY,
-        offset: state.offset,
-        limit: action.payload.limit,
-      })}`;
+      const setLimitQuery = getBaseQueryString();
+      setLimitQuery.limit = action.payload.limit;
+      const setLimitUrl = `${state.baseUrl}?${queryString.stringify(setLimitQuery)}`;
       return {
         ...state,
         limit: action.payload.limit,
@@ -36,13 +34,8 @@ const searchReducer = (
       };
 
     case 'SET_OFFSET':
-      const setOffsetQuery = {
-        apikey: process.env.REACT_APP_PUBLIC_KEY,
-        limit: state.limit,
-        offset: action.payload.offset,
-        nameStartsWith: state.name ?? undefined,
-      } as searchQueryType;
-
+      const setOffsetQuery = getBaseQueryString();
+      setOffsetQuery.offset = action.payload.offset;
       const setOffsetUrl = `${state.baseUrl}?${queryString.stringify(setOffsetQuery)}`;
       return {
         ...state,
@@ -51,11 +44,8 @@ const searchReducer = (
       };
 
     case 'SET_BASE_URL':
-      const setBaseUrlUrl = `${action.payload.baseUrl}?${queryString.stringify({
-        apikey: process.env.REACT_APP_PUBLIC_KEY,
-        limit: state.limit,
-        offset: state.offset,
-      })}`;
+      const setBaseUrlQuery = getBaseQueryString();
+      const setBaseUrlUrl = `${action.payload.baseUrl}?${queryString.stringify(setBaseUrlQuery)}`;
       return {
         ...state,
         baseUrl: action.payload.baseUrl,
@@ -69,12 +59,8 @@ const searchReducer = (
       };
 
     case 'SET_ALL_PARAMS':
-      const setAllParamsQuery = {
-        apikey: process.env.REACT_APP_PUBLIC_KEY,
-        limit: state.limit,
-        offset: action.payload.offset,
-        nameStartsWith: undefined,
-      } as searchQueryType;
+      const setAllParamsQuery = getBaseQueryString();
+      setAllParamsQuery.offset = action.payload.offset;
 
       if (action.payload.name) setAllParamsQuery.nameStartsWith = action.payload.name;
 
