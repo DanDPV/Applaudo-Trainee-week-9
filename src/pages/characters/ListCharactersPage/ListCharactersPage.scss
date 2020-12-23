@@ -1,4 +1,5 @@
 @import '../../../styles/components/card';
+@import '../../../styles/base/settings';
 
 $bg-title-image: 'https://wallpaperaccess.com/full/229965.jpg';
 
@@ -33,6 +34,17 @@ $bg-title-image: 'https://wallpaperaccess.com/full/229965.jpg';
     justify-content: center;
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+.search-title {
+  grid-column: 1 / 4;
+  width: 100%;
+  text-align: center;
+  background-color: darken($color: $primary, $amount: 15);
+  color: white;
+  font-family: 'Bangers', cursive;
+  padding: 15px;
+  font-size: 30px;
 }
 
 .search-header {
