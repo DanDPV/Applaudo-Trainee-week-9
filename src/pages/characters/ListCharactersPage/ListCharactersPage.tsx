@@ -223,7 +223,7 @@ const ListCharactersPage = () => {
               <Card
                 key={char.id}
                 name={char.name}
-                description={char.description}
+                description={char.description ?? ''}
                 imageUrl={`${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`}
               />
             ))}
