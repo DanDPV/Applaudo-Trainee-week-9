@@ -10,7 +10,8 @@ import { IRootState } from 'store/store';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import ICharacter from 'interfaces/ICharacter';
 import IComic from 'interfaces/IComic';
-import { getFirstNComics } from 'helpers/fetchService';
+import IStory from 'interfaces/IStory';
+import { getFirstNComics, getFirstNStories } from 'helpers/fetchService';
 import useFetch from 'hooks/useFetch';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
@@ -35,6 +36,7 @@ const ListCharactersPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [comics, setComics] = useState<IComic[]>([]);
+  const [stories, setStories] = useState<IStory[]>([]);
   const {
     url,
     limit,
@@ -100,6 +102,16 @@ const ListCharactersPage = () => {
       }
     }).catch(e => setComics([]));
 
+    getFirstNStories(10).then(genRes => {
+      if (genRes) {
+        const { data } = genRes;
+        const { results } = data;
+        setStories(results);
+      } else {
+        setStories([]);
+      }
+    }).catch(e => setStories([]));
+
     return () => {
       dispatch(reset());
     };
@@ -158,12 +170,15 @@ const ListCharactersPage = () => {
           </div>
 
           <div className="search-value">
-            <input
-              type="text"
-              name="story"
-              autoComplete="off"
-              className="search-input"
-            />
+            <select className="search-input">
+              <option value="">Select a story</option>
+              {stories
+                && stories.map(story => (
+                  <option key={story.id} value={story.id}>
+                    {story.title}
+                  </option>
+                ))}
+            </select>
           </div>
         </form>
       </div>
