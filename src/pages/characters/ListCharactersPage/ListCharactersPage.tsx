@@ -98,7 +98,7 @@ const ListCharactersPage = () => {
           <div className="search-header">Name</div>
           <div className="search-header">Comic</div>
           <div className="search-header">Story</div>
-          <div>
+          <div className="search-value">
             <input
               type="text"
               name="name"
@@ -109,7 +109,7 @@ const ListCharactersPage = () => {
             />
           </div>
 
-          <div>
+          <div className="search-value">
             <input
               type="text"
               name="comic"
@@ -118,7 +118,7 @@ const ListCharactersPage = () => {
             />
           </div>
 
-          <div>
+          <div className="search-value">
             <input
               type="text"
               name="story"
