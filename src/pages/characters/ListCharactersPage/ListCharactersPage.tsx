@@ -95,6 +95,7 @@ const ListCharactersPage = () => {
       </div>
       <div className="search-filters-form">
         <form>
+          <div className="search-title">Search your hero</div>
           <div className="search-header">Name</div>
           <div className="search-header">Comic</div>
           <div className="search-header">Story</div>
