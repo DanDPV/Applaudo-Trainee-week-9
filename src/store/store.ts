@@ -1,9 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 import searchReducer from 'reducers/search/searchReducer';
+import searchComicReducer from 'reducers/searchComic/searchComicReducer';
 import { createStore, combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
   search: searchReducer,
+  searchComic: searchComicReducer,
 });
 
 const store = createStore(
