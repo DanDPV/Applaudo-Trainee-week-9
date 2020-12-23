@@ -4,6 +4,7 @@ enum RouteNames {
     Home = '/',
     ListCharactersPage = '/characters',
     ViewCharacterPage = '/characters/:idCharacter',
+    ListComicsPage = '/comics',
 }
 
 export default RouteNames;
