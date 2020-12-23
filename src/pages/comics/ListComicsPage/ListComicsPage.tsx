@@ -39,7 +39,7 @@ const ListComicsPage = () => {
         <h1>Comics</h1>
       </div>
       {loading && <Loading />}
-      {error && <h2 className="error-message">Could not load characters 😓</h2>}
+      {error && <h2 className="error-message">Could not load comics 😓</h2>}
       <div className="cards">
         <div className="cards-content">
           {results
@@ -53,6 +53,9 @@ const ListComicsPage = () => {
             ))}
         </div>
       </div>
+      {results && results.length <= 0 && (
+        <h2 className="error-message">Comics not found 😮</h2>
+      )}
     </div>
   );
 };
