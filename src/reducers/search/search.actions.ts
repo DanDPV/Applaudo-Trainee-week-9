@@ -33,12 +33,20 @@ export interface ISetComic {
   };
 }
 
+export interface ISetStory {
+  readonly type: 'SET_STORY';
+  payload: {
+    story: string;
+  };
+}
+
 export interface ISetAllParams {
   readonly type: 'SET_ALL_PARAMS';
   payload: {
     offset: number;
     name: string;
     comic: string;
+    story: string;
   };
 }
 
@@ -52,6 +60,7 @@ type SearchActions =
   | ISetBaseUrl
   | ISetName
   | ISetComic
+  | ISetStory
   | ISetAllParams
   | IReset;
 
