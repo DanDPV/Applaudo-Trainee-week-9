@@ -93,8 +93,6 @@ const ListCharactersPage = () => {
       <div className="page-title-div">
         <h1>Characters</h1>
       </div>
-      {loading && <Loading />}
-      {error && <h2 className="error-message">Could not load characters 😓</h2>}
       <div className="search-filters-form">
         <form>
           <label htmlFor="name">Name</label>
@@ -107,6 +105,8 @@ const ListCharactersPage = () => {
           />
         </form>
       </div>
+      {loading && <Loading />}
+      {error && <h2 className="error-message">Could not load characters 😓</h2>}
       <div className="cards">
         <div className="cards-content">
           {results
@@ -118,11 +118,11 @@ const ListCharactersPage = () => {
                 imageUrl={`${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`}
               />
             ))}
-          {results && results.length <= 0 && (
-            <h2 className="error-message">Characters not found 😮</h2>
-          )}
         </div>
       </div>
+      {results && results.length <= 0 && (
+        <h2 className="error-message">Characters not found 😮</h2>
+      )}
       {!loading && !error && results && results.length > 0 && (
         <Pagination
           offset={offset}
