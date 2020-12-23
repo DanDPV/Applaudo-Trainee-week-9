@@ -2,6 +2,7 @@
 /* eslint no-shadow: 0 */
 /* eslint no-unused-vars: 0 */
 import React from 'react';
+import 'pages/comics/ListComicsPage/ListComicsPage.scss';
 
 const ListComicsPage = () => {
   enum QuerysParams {
@@ -11,8 +12,8 @@ const ListComicsPage = () => {
   }
 
   return (
-    <div className="main-content mb-5">
-      <div className="page-title-div">
+    <div className="comic-main-content mb-5">
+      <div className="comic-page-title-div">
         <h1>Comics</h1>
       </div>
     </div>
