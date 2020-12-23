@@ -1,7 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint no-shadow: 0 */
 /* eslint no-unused-vars: 0 */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { IRootState } from 'store/store';
+import useFetch from 'hooks/useFetch';
+import IGenericApiResponse from 'interfaces/IGenericApiResponse';
+import IComic from 'interfaces/IComic';
+import Card from 'components/Card/Card';
+import { reset, setBaseUrl } from 'actions/search';
 import 'pages/comics/ListComicsPage/ListComicsPage.scss';
 
 const ListComicsPage = () => {
@@ -11,10 +18,37 @@ const ListComicsPage = () => {
     Title = 'title',
   }
 
+  const dispatch = useDispatch();
+  const { url } = useSelector((state: IRootState) => state.search);
+  const { loading, data: genericResponse, error } = useFetch<IGenericApiResponse<IComic>>(url);
+
+  const { data } = genericResponse ?? {};
+  const { results, total } = data ?? {};
+
+  useEffect(() => {
+    dispatch(setBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/comics`));
+    return () => {
+      dispatch(reset());
+    };
+  }, []);
+
   return (
     <div className="comic-main-content mb-5">
       <div className="comic-page-title-div">
         <h1>Comics</h1>
+      </div>
+      <div className="cards">
+        <div className="cards-content">
+          {results
+            && results.map(char => (
+              <Card
+                key={char.id}
+                name={char.title}
+                description={char.description ?? ''}
+                imageUrl={`${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`}
+              />
+            ))}
+        </div>
       </div>
     </div>
   );
