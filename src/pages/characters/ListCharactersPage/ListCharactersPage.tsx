@@ -60,10 +60,10 @@ const ListCharactersPage = () => {
   ) => {
     history.push(
       `?${queryString.stringify({
-        story: newStory,
         page: newPage,
-        comic: newComic,
-        name: newName,
+        story: newStory === '' ? undefined : newStory,
+        comic: newComic === '' ? undefined : newComic,
+        name: newName === '' ? undefined : newName,
       })}`,
     );
   };
