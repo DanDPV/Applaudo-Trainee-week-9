@@ -52,12 +52,6 @@ const searchReducer = (
         url: setBaseUrlUrl,
       };
 
-    case 'SET_NAME':
-      return {
-        ...state,
-        name: action.payload.name,
-      };
-
     case 'SET_ALL_PARAMS':
       const setAllParamsQuery = getBaseQueryString();
       setAllParamsQuery.offset = action.payload.offset;
@@ -73,6 +67,12 @@ const searchReducer = (
         name: action.payload.name,
         offset: action.payload.offset,
         url: setAllParamsUrl,
+      };
+
+    case 'SET_NAME':
+      return {
+        ...state,
+        name: action.payload.name,
       };
 
     case 'RESET':
