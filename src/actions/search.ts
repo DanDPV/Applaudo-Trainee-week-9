@@ -5,6 +5,7 @@ import {
   ISetAllParams,
   ISetName,
   ISetComic,
+  ISetStory,
 } from 'reducers/search/search.actions';
 
 const setBaseUrl = (baseUrl: string): ISetBaseUrl => ({
@@ -35,12 +36,25 @@ const setComic = (comic: string): ISetComic => ({
   },
 });
 
-const setAllParams = (offset: number, name: string, comic: string): ISetAllParams => ({
+const setStory = (story: string): ISetStory => ({
+  type: 'SET_STORY',
+  payload: {
+    story,
+  },
+});
+
+const setAllParams = (
+  offset: number,
+  name: string,
+  comic: string,
+  story: string,
+): ISetAllParams => ({
   type: 'SET_ALL_PARAMS',
   payload: {
     offset,
     name,
     comic,
+    story,
   },
 });
 
@@ -53,6 +67,7 @@ export {
   setOffset,
   setName,
   setComic,
+  setStory,
   setAllParams,
   reset,
 };
