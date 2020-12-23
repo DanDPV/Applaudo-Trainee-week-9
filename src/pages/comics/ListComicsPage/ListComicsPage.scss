@@ -65,3 +65,25 @@ $bg-title-image: 'https://wallpaperaccess.com/full/193208.jpg';
 
   background-position: center;
 }
+
+.cards {
+  display: grid;
+  place-items: center;
+}
+
+.cards-content {
+  display: grid;
+  grid-gap: 1rem;
+  padding: 1rem;
+  max-width: 1024px;
+  margin: 0 auto;
+  font-family: var(--font-sans);
+
+  @media (min-width: $bp-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: $bp-lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
