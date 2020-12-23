@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint no-shadow: 0 */
 /* eslint no-unused-vars: 0 */
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
@@ -9,6 +9,8 @@ import { debounce } from 'lodash';
 import { IRootState } from 'store/store';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import ICharacter from 'interfaces/ICharacter';
+import IComic from 'interfaces/IComic';
+import { getFirstNComics } from 'helpers/fetchService';
 import useFetch from 'hooks/useFetch';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
@@ -30,6 +32,7 @@ const ListCharactersPage = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
+  const [comics, setComics] = useState<IComic[]>([]);
   const {
     url,
     limit,
@@ -68,6 +71,16 @@ const ListCharactersPage = () => {
 
   useEffect(() => {
     dispatch(setBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/characters`));
+
+    getFirstNComics(10).then(genRes => {
+      if (genRes) {
+        const { data } = genRes;
+        const { results } = data;
+        setComics(results);
+      } else {
+        setComics([]);
+      }
+    }).catch(e => setComics([]));
 
     return () => {
       dispatch(reset());
@@ -111,12 +124,15 @@ const ListCharactersPage = () => {
           </div>
 
           <div className="search-value">
-            <input
-              type="text"
-              name="comic"
-              autoComplete="off"
-              className="search-input"
-            />
+            <select className="search-input">
+              <option value="">Select a comic</option>
+              {comics
+                && comics.map(comic => (
+                  <option key={comic.id} value={comic.id}>
+                    {comic.title}
+                  </option>
+                ))}
+            </select>
           </div>
 
           <div className="search-value">
