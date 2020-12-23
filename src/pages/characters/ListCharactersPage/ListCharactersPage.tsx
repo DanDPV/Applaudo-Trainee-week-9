@@ -93,7 +93,7 @@ const ListCharactersPage = () => {
       <div className="page-title-div">
         <h1>Characters</h1>
       </div>
-      <div className="search-filters-form">
+      <div className="search-filters-form mb-5">
         <form>
           <div className="search-title">Search your hero</div>
           <div className="search-header">Name</div>
