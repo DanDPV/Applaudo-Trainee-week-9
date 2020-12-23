@@ -1,4 +1,4 @@
-import { IComicReset, IComicSetBaseUrl } from 'reducers/searchComic/searchComic.actions';
+import { IComicReset, IComicSetAllParams, IComicSetBaseUrl } from 'reducers/searchComic/searchComic.actions';
 
 const setComicBaseUrl = (baseUrl: string): IComicSetBaseUrl => ({
   type: 'SET_BASE_URL_COMIC',
@@ -7,8 +7,21 @@ const setComicBaseUrl = (baseUrl: string): IComicSetBaseUrl => ({
   },
 });
 
+const setComicAllParams = (
+  offset: number,
+  format: string,
+  title: string,
+): IComicSetAllParams => ({
+  type: 'SET_ALL_PARAMS_COMIC',
+  payload: {
+    offset,
+    format,
+    title,
+  },
+});
+
 const comicReset = (): IComicReset => ({
   type: 'RESET_COMIC',
 });
 
-export { setComicBaseUrl, comicReset };
+export { setComicBaseUrl, setComicAllParams, comicReset };
