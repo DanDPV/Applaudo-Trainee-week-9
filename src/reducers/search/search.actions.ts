@@ -26,11 +26,19 @@ export interface ISetName {
   };
 }
 
+export interface ISetComic {
+  readonly type: 'SET_COMIC';
+  payload: {
+    comic: string;
+  };
+}
+
 export interface ISetAllParams {
   readonly type: 'SET_ALL_PARAMS';
   payload: {
     offset: number;
     name: string;
+    comic: string;
   };
 }
 
@@ -38,6 +46,13 @@ export interface IReset {
   readonly type: 'RESET';
 }
 
-type SearchActions = ISetOffset | ISetLimit | ISetBaseUrl | ISetName | ISetAllParams | IReset;
+type SearchActions =
+  | ISetOffset
+  | ISetLimit
+  | ISetBaseUrl
+  | ISetName
+  | ISetComic
+  | ISetAllParams
+  | IReset;
 
 export default SearchActions;
