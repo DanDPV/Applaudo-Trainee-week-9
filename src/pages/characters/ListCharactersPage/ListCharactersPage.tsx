@@ -18,6 +18,7 @@ import IComic from 'interfaces/IComic';
 import IStory from 'interfaces/IStory';
 import { getComicsByOffsetLimit, getStoriesByOffsetLimit } from 'helpers/fetchService';
 import useFetch from 'hooks/useFetch';
+import Select from 'components/Select/Select';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
 import Pagination from 'components/Pagination/Pagination';
@@ -194,28 +195,23 @@ const ListCharactersPage = () => {
           </div>
 
           <div className="search-value">
-            <select className="search-select" value={comic} onChange={handleComicChange}>
-              <option value="">Select a comic</option>
-              {comics
-                && comics.map(comic => (
-                  <option key={comic.id} value={comic.id}>
-                    {comic.title}
-                  </option>
-                ))}
-            </select>
+            <Select
+              defaultOptionText="Select a comic"
+              items={comics}
+              value={comic}
+              onChange={handleComicChange}
+            />
           </div>
 
           <div className="search-value">
-            <select className="search-select" value={story} onChange={handleStoryChange}>
-              <option value="">Select a story</option>
-              {stories
-                && stories.map(story => (
-                  <option key={story.id} value={story.id}>
-                    {story.title}
-                  </option>
-                ))}
-            </select>
+            <Select
+              defaultOptionText="Select a story"
+              items={stories}
+              value={story}
+              onChange={handleStoryChange}
+            />
           </div>
+
         </form>
       </div>
       {loading && <Loading />}
