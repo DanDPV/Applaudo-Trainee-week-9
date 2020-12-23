@@ -20,6 +20,7 @@ import {
   reset,
   setAllParams,
   setBaseUrl,
+  setComic,
   setName,
 } from 'actions/search';
 import 'pages/characters/ListCharactersPage/ListCharactersPage.scss';
@@ -28,6 +29,7 @@ const ListCharactersPage = () => {
   enum QuerysParams {
     Page = 'page',
     Name = 'name',
+    Comic = 'comic',
   }
 
   const history = useHistory();
@@ -38,6 +40,7 @@ const ListCharactersPage = () => {
     limit,
     offset,
     name,
+    comic,
   } = useSelector((state: IRootState) => state.search);
   const { loading, data: genericResponse, error } = useFetch<IGenericApiResponse<ICharacter>>(url);
 
@@ -48,13 +51,15 @@ const ListCharactersPage = () => {
     `?${queryString.stringify({
       page: newPage,
       name,
+      comic,
     })}`,
   );
 
   const debouncedNameChange = useCallback(
-    debounce((name: string) => history.push(
+    debounce((name: string, comic: string) => history.push(
       `?${queryString.stringify({
         name,
+        comic,
         page: 1,
       })}`,
     ), 1000),
@@ -65,8 +70,21 @@ const ListCharactersPage = () => {
     target,
   }: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setName(target.value));
+    debouncedNameChange(target.value, comic);
+  };
 
-    debouncedNameChange(target.value);
+  const handleComicChange = ({
+    target,
+  }: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(setComic(target.value));
+
+    history.push(
+      `?${queryString.stringify({
+        comic: target.value,
+        page: 1,
+        name,
+      })}`,
+    );
   };
 
   useEffect(() => {
@@ -96,9 +114,13 @@ const ListCharactersPage = () => {
       ? decodeURI(getQueryVariable(QuerysParams.Name))
       : '';
 
+    const newComic = getQueryVariable(QuerysParams.Comic)
+      ? decodeURI(getQueryVariable(QuerysParams.Comic))
+      : '';
+
     const newOffset = Math.ceil((newPage - 1) * limit);
 
-    dispatch(setAllParams(newOffset, newName));
+    dispatch(setAllParams(newOffset, newName, newComic));
   }, [history.location, limit]);
 
   return (
@@ -124,7 +146,7 @@ const ListCharactersPage = () => {
           </div>
 
           <div className="search-value">
-            <select className="search-input">
+            <select className="search-input" value={comic} onChange={handleComicChange}>
               <option value="">Select a comic</option>
               {comics
                 && comics.map(comic => (
