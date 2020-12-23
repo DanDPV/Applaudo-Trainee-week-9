@@ -1,7 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint no-shadow: 0 */
 /* eslint no-unused-vars: 0 */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
@@ -35,6 +40,7 @@ const ListCharactersPage = () => {
     Story = 'story'
   }
 
+  const isMounted = useRef(true);
   const history = useHistory();
   const dispatch = useDispatch();
   const [comics, setComics] = useState<IComic[]>([]);
@@ -105,26 +111,39 @@ const ListCharactersPage = () => {
     dispatch(setBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/characters`));
 
     getFirstNComics(10).then(genRes => {
-      if (genRes) {
-        const { data } = genRes;
-        const { results } = data;
-        setComics(results);
-      } else {
+      if (isMounted.current) {
+        if (genRes) {
+          const { data } = genRes;
+          const { results } = data;
+          setComics(results);
+        } else {
+          setComics([]);
+        }
+      }
+    }).catch(e => {
+      if (isMounted.current) {
         setComics([]);
       }
-    }).catch(e => setComics([]));
+    });
 
     getFirstNStories(10).then(genRes => {
-      if (genRes) {
-        const { data } = genRes;
-        const { results } = data;
-        setStories(results);
-      } else {
+      if (isMounted.current) {
+        if (genRes) {
+          const { data } = genRes;
+          const { results } = data;
+          setStories(results);
+        } else {
+          setStories([]);
+        }
+      }
+    }).catch(e => {
+      if (isMounted.current) {
         setStories([]);
       }
-    }).catch(e => setStories([]));
+    });
 
     return () => {
+      isMounted.current = false;
       dispatch(reset());
     };
   }, []);
