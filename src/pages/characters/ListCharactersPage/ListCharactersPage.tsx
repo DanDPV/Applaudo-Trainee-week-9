@@ -175,6 +175,7 @@ const ListCharactersPage = () => {
             <input
               type="text"
               name="name"
+              placeholder="Hero´s name"
               autoComplete="off"
               className="search-input"
               value={name}
