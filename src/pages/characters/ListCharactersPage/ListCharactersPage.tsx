@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint no-shadow: 0 */
 /* eslint no-unused-vars: 0 */
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
+import { debounce } from 'lodash';
 import { IRootState } from 'store/store';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import ICharacter from 'interfaces/ICharacter';
@@ -47,17 +48,22 @@ const ListCharactersPage = () => {
     })}`,
   );
 
+  const debouncedNameChange = useCallback(
+    debounce((name: string) => history.push(
+      `?${queryString.stringify({
+        name,
+        page: 1,
+      })}`,
+    ), 1000),
+    [],
+  );
+
   const handleInputChange = ({
     target,
   }: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setName(target.value));
 
-    history.push(
-      `?${queryString.stringify({
-        page: 1,
-        name: target.value,
-      })}`,
-    );
+    debouncedNameChange(target.value);
   };
 
   useEffect(() => {
@@ -74,7 +80,7 @@ const ListCharactersPage = () => {
       : 1;
 
     const newName = getQueryVariable(QuerysParams.Name)
-      ? getQueryVariable(QuerysParams.Name)
+      ? decodeURI(getQueryVariable(QuerysParams.Name))
       : '';
 
     const newOffset = Math.ceil((newPage - 1) * limit);
