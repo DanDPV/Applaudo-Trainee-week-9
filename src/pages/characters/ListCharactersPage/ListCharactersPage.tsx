@@ -16,7 +16,7 @@ import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import ICharacter from 'interfaces/ICharacter';
 import IComic from 'interfaces/IComic';
 import IStory from 'interfaces/IStory';
-import { getFirstNComics, getFirstNStories } from 'helpers/fetchService';
+import { getComicsByOffsetLimit, getStoriesByOffsetLimit } from 'helpers/fetchService';
 import useFetch from 'hooks/useFetch';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
@@ -110,7 +110,7 @@ const ListCharactersPage = () => {
   useEffect(() => {
     dispatch(setBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/characters`));
 
-    getFirstNComics(10).then(genRes => {
+    getComicsByOffsetLimit(0, 10).then(genRes => {
       if (isMounted.current) {
         if (genRes) {
           const { data } = genRes;
@@ -126,7 +126,7 @@ const ListCharactersPage = () => {
       }
     });
 
-    getFirstNStories(10).then(genRes => {
+    getStoriesByOffsetLimit(40, 10).then(genRes => {
       if (isMounted.current) {
         if (genRes) {
           const { data } = genRes;
