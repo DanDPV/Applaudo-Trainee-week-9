@@ -9,6 +9,7 @@ const initState = {
   baseUrl: '',
   url: '',
   name: '',
+  comic: '',
 };
 
 const searchReducer = (
@@ -20,6 +21,7 @@ const searchReducer = (
     limit: state.limit,
     offset: state.offset,
     nameStartsWith: state.name === '' ? undefined : state.name,
+    comics: state.comic === '' ? undefined : state.comic,
   });
 
   switch (action.type) {
@@ -57,6 +59,7 @@ const searchReducer = (
       setAllParamsQuery.offset = action.payload.offset;
 
       if (action.payload.name) setAllParamsQuery.nameStartsWith = action.payload.name;
+      if (action.payload.comic) setAllParamsQuery.comics = action.payload.comic;
 
       const setAllParamsUrl = `${state.baseUrl}?${queryString.stringify(
         setAllParamsQuery,
@@ -66,6 +69,7 @@ const searchReducer = (
         ...state,
         name: action.payload.name,
         offset: action.payload.offset,
+        comic: action.payload.comic,
         url: setAllParamsUrl,
       };
 
@@ -73,6 +77,12 @@ const searchReducer = (
       return {
         ...state,
         name: action.payload.name,
+      };
+
+    case 'SET_COMIC':
+      return {
+        ...state,
+        comic: action.payload.comic,
       };
 
     case 'RESET':
