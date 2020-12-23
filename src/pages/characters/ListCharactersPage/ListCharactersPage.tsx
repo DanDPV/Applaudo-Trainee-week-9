@@ -58,7 +58,7 @@ const ListCharactersPage = () => {
     [],
   );
 
-  const handleInputChange = ({
+  const handleNameChange = ({
     target,
   }: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setName(target.value));
@@ -103,7 +103,7 @@ const ListCharactersPage = () => {
             name="name"
             autoComplete="off"
             value={name}
-            onChange={handleInputChange}
+            onChange={handleNameChange}
           />
         </form>
       </div>
