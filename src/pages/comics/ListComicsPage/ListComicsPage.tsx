@@ -8,6 +8,7 @@ import useFetch from 'hooks/useFetch';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IComic from 'interfaces/IComic';
 import Card from 'components/Card/Card';
+import Loading from 'components/Loading/Loading';
 import { comicReset, setComicBaseUrl } from 'actions/searchComic';
 import 'pages/comics/ListComicsPage/ListComicsPage.scss';
 
@@ -37,6 +38,8 @@ const ListComicsPage = () => {
       <div className="comic-page-title-div">
         <h1>Comics</h1>
       </div>
+      {loading && <Loading />}
+      {error && <h2 className="error-message">Could not load characters 😓</h2>}
       <div className="cards">
         <div className="cards-content">
           {results
