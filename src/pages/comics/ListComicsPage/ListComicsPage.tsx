@@ -12,7 +12,8 @@ import IComic from 'interfaces/IComic';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
 import Pagination from 'components/Pagination/Pagination';
-import { comicReset, setComicBaseUrl } from 'actions/searchComic';
+import { comicReset, setComicAllParams, setComicBaseUrl } from 'actions/searchComic';
+import { getQueryVariable } from 'utils/utils';
 import 'pages/comics/ListComicsPage/ListComicsPage.scss';
 
 const ListComicsPage = () => {
@@ -58,6 +59,24 @@ const ListComicsPage = () => {
       dispatch(comicReset());
     };
   }, []);
+
+  useEffect(() => {
+    const newPage = getQueryVariable(QuerysParams.Page)
+      ? +getQueryVariable(QuerysParams.Page)
+      : 1;
+
+    const newFormat = getQueryVariable(QuerysParams.Format)
+      ? decodeURI(getQueryVariable(QuerysParams.Format))
+      : '';
+
+    const newTitle = getQueryVariable(QuerysParams.Title)
+      ? decodeURI(getQueryVariable(QuerysParams.Title))
+      : '';
+
+    const newOffset = Math.ceil((newPage - 1) * limit);
+
+    dispatch(setComicAllParams(newOffset, newFormat, newTitle));
+  }, [history.location, limit]);
 
   return (
     <div className="comic-main-content mb-5">
