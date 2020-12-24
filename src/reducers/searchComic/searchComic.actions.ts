@@ -22,6 +22,20 @@ export interface IComicSetBaseUrl {
   };
 }
 
+export interface IComicSetTitle {
+  readonly type: 'SET_TITLE_COMIC';
+  payload: {
+    title: string;
+  };
+}
+
+export interface IComicSetFormat {
+  readonly type: 'SET_FORMAT_COMIC';
+  payload: {
+    format: string;
+  };
+}
+
 export interface IComicSetAllParams {
   readonly type: 'SET_ALL_PARAMS_COMIC';
   payload: {
@@ -60,6 +74,8 @@ type SearchComicActions =
   | IComicSetOffset
   | IComicSetLimit
   | IComicSetBaseUrl
+  | IComicSetTitle
+  | IComicSetFormat
   | IComicSetAllParams
   | IComicSetLoading
   | IComicSetError
