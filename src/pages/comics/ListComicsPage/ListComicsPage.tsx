@@ -18,11 +18,13 @@ import {
   setComicBaseUrl,
   setComicData,
   setComicError,
+  setComicFormat,
   setComicLoading,
   setComicTitle,
 } from 'actions/searchComic';
-import { getQueryVariable } from 'utils/utils';
+import { getQueryVariable, shortenText } from 'utils/utils';
 import { get } from 'API/FetchInfo';
+import formatOptions from 'mocks/formatOptions';
 import 'pages/comics/ListComicsPage/ListComicsPage.scss';
 
 const ListComicsPage = () => {
@@ -79,6 +81,14 @@ const ListComicsPage = () => {
     debouncedTitleChange(target.value, format);
   };
 
+  const handleFormatChange = ({
+    target,
+  }: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(setComicFormat(target.value));
+
+    changeUrlParams(1, target.value, title);
+  };
+
   useEffect(() => {
     dispatch(setComicBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/comics`));
     return () => {
@@ -130,7 +140,7 @@ const ListComicsPage = () => {
         <form>
           <div className="comic-search-title">Search your comic</div>
           <div className="search-header">Title</div>
-          <div className="search-header">Comic</div>
+          <div className="search-header">Format</div>
           <div className="search-value">
             <input
               type="text"
@@ -144,13 +154,14 @@ const ListComicsPage = () => {
           </div>
 
           <div className="search-value">
-            <input
-              type="text"
-              name="format"
-              placeholder="Format"
-              autoComplete="off"
-              className="search-input"
-            />
+            <select className="search-select" value={format} onChange={handleFormatChange}>
+              <option value="">Select a format</option>
+              {formatOptions.map(format => (
+                <option key={format.value} value={format.value}>
+                  {shortenText(format.name, 20)}
+                </option>
+              ))}
+            </select>
           </div>
         </form>
       </div>
