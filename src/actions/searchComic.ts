@@ -6,13 +6,29 @@ import {
   IComicSetBaseUrl,
   IComicSetData,
   IComicSetError,
+  IComicSetFormat,
   IComicSetLoading,
+  IComicSetTitle,
 } from 'reducers/searchComic/searchComic.actions';
 
 const setComicBaseUrl = (baseUrl: string): IComicSetBaseUrl => ({
   type: 'SET_BASE_URL_COMIC',
   payload: {
     baseUrl,
+  },
+});
+
+const setComicTitle = (title: string): IComicSetTitle => ({
+  type: 'SET_TITLE_COMIC',
+  payload: {
+    title,
+  },
+});
+
+const setComicFormat = (format: string): IComicSetFormat => ({
+  type: 'SET_FORMAT_COMIC',
+  payload: {
+    format,
   },
 });
 
@@ -58,6 +74,8 @@ const comicReset = (): IComicReset => ({
 
 export {
   setComicBaseUrl,
+  setComicTitle,
+  setComicFormat,
   setComicAllParams,
   setComicLoading,
   setComicError,
