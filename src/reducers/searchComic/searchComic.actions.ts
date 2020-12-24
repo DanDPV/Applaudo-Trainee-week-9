@@ -1,3 +1,6 @@
+import IComic from 'interfaces/IComic';
+import IGenericApiResponse from 'interfaces/IGenericApiResponse';
+
 export interface IComicSetOffset {
   readonly type: 'SET_OFFSET_COMIC';
   payload: {
@@ -28,6 +31,27 @@ export interface IComicSetAllParams {
   };
 }
 
+export interface IComicSetLoading {
+  readonly type: 'SET_LOADING_COMIC';
+  payload: {
+    loading: boolean;
+  };
+}
+
+export interface IComicSetError {
+  readonly type: 'SET_ERROR_COMIC';
+  payload: {
+    error: string;
+  };
+}
+
+export interface IComicSetData {
+  readonly type: 'SET_DATA_COMIC';
+  payload: {
+    data: IGenericApiResponse<IComic> | null;
+  };
+}
+
 export interface IComicReset {
   readonly type: 'RESET_COMIC';
 }
@@ -37,6 +61,9 @@ type SearchComicActions =
   | IComicSetLimit
   | IComicSetBaseUrl
   | IComicSetAllParams
+  | IComicSetLoading
+  | IComicSetError
+  | IComicSetData
   | IComicReset;
 
 export default SearchComicActions;
