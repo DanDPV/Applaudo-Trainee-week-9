@@ -1,3 +1,5 @@
+import ICharacter from 'interfaces/ICharacter';
+import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import {
   ISetOffset,
   ISetBaseUrl,
@@ -6,6 +8,9 @@ import {
   ISetName,
   ISetComic,
   ISetStory,
+  ISetLoading,
+  ISetError,
+  ISetData,
 } from 'reducers/search/search.actions';
 
 const setBaseUrl = (baseUrl: string): ISetBaseUrl => ({
@@ -58,6 +63,27 @@ const setAllParams = (
   },
 });
 
+const setLoading = (loading: boolean): ISetLoading => ({
+  type: 'SET_LOADING',
+  payload: {
+    loading,
+  },
+});
+
+const setError = (error: string): ISetError => ({
+  type: 'SET_ERROR',
+  payload: {
+    error,
+  },
+});
+
+const setData = (data: IGenericApiResponse<ICharacter> | null): ISetData => ({
+  type: 'SET_DATA',
+  payload: {
+    data,
+  },
+});
+
 const reset = (): IReset => ({
   type: 'RESET',
 });
@@ -69,5 +95,8 @@ export {
   setComic,
   setStory,
   setAllParams,
+  setLoading,
+  setError,
+  setData,
   reset,
 };
