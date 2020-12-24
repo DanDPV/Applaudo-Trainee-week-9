@@ -10,6 +10,9 @@ const initState = {
   url: '',
   format: '',
   title: '',
+  loading: false,
+  error: '',
+  data: null,
 };
 
 const searchComicReducer = (
@@ -74,6 +77,24 @@ const searchComicReducer = (
         format: action.payload.format,
         title: action.payload.title,
         url: setAllParamsUrl,
+      };
+
+    case 'SET_LOADING_COMIC':
+      return {
+        ...state,
+        loading: action.payload.loading,
+      };
+
+    case 'SET_ERROR_COMIC':
+      return {
+        ...state,
+        error: action.payload.error,
+      };
+
+    case 'SET_DATA_COMIC':
+      return {
+        ...state,
+        data: action.payload.data,
       };
 
     case 'RESET_COMIC':
