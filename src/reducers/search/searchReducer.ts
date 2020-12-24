@@ -11,6 +11,9 @@ const initState = {
   name: '',
   comic: '',
   story: '',
+  loading: false,
+  error: '',
+  data: null,
 };
 
 const searchReducer = (
@@ -98,6 +101,24 @@ const searchReducer = (
       return {
         ...state,
         story: action.payload.story,
+      };
+
+    case 'SET_LOADING':
+      return {
+        ...state,
+        loading: action.payload.loading,
+      };
+
+    case 'SET_ERROR':
+      return {
+        ...state,
+        error: action.payload.error,
+      };
+
+    case 'SET_DATA':
+      return {
+        ...state,
+        data: action.payload.data,
       };
 
     case 'RESET':
