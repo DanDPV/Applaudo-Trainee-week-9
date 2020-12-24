@@ -79,6 +79,18 @@ const searchComicReducer = (
         url: setAllParamsUrl,
       };
 
+    case 'SET_TITLE_COMIC':
+      return {
+        ...state,
+        title: action.payload.title,
+      };
+
+    case 'SET_FORMAT_COMIC':
+      return {
+        ...state,
+        format: action.payload.format,
+      };
+
     case 'SET_LOADING_COMIC':
       return {
         ...state,
