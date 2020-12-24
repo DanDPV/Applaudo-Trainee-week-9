@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint no-shadow: 0 */
 /* eslint no-unused-vars: 0 */
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
+import { debounce } from 'lodash';
 import { IRootState } from 'store/store';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IComic from 'interfaces/IComic';
@@ -18,6 +19,7 @@ import {
   setComicData,
   setComicError,
   setComicLoading,
+  setComicTitle,
 } from 'actions/searchComic';
 import { getQueryVariable } from 'utils/utils';
 import { get } from 'API/FetchInfo';
@@ -62,7 +64,20 @@ const ListComicsPage = () => {
 
   const handleChangePage = (newPage: number) => changeUrlParams(newPage, format, title);
 
-  const handleTitleChange = () => {};
+  const debouncedTitleChange = useCallback(
+    debounce(
+      (title: string, format: string) => changeUrlParams(1, format, title),
+      1000,
+    ),
+    [],
+  );
+
+  const handleTitleChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setComicTitle(target.value));
+    debouncedTitleChange(target.value, format);
+  };
 
   useEffect(() => {
     dispatch(setComicBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/comics`));
