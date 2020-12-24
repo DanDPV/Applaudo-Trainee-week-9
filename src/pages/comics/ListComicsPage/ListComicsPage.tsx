@@ -62,6 +62,8 @@ const ListComicsPage = () => {
 
   const handleChangePage = (newPage: number) => changeUrlParams(newPage, format, title);
 
+  const handleTitleChange = () => {};
+
   useEffect(() => {
     dispatch(setComicBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/comics`));
     return () => {
@@ -108,6 +110,34 @@ const ListComicsPage = () => {
     <div className="comic-main-content mb-5">
       <div className="comic-page-title-div">
         <h1>Comics</h1>
+      </div>
+      <div className="comic-search-filters-form mb-5">
+        <form>
+          <div className="comic-search-title">Search your comic</div>
+          <div className="search-header">Title</div>
+          <div className="search-header">Comic</div>
+          <div className="search-value">
+            <input
+              type="text"
+              name="title"
+              placeholder="Comic's title"
+              autoComplete="off"
+              className="search-input"
+              value={title}
+              onChange={handleTitleChange}
+            />
+          </div>
+
+          <div className="search-value">
+            <input
+              type="text"
+              name="format"
+              placeholder="Format"
+              autoComplete="off"
+              className="search-input"
+            />
+          </div>
+        </form>
       </div>
       {loading && <Loading />}
       {error && <h2 className="error-message">Could not load comics 😓</h2>}
