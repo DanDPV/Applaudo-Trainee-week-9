@@ -6,14 +6,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
 import { IRootState } from 'store/store';
-import useFetch from 'hooks/useFetch';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IComic from 'interfaces/IComic';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
 import Pagination from 'components/Pagination/Pagination';
-import { comicReset, setComicAllParams, setComicBaseUrl } from 'actions/searchComic';
+import {
+  comicReset,
+  setComicAllParams,
+  setComicBaseUrl,
+  setComicData,
+  setComicError,
+  setComicLoading,
+} from 'actions/searchComic';
 import { getQueryVariable } from 'utils/utils';
+import { get } from 'API/FetchInfo';
 import 'pages/comics/ListComicsPage/ListComicsPage.scss';
 
 const ListComicsPage = () => {
@@ -31,8 +38,10 @@ const ListComicsPage = () => {
     limit,
     format,
     title,
+    loading,
+    error,
+    data: genericResponse,
   } = useSelector((state: IRootState) => state.searchComic);
-  const { loading, data: genericResponse, error } = useFetch<IGenericApiResponse<IComic>>(url);
 
   const { data } = genericResponse ?? {};
   const { results, total } = data ?? {};
@@ -77,6 +86,23 @@ const ListComicsPage = () => {
 
     dispatch(setComicAllParams(newOffset, newFormat, newTitle));
   }, [history.location, limit]);
+
+  useEffect(() => {
+    if (url) {
+      dispatch(setComicLoading(true));
+      dispatch(setComicData(null));
+      get<IGenericApiResponse<IComic>>(url)
+        .then(res => {
+          dispatch(setComicData(res));
+          dispatch(setComicLoading(false));
+        })
+        .catch(err => {
+          dispatch(setComicData(null));
+          dispatch(setComicLoading(false));
+          dispatch(setComicError('Could not load comics'));
+        });
+    }
+  }, [url]);
 
   return (
     <div className="comic-main-content mb-5">
