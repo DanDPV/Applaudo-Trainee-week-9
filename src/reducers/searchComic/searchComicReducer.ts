@@ -24,7 +24,7 @@ const searchComicReducer = (
     limit: state.limit,
     offset: state.offset,
     format: state.format === '' ? undefined : state.format,
-    title: state.title === '' ? undefined : state.title,
+    titleStartsWith: state.title === '' ? undefined : state.title,
   });
 
   switch (action.type) {
@@ -64,8 +64,8 @@ const searchComicReducer = (
       if (action.payload.format) setAllParamsQuery.format = action.payload.format;
       else setAllParamsQuery.format = undefined;
 
-      if (action.payload.title) setAllParamsQuery.title = action.payload.title;
-      else setAllParamsQuery.title = undefined;
+      if (action.payload.title) setAllParamsQuery.titleStartsWith = action.payload.title;
+      else setAllParamsQuery.titleStartsWith = undefined;
 
       const setAllParamsUrl = `${state.baseUrl}?${queryString.stringify(
         setAllParamsQuery,
