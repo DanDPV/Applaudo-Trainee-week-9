@@ -1,3 +1,6 @@
+import ICharacter from 'interfaces/ICharacter';
+import IGenericApiResponse from 'interfaces/IGenericApiResponse';
+
 export interface ISetOffset {
   readonly type: 'SET_OFFSET';
   payload: {
@@ -50,6 +53,26 @@ export interface ISetAllParams {
   };
 }
 
+export interface ISetLoading {
+  readonly type: 'SET_LOADING';
+  payload: {
+    loading: boolean;
+  };
+}
+
+export interface ISetError {
+  readonly type: 'SET_ERROR';
+  payload: {
+    error: string;
+  };
+}
+
+export interface ISetData {
+  readonly type: 'SET_DATA';
+  payload: {
+    data: IGenericApiResponse<ICharacter> | null;
+  };
+}
 export interface IReset {
   readonly type: 'RESET';
 }
@@ -62,6 +85,9 @@ type SearchActions =
   | ISetComic
   | ISetStory
   | ISetAllParams
+  | ISetLoading
+  | ISetError
+  | ISetData
   | IReset;
 
 export default SearchActions;
