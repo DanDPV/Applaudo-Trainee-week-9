@@ -17,17 +17,19 @@ import ICharacter from 'interfaces/ICharacter';
 import IComic from 'interfaces/IComic';
 import IStory from 'interfaces/IStory';
 import { getComicsByOffsetLimit, getStoriesByOffsetLimit } from 'helpers/fetchService';
-import useFetch from 'hooks/useFetch';
 import Select from 'components/Select/Select';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
 import Pagination from 'components/Pagination/Pagination';
 import { getQueryVariable } from 'utils/utils';
+import { get } from 'API/FetchInfo';
 import {
-  reset,
   setAllParams,
   setBaseUrl,
   setComic,
+  setData,
+  setError,
+  setLoading,
   setName,
   setStory,
 } from 'actions/search';
@@ -53,8 +55,10 @@ const ListCharactersPage = () => {
     name,
     comic,
     story,
+    loading,
+    error,
+    data: genericResponse,
   } = useSelector((state: IRootState) => state.search);
-  const { loading, data: genericResponse, error } = useFetch<IGenericApiResponse<ICharacter>>(url);
 
   const { data } = genericResponse ?? {};
   const { results, total } = data ?? {};
@@ -145,7 +149,6 @@ const ListCharactersPage = () => {
 
     return () => {
       isMounted.current = false;
-      dispatch(reset());
     };
   }, []);
 
@@ -170,6 +173,23 @@ const ListCharactersPage = () => {
 
     dispatch(setAllParams(newOffset, newName, newComic, newStory));
   }, [history.location, limit]);
+
+  useEffect(() => {
+    if (url) {
+      dispatch(setLoading(true));
+      dispatch(setData(null));
+      get<IGenericApiResponse<ICharacter>>(url)
+        .then(res => {
+          dispatch(setData(res));
+          dispatch(setLoading(false));
+        })
+        .catch(err => {
+          dispatch(setData(null));
+          dispatch(setLoading(false));
+          dispatch(setError('Could not load characters'));
+        });
+    }
+  }, [url]);
 
   return (
     <div className="main-content mb-5">
