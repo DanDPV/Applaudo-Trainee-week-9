@@ -79,7 +79,10 @@ const ListCharactersPage = () => {
     );
   };
 
-  const handleChangePage = (newPage: number) => changeUrlParams(newPage, name, comic, story);
+  const handleChangePage = (newPage: number) => {
+    window.scrollTo({ top: 300 });
+    changeUrlParams(newPage, name, comic, story);
+  };
 
   const debouncedNameChange = useCallback(
     debounce((name: string,

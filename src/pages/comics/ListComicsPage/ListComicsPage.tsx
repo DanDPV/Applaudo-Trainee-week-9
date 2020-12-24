@@ -64,7 +64,10 @@ const ListComicsPage = () => {
     );
   };
 
-  const handleChangePage = (newPage: number) => changeUrlParams(newPage, format, title);
+  const handleChangePage = (newPage: number) => {
+    window.scrollTo({ top: 300 });
+    changeUrlParams(newPage, format, title);
+  };
 
   const debouncedTitleChange = useCallback(
     debounce(
