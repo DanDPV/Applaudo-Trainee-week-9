@@ -171,6 +171,19 @@ $bg-title-image: 'https://wallpaperaccess.com/full/193208.jpg';
 }
 
 @media only screen and (max-width: 600px) {
+  .search-header {
+    font-size: 20px;
+  }
+
+  .search-value {
+    padding: 5px;
+  }
+
+  .search-input {
+    width: 100%;
+    font-size: x-small;
+  }
+
   .search-select {
     width: 100%;
     font-size: xx-small;
