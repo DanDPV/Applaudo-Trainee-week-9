@@ -16,7 +16,7 @@ const Card = ({ name, description, imageUrl }: ICard) => (
     }}
   >
     <div className="content">
-      <h2 className="title">{name}</h2>
+      <h2 className="title">{shortenText(name, 20)}</h2>
       <p className="copy">
         {shortenText(description, 50)}
       </p>
