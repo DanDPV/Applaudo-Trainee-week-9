@@ -122,6 +122,27 @@ $bg-title-image: 'https://wallpaperaccess.com/full/193208.jpg';
   font-family: 'Roboto', sans-serif;
 }
 
+.search-select {
+  width: 70%;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 3px #ddd;
+  border-radius: 2px;
+  vertical-align: middle;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  max-width: 500px;
+  padding: 0.5em 0.6em;
+  margin-top: 7px;
+  margin-bottom: 0.5em;
+  font-size: medium;
+  font-family: 'Roboto', sans-serif;
+
+  option {
+    width: 70%;
+  }
+}
+
 .error-message {
   text-align: center;
   margin: 50px 15%;
@@ -146,5 +167,16 @@ $bg-title-image: 'https://wallpaperaccess.com/full/193208.jpg';
 
   @media (min-width: $bp-lg) {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .search-select {
+    width: 100%;
+    font-size: xx-small;
+
+    option {
+      width: 100%;
+    }
   }
 }
