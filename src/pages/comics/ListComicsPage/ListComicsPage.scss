@@ -66,6 +66,67 @@ $bg-title-image: 'https://wallpaperaccess.com/full/193208.jpg';
   background-position: center;
 }
 
+.comic-search-filters-form {
+  background-color: white;
+
+  form {
+    display: grid;
+    place-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.comic-search-title {
+  grid-column: 1 / 3;
+  width: 100%;
+  text-align: center;
+  background-color: darken($color: $primary, $amount: 15);
+  color: white;
+  font-family: 'Bangers', cursive;
+  padding: 15px;
+  font-size: 30px;
+}
+
+.search-header {
+  background-color: #ffcc00;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  font-family: 'Bangers', cursive;
+  font-size: 40px;
+}
+
+.search-value {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.search-input {
+  width: 70%;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 3px #ddd;
+  border-radius: 2px;
+  vertical-align: middle;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  max-width: 500px;
+  padding: 0.5em 0.6em;
+  margin-top: 7px;
+  margin-bottom: 0.5em;
+  font-size: medium;
+  font-family: 'Roboto', sans-serif;
+}
+
+.error-message {
+  text-align: center;
+  margin: 50px 15%;
+}
+
 .cards {
   display: grid;
   place-items: center;
