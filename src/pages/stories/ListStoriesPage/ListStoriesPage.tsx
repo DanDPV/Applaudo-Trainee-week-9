@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { IRootState } from 'store/store';
 import Card from 'components/Card/Card';
+import Loading from 'components/Loading/Loading';
 import { getQueryVariable } from 'utils/utils';
 import IStory from 'interfaces/IStory';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
@@ -81,6 +82,8 @@ const ListStoriesPage = () => {
       <div className="story-page-title-div">
         <h1>Stories</h1>
       </div>
+      {loading && <Loading />}
+      {error && <h2 className="error-message">Could not load comics 😓</h2>}
       <div className="cards">
         <div className="cards-content">
           {results
@@ -96,6 +99,9 @@ const ListStoriesPage = () => {
             ))}
         </div>
       </div>
+      {results && results.length <= 0 && (
+        <h2 className="error-message">Stories not found 😮</h2>
+      )}
     </div>
   );
 };
