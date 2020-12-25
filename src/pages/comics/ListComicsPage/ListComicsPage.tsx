@@ -14,11 +14,9 @@ import Loading from 'components/Loading/Loading';
 import Pagination from 'components/Pagination/Pagination';
 import {
   setComicAllParams,
+  setComicAsyncContent,
   setComicBaseUrl,
-  setComicData,
-  setComicError,
   setComicFormat,
-  setComicLoading,
   setComicTitle,
 } from 'actions/searchComic';
 import { getQueryVariable, shortenText } from 'utils/utils';
@@ -118,18 +116,13 @@ const ListComicsPage = () => {
 
   useEffect(() => {
     if (url) {
-      dispatch(setComicLoading(true));
-      dispatch(setComicData(null));
-      dispatch(setComicError(''));
+      dispatch(setComicAsyncContent(true, '', null));
       get<IGenericApiResponse<IComic>>(url)
         .then(res => {
-          dispatch(setComicData(res));
-          dispatch(setComicLoading(false));
+          dispatch(setComicAsyncContent(false, '', res));
         })
         .catch(err => {
-          dispatch(setComicData(null));
-          dispatch(setComicLoading(false));
-          dispatch(setComicError('Could not load comics'));
+          dispatch(setComicAsyncContent(false, 'Could not load comics', null));
         });
     }
   }, [url]);
