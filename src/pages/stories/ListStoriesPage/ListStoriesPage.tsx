@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint no-shadow: 0 */
 /* eslint no-unused-vars: 0 */
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
+import { debounce } from 'lodash';
 import { IRootState } from 'store/store';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
@@ -16,6 +17,7 @@ import { get } from 'API/FetchInfo';
 import { imagePlaceholder } from 'utils/globals';
 import {
   setStoryBaseUrl,
+  setStoryTitle,
   setStoryAllParams,
   setStoryLoading,
   setStoryData,
@@ -61,6 +63,21 @@ const ListStoriesPage = () => {
     changeUrlParams(newPage, title);
   };
 
+  const debouncedTitleChange = useCallback(
+    debounce(
+      (title: string) => changeUrlParams(1, title),
+      1000,
+    ),
+    [],
+  );
+
+  const handleTitleChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setStoryTitle(target.value));
+    debouncedTitleChange(target.value);
+  };
+
   useEffect(() => {
     dispatch(setStoryBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/stories`));
   }, []);
@@ -83,6 +100,7 @@ const ListStoriesPage = () => {
     if (url) {
       dispatch(setStoryLoading(true));
       dispatch(setStoryData(null));
+      dispatch(setStoryError(''));
       get<IGenericApiResponse<IStory>>(url)
         .then(res => {
           dispatch(setStoryData(res));
@@ -100,6 +118,23 @@ const ListStoriesPage = () => {
     <div className="story-main-content mb-5">
       <div className="story-page-title-div">
         <h1>Stories</h1>
+      </div>
+      <div className="story-search-filters-form mb-5">
+        <form>
+          <div className="story-search-title">Search your story</div>
+          <div className="search-header">Title</div>
+          <div className="search-value">
+            <input
+              type="text"
+              name="title"
+              placeholder="Story's title"
+              autoComplete="off"
+              className="search-input"
+              value={title}
+              onChange={handleTitleChange}
+            />
+          </div>
+        </form>
       </div>
       {loading && <Loading />}
       {error && <h2 className="error-message">Could not load comics 😓</h2>}
