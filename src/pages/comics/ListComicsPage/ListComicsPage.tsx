@@ -120,6 +120,7 @@ const ListComicsPage = () => {
     if (url) {
       dispatch(setComicLoading(true));
       dispatch(setComicData(null));
+      dispatch(setComicError(''));
       get<IGenericApiResponse<IComic>>(url)
         .then(res => {
           dispatch(setComicData(res));

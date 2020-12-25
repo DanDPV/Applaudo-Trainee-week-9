@@ -184,6 +184,7 @@ const ListCharactersPage = () => {
     if (url) {
       dispatch(setLoading(true));
       dispatch(setData(null));
+      dispatch(setError(''));
       get<IGenericApiResponse<ICharacter>>(url)
         .then(res => {
           dispatch(setData(res));
