@@ -169,12 +169,14 @@ const ListComicsPage = () => {
       <div className="cards">
         <div className="cards-content">
           {results
-            && results.map(char => (
+            && results.map(comic => (
               <Card
-                key={char.id}
-                name={char.title}
-                description={char.description ?? ''}
-                imageUrl={`${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`}
+                key={comic.id}
+                name={comic.title}
+                description={comic.description ?? ''}
+                imageUrl={comic.thumbnail
+                  ? `${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}`
+                  : 'https://images7.alphacoders.com/514/thumb-1920-514639.jpg'}
               />
             ))}
         </div>
