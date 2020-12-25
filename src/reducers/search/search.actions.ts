@@ -73,6 +73,15 @@ export interface ISetData {
     data: IGenericApiResponse<ICharacter> | null;
   };
 }
+
+export interface ISetAsyncContent {
+  readonly type: 'SET_ASYNC_CONTENT';
+  payload: {
+    loading: boolean;
+    error: string;
+    data: IGenericApiResponse<ICharacter> | null;
+  };
+}
 export interface IReset {
   readonly type: 'RESET';
 }
@@ -88,6 +97,7 @@ type SearchActions =
   | ISetLoading
   | ISetError
   | ISetData
+  | ISetAsyncContent
   | IReset;
 
 export default SearchActions;
