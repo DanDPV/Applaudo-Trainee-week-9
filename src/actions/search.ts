@@ -11,6 +11,7 @@ import {
   ISetLoading,
   ISetError,
   ISetData,
+  ISetAsyncContent,
 } from 'reducers/search/search.actions';
 
 const setBaseUrl = (baseUrl: string): ISetBaseUrl => ({
@@ -84,6 +85,19 @@ const setData = (data: IGenericApiResponse<ICharacter> | null): ISetData => ({
   },
 });
 
+const setAsyncContent = (
+  loading: boolean,
+  error: string,
+  data: IGenericApiResponse<ICharacter> | null,
+): ISetAsyncContent => ({
+  type: 'SET_ASYNC_CONTENT',
+  payload: {
+    loading,
+    error,
+    data,
+  },
+});
+
 const reset = (): IReset => ({
   type: 'RESET',
 });
@@ -98,5 +112,6 @@ export {
   setLoading,
   setError,
   setData,
+  setAsyncContent,
   reset,
 };
