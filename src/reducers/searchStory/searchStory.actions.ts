@@ -58,6 +58,15 @@ export interface IStorySetData {
   };
 }
 
+export interface IStorySetAsyncContent {
+  readonly type: 'SET_ASYNC_CONTENT_STORY';
+  payload: {
+    loading: boolean;
+    error: string;
+    data: IGenericApiResponse<IStory> | null;
+  };
+}
+
 export interface IStoryReset {
   readonly type: 'RESET_STORY';
 }
@@ -71,6 +80,7 @@ type SearchStoryActions =
   | IStorySetLoading
   | IStorySetError
   | IStorySetData
+  | IStorySetAsyncContent
   | IStoryReset;
 
 export default SearchStoryActions;
