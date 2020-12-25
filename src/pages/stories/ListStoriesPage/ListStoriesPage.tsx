@@ -4,9 +4,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import queryString from 'query-string';
 import { IRootState } from 'store/store';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
+import Pagination from 'components/Pagination/Pagination';
 import { getQueryVariable } from 'utils/utils';
 import IStory from 'interfaces/IStory';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
@@ -41,6 +43,23 @@ const ListStoriesPage = () => {
 
   const { data } = genericResponse ?? {};
   const { results, total } = data ?? {};
+
+  const changeUrlParams = (
+    newPage: number,
+    newTitle: string,
+  ) => {
+    history.push(
+      `?${queryString.stringify({
+        page: newPage,
+        title: newTitle === '' ? undefined : newTitle,
+      })}`,
+    );
+  };
+
+  const handleChangePage = (newPage: number) => {
+    window.scrollTo({ top: 300 });
+    changeUrlParams(newPage, title);
+  };
 
   useEffect(() => {
     dispatch(setStoryBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/stories`));
@@ -101,6 +120,14 @@ const ListStoriesPage = () => {
       </div>
       {results && results.length <= 0 && (
         <h2 className="error-message">Stories not found 😮</h2>
+      )}
+      {!loading && !error && results && results.length > 0 && (
+        <Pagination
+          offset={offset}
+          limit={limit}
+          total={total ?? 0}
+          onChange={handleChangePage}
+        />
       )}
     </div>
   );
