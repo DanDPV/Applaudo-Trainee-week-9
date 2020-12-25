@@ -1,11 +1,10 @@
 /* eslint no-unused-vars: 0 */
 import React, { useEffect, useState } from 'react';
+import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import 'components/Pagination/Pagination.scss';
 
-interface PaginationProps {
-  offset: number;
-  limit: number;
-  total: number;
+interface PaginationProps<T> {
+  genericResponse: IGenericApiResponse<T>;
   onChange(newPage: number): void;
 }
 
@@ -14,12 +13,12 @@ interface PaginationOption {
     action: () => void;
 }
 
-const Pagination = React.memo(({
-  offset,
-  limit,
-  total,
+const Pagination = React.memo(<T, >({
+  genericResponse,
   onChange,
-}: PaginationProps) => {
+}: PaginationProps<T>) => {
+  const { data } = genericResponse ?? {};
+  const { offset, limit, total } = data ?? {};
   const [paginationOptions, setPaginationOptions] = useState<PaginationOption[]>([]);
   const currentPaginationPage = Math.ceil((offset / limit) + 1);
 
