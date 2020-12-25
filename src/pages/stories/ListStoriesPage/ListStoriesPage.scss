@@ -63,3 +63,30 @@ $bg-title-image: 'https://static3.srcdn.com/wordpress/wp-content/uploads/2020/02
   background-position: top;
   background-size: cover;
 }
+
+.error-message {
+  text-align: center;
+  margin: 50px 15%;
+}
+
+.cards {
+  display: grid;
+  place-items: center;
+}
+
+.cards-content {
+  display: grid;
+  grid-gap: 1rem;
+  padding: 1rem;
+  max-width: 1024px;
+  margin: 0 auto;
+  font-family: var(--font-sans);
+
+  @media (min-width: $bp-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: $bp-lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
