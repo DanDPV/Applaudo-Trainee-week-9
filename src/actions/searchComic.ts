@@ -3,6 +3,7 @@ import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import {
   IComicReset,
   IComicSetAllParams,
+  IComicSetAsyncContent,
   IComicSetBaseUrl,
   IComicSetData,
   IComicSetError,
@@ -68,6 +69,19 @@ const setComicData = (
   },
 });
 
+const setComicAsyncContent = (
+  loading: boolean,
+  error: string,
+  data: IGenericApiResponse<IComic> | null,
+): IComicSetAsyncContent => ({
+  type: 'SET_ASYNC_CONTENT_COMIC',
+  payload: {
+    loading,
+    error,
+    data,
+  },
+});
+
 const comicReset = (): IComicReset => ({
   type: 'RESET_COMIC',
 });
@@ -80,5 +94,6 @@ export {
   setComicLoading,
   setComicError,
   setComicData,
+  setComicAsyncContent,
   comicReset,
 };
