@@ -19,9 +19,7 @@ import {
   setStoryBaseUrl,
   setStoryTitle,
   setStoryAllParams,
-  setStoryLoading,
-  setStoryData,
-  setStoryError,
+  setStoryAsyncContent,
 } from 'actions/searchStory';
 import 'pages/stories/ListStoriesPage/ListStoriesPage.scss';
 
@@ -100,18 +98,13 @@ const ListStoriesPage = () => {
 
   useEffect(() => {
     if (url) {
-      dispatch(setStoryLoading(true));
-      dispatch(setStoryData(null));
-      dispatch(setStoryError(''));
+      dispatch(setStoryAsyncContent(true, '', null));
       get<IGenericApiResponse<IStory>>(url)
         .then(res => {
-          dispatch(setStoryData(res));
-          dispatch(setStoryLoading(false));
+          dispatch(setStoryAsyncContent(false, '', res));
         })
         .catch(err => {
-          dispatch(setStoryData(null));
-          dispatch(setStoryLoading(false));
-          dispatch(setStoryError('Could not load stories'));
+          dispatch(setStoryAsyncContent(false, 'Could not load stories', null));
         });
     }
   }, [url]);
