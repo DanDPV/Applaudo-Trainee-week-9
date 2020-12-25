@@ -66,6 +66,15 @@ export interface IComicSetData {
   };
 }
 
+export interface IComicSetAsyncContent {
+  readonly type: 'SET_ASYNC_CONTENT_COMIC';
+  payload: {
+    loading: boolean;
+    error: string;
+    data: IGenericApiResponse<IComic> | null;
+  };
+}
+
 export interface IComicReset {
   readonly type: 'RESET_COMIC';
 }
@@ -80,6 +89,7 @@ type SearchComicActions =
   | IComicSetLoading
   | IComicSetError
   | IComicSetData
+  | IComicSetAsyncContent
   | IComicReset;
 
 export default SearchComicActions;
