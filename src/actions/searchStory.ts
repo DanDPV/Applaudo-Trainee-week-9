@@ -3,6 +3,7 @@ import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import {
   IStoryReset,
   IStorySetAllParams,
+  IStorySetAsyncContent,
   IStorySetBaseUrl,
   IStorySetData,
   IStorySetError,
@@ -58,6 +59,19 @@ const setStoryData = (
   },
 });
 
+const setStoryAsyncContent = (
+  loading: boolean,
+  error: string,
+  data: IGenericApiResponse<IStory> | null,
+): IStorySetAsyncContent => ({
+  type: 'SET_ASYNC_CONTENT_STORY',
+  payload: {
+    loading,
+    error,
+    data,
+  },
+});
+
 const comicReset = (): IStoryReset => ({
   type: 'RESET_STORY',
 });
@@ -69,5 +83,6 @@ export {
   setStoryLoading,
   setStoryError,
   setStoryData,
+  setStoryAsyncContent,
   comicReset,
 };
