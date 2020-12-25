@@ -247,7 +247,9 @@ const ListCharactersPage = () => {
                 key={char.id}
                 name={char.name}
                 description={char.description ?? ''}
-                imageUrl={`${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`}
+                imageUrl={char.thumbnail
+                  ? `${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`
+                  : 'https://images7.alphacoders.com/514/thumb-1920-514639.jpg'}
               />
             ))}
         </div>
