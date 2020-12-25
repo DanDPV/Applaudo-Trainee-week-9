@@ -188,11 +188,14 @@ const ListComicsPage = () => {
       {results && results.length <= 0 && (
         <h2 className="error-message">Comics not found 😮</h2>
       )}
-      {!loading && !error && results && results.length > 0 && (
+      {!loading
+      && !error
+      && results
+      && genericResponse
+      && results.length > 0
+      && (
         <Pagination
-          offset={offset}
-          limit={limit}
-          total={total ?? 0}
+          genericResponse={genericResponse}
           onChange={handleChangePage}
         />
       )}
