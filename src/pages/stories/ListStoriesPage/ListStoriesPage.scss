@@ -167,3 +167,27 @@ $bg-title-image: 'https://static3.srcdn.com/wordpress/wp-content/uploads/2020/02
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .search-header {
+    font-size: 20px;
+  }
+
+  .search-value {
+    padding: 5px;
+  }
+
+  .search-input {
+    width: 100%;
+    font-size: x-small;
+  }
+
+  .search-select {
+    width: 100%;
+    font-size: xx-small;
+
+    option {
+      width: 100%;
+    }
+  }
+}
