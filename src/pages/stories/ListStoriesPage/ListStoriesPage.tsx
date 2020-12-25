@@ -10,6 +10,7 @@ import { getQueryVariable } from 'utils/utils';
 import IStory from 'interfaces/IStory';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import { get } from 'API/FetchInfo';
+import { imagePlaceholder } from 'utils/globals';
 import {
   setStoryBaseUrl,
   setStoryAllParams,
@@ -69,7 +70,7 @@ const ListStoriesPage = () => {
         .catch(err => {
           dispatch(setStoryData(null));
           dispatch(setStoryLoading(false));
-          dispatch(setStoryError('Could not load comics'));
+          dispatch(setStoryError('Could not load stories'));
         });
     }
   }, [url]);
@@ -89,7 +90,7 @@ const ListStoriesPage = () => {
                 description={story.description ?? ''}
                 imageUrl={story.thumbnail
                   ? `${story.thumbnail.path}/portrait_uncanny.${story.thumbnail.extension}`
-                  : 'https://images7.alphacoders.com/514/thumb-1920-514639.jpg'}
+                  : imagePlaceholder}
               />
             ))}
         </div>

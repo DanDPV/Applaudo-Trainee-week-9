@@ -23,6 +23,7 @@ import Loading from 'components/Loading/Loading';
 import Pagination from 'components/Pagination/Pagination';
 import { getQueryVariable } from 'utils/utils';
 import { get } from 'API/FetchInfo';
+import { imagePlaceholder } from 'utils/globals';
 import {
   setAllParams,
   setBaseUrl,
@@ -249,7 +250,7 @@ const ListCharactersPage = () => {
                 description={char.description ?? ''}
                 imageUrl={char.thumbnail
                   ? `${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`
-                  : 'https://images7.alphacoders.com/514/thumb-1920-514639.jpg'}
+                  : imagePlaceholder}
               />
             ))}
         </div>

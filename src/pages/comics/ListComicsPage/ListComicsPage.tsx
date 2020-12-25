@@ -24,6 +24,7 @@ import {
 import { getQueryVariable, shortenText } from 'utils/utils';
 import { get } from 'API/FetchInfo';
 import formatOptions from 'mocks/formatOptions';
+import { imagePlaceholder } from 'utils/globals';
 import 'pages/comics/ListComicsPage/ListComicsPage.scss';
 
 const ListComicsPage = () => {
@@ -176,7 +177,7 @@ const ListComicsPage = () => {
                 description={comic.description ?? ''}
                 imageUrl={comic.thumbnail
                   ? `${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}`
-                  : 'https://images7.alphacoders.com/514/thumb-1920-514639.jpg'}
+                  : imagePlaceholder}
               />
             ))}
         </div>
