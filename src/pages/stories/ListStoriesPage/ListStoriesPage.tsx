@@ -18,6 +18,7 @@ import {
   setStoryData,
   setStoryError,
 } from 'actions/searchStory';
+import 'pages/stories/ListStoriesPage/ListStoriesPage.scss';
 
 const ListStoriesPage = () => {
   enum QuerysParams {
