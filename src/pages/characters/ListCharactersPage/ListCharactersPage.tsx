@@ -26,6 +26,7 @@ import { get } from 'API/FetchInfo';
 import { imagePlaceholder } from 'utils/globals';
 import {
   setAllParams,
+  setAsyncContent,
   setBaseUrl,
   setComic,
   setData,
@@ -182,18 +183,13 @@ const ListCharactersPage = () => {
 
   useEffect(() => {
     if (url) {
-      dispatch(setLoading(true));
-      dispatch(setData(null));
-      dispatch(setError(''));
+      dispatch(setAsyncContent(true, '', null));
       get<IGenericApiResponse<ICharacter>>(url)
         .then(res => {
-          dispatch(setData(res));
-          dispatch(setLoading(false));
+          dispatch(setAsyncContent(false, '', res));
         })
         .catch(err => {
-          dispatch(setData(null));
-          dispatch(setLoading(false));
-          dispatch(setError('Could not load characters'));
+          dispatch(setAsyncContent(false, 'Could not load characters', null));
         });
     }
   }, [url]);
