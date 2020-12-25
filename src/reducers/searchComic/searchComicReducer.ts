@@ -109,6 +109,14 @@ const searchComicReducer = (
         data: action.payload.data,
       };
 
+    case 'SET_ASYNC_CONTENT_COMIC':
+      return {
+        ...state,
+        loading: action.payload.loading,
+        error: action.payload.error,
+        data: action.payload.data,
+      };
+
     case 'RESET_COMIC':
       return {
         ...initState,
