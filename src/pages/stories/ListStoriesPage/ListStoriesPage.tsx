@@ -78,6 +78,8 @@ const ListStoriesPage = () => {
     debouncedTitleChange(target.value);
   };
 
+  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => e.preventDefault();
+
   useEffect(() => {
     dispatch(setStoryBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/stories`));
   }, []);
@@ -120,7 +122,7 @@ const ListStoriesPage = () => {
         <h1>Stories</h1>
       </div>
       <div className="story-search-filters-form mb-5">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="story-search-title">Search your story</div>
           <div className="search-header">Title</div>
           <div className="search-value">

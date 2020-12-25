@@ -116,6 +116,8 @@ const ListCharactersPage = () => {
     changeUrlParams(1, name, comic, target.value);
   };
 
+  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => e.preventDefault();
+
   useEffect(() => {
     dispatch(setBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/characters`));
 
@@ -201,7 +203,7 @@ const ListCharactersPage = () => {
         <h1>Characters</h1>
       </div>
       <div className="search-filters-form mb-5">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="search-title">Search your hero</div>
           <div className="search-header">Name</div>
           <div className="search-header">Comic</div>

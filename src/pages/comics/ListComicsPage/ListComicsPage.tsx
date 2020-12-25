@@ -92,6 +92,8 @@ const ListComicsPage = () => {
     changeUrlParams(1, target.value, title);
   };
 
+  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => e.preventDefault();
+
   useEffect(() => {
     dispatch(setComicBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/comics`));
   }, []);
@@ -137,7 +139,7 @@ const ListComicsPage = () => {
         <h1>Comics</h1>
       </div>
       <div className="comic-search-filters-form mb-5">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="comic-search-title">Search your comic</div>
           <div className="search-header">Title</div>
           <div className="search-header">Format</div>
