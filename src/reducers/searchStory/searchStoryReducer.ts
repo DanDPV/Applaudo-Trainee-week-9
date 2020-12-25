@@ -103,6 +103,14 @@ const searchStoryReducer = (
         data: action.payload.data,
       };
 
+    case 'SET_ASYNC_CONTENT_STORY':
+      return {
+        ...state,
+        loading: action.payload.loading,
+        error: action.payload.error,
+        data: action.payload.data,
+      };
+
     case 'RESET_STORY':
       return {
         ...initState,
