@@ -13,7 +13,6 @@ import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
 import Pagination from 'components/Pagination/Pagination';
 import {
-  comicReset,
   setComicAllParams,
   setComicBaseUrl,
   setComicData,
@@ -94,9 +93,6 @@ const ListComicsPage = () => {
 
   useEffect(() => {
     dispatch(setComicBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/comics`));
-    return () => {
-      dispatch(comicReset());
-    };
   }, []);
 
   useEffect(() => {
