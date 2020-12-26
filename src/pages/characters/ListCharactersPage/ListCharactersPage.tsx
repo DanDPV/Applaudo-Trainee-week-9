@@ -29,9 +29,6 @@ import {
   setAsyncContent,
   setBaseUrl,
   setComic,
-  setData,
-  setError,
-  setLoading,
   setName,
   setStory,
 } from 'actions/search';
@@ -53,7 +50,6 @@ const ListCharactersPage = () => {
   const {
     url,
     limit,
-    offset,
     name,
     comic,
     story,
@@ -63,7 +59,7 @@ const ListCharactersPage = () => {
   } = useSelector((state: IRootState) => state.search);
 
   const { data } = genericResponse ?? {};
-  const { results, total } = data ?? {};
+  const { results } = data ?? {};
 
   const changeUrlParams = (
     newPage: number,

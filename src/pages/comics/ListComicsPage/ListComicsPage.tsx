@@ -36,7 +36,6 @@ const ListComicsPage = () => {
   const dispatch = useDispatch();
   const {
     url,
-    offset,
     limit,
     format,
     title,
@@ -46,7 +45,7 @@ const ListComicsPage = () => {
   } = useSelector((state: IRootState) => state.searchComic);
 
   const { data } = genericResponse ?? {};
-  const { results, total } = data ?? {};
+  const { results } = data ?? {};
 
   const changeUrlParams = (
     newPage: number,

@@ -33,7 +33,6 @@ const ListStoriesPage = () => {
   const dispatch = useDispatch();
   const {
     url,
-    offset,
     limit,
     title,
     loading,
@@ -42,7 +41,7 @@ const ListStoriesPage = () => {
   } = useSelector((state: IRootState) => state.searchStory);
 
   const { data } = genericResponse ?? {};
-  const { results, total } = data ?? {};
+  const { results } = data ?? {};
 
   const changeUrlParams = (
     newPage: number,
