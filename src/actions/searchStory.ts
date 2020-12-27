@@ -72,7 +72,7 @@ const setStoryAsyncContent = (
   },
 });
 
-const comicReset = (): IStoryReset => ({
+const storyReset = (): IStoryReset => ({
   type: 'RESET_STORY',
 });
 
@@ -84,5 +84,5 @@ export {
   setStoryError,
   setStoryData,
   setStoryAsyncContent,
-  comicReset,
+  storyReset,
 };
