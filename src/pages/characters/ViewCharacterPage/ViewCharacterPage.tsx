@@ -64,7 +64,7 @@ const ViewCharacterPage = () => {
     <div className="main-content mb-5">
       {loading && <Loading />}
       {error && <h2 className="error-message">Could not load character 😓</h2>}
-      {character && (
+      {!loading && character && (
         <>
           <div className="image-header-div">
             <button
