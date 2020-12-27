@@ -113,6 +113,18 @@ const ViewCharacterPage = () => {
               )}
             </div>
           </div>
+          <div className="char-comics-div">
+            <h3 className="char-comics-title">Comics</h3>
+            {character.comics.returned > 0
+              ? (
+                <ol>
+                  {character.comics.items.map(comic => (
+                    <li key={comic.resourceURI}>{comic.name}</li>
+                  ))}
+                </ol>
+              )
+              : <p className="not-found">Comics not found 🤔</p>}
+          </div>
         </>
       )}
     </div>
