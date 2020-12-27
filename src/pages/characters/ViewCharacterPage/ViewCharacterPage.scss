@@ -124,6 +124,42 @@ $red: #e74c3c;
   text-align: center;
 }
 
+.char-description {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 15px 15%;
+}
+
+.char-image {
+  margin: 10px 10px 0px;
+  height: 350px;
+  width: 200px;
+  min-width: 250px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.char-info {
+  width: 65%;
+  text-align: justify;
+  margin-left: 5px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.char-description-p {
+  margin-bottom: 20px;
+}
+
+.char-extra-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
 @media only screen and (max-width: 600px) {
   .back-button {
     padding: 0.8em 1em;
@@ -133,7 +169,7 @@ $red: #e74c3c;
   .image-header-title {
     font-size: 23px;
     text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000,
-    -1px -1px 0 #000;
+      -1px -1px 0 #000;
     padding: 0 5px;
   }
 
