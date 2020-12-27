@@ -83,24 +83,22 @@ const ViewCharacterPage = () => {
               <p className="char-description-p">
                 {character.description}
               </p>
-              {
-                character.urls
-                && character.urls.length > 0
-                && (
-                  <>
-                    <p className="char-extra-title">
-                      {`Learn more about ${character.name}`}
-                    </p>
-                    <div className="char-extra-div">
-                      {
-                        character.urls.map(res => (
-                          <a className="char-extra-button" key={res.type} href={res.url}>{res.type}</a>
-                        ))
-                      }
-                    </div>
-                  </>
-                )
-              }
+              {character.urls
+              && character.urls.length > 0
+              && (
+                <>
+                  <p className="char-extra-title">
+                    {`Learn more about ${character.name}`}
+                  </p>
+                  <div className="char-extra-div">
+                    {
+                      character.urls.map(res => (
+                        <a className="char-extra-button" key={res.type} href={res.url}>{res.type}</a>
+                      ))
+                    }
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </>
