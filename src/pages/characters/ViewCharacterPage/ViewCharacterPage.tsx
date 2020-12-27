@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { get } from 'API/FetchInfo';
@@ -12,6 +12,7 @@ import ICharacter from 'interfaces/ICharacter';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import Loading from 'components/Loading/Loading';
 import { imagePlaceholder } from 'utils/globals';
+import RouteNames from 'routers/RouteNames';
 import 'pages/characters/ViewCharacterPage/ViewCharacterPage.scss';
 
 const ViewCharacterPage = () => {
@@ -19,6 +20,7 @@ const ViewCharacterPage = () => {
     idCharacter: string;
   }
 
+  const history = useHistory();
   const dispatch = useDispatch();
   const { idCharacter } = useParams<pathParams>();
   const {
@@ -30,6 +32,11 @@ const ViewCharacterPage = () => {
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
   const [character, setCharacter] = useState<ICharacter | null>(null);
+
+  const handleBack = () => {
+    if (history.length <= 2) history.push(RouteNames.Home);
+    else history.goBack();
+  };
 
   useEffect(() => {
     if (results) {
@@ -63,6 +70,7 @@ const ViewCharacterPage = () => {
             <button
               type="button"
               className="back-button back-button-decoration"
+              onClick={handleBack}
             >
               <FontAwesomeIcon icon={faChevronLeft} />
               {'\u00A0'}
