@@ -1,14 +1,23 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { shortenText } from 'utils/utils';
 import 'components/Card/Card.scss';
 
 interface ICard {
+  id: number;
   name: string;
   description: string;
   imageUrl: string;
+  handleViewMore(id: number): void;
 }
 
-const Card = ({ name, description, imageUrl }: ICard) => (
+const Card = ({
+  id,
+  name,
+  description,
+  imageUrl,
+  handleViewMore,
+}: ICard) => (
   <div
     className="card"
     style={{
@@ -17,10 +26,12 @@ const Card = ({ name, description, imageUrl }: ICard) => (
   >
     <div className="content">
       <h2 className="title">{shortenText(name, 20)}</h2>
-      <p className="copy">
-        {shortenText(description, 50)}
-      </p>
-      <button type="button" className="btn">
+      <p className="copy">{shortenText(description, 50)}</p>
+      <button
+        type="button"
+        className="btn"
+        onClick={() => handleViewMore(id)}
+      >
         View More
       </button>
     </div>
