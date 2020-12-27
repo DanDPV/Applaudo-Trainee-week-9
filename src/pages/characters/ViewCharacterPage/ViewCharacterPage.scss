@@ -191,6 +191,28 @@ $red: #e74c3c;
   outline: 0;
 }
 
+@media only screen and (max-width: 1140px) {
+  .char-description {
+    margin: 15px 5%;
+  }
+}
+
+@media only screen and (max-width: 890px) {
+  .char-image {
+    margin: 5px;
+    width: 100%;
+  }
+
+  .char-info {
+    width: 100%;
+    margin: 5px;
+  }
+
+  .char-extra-div {
+    justify-content: center;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .back-button {
     padding: 0.8em 1em;
@@ -206,5 +228,14 @@ $red: #e74c3c;
 
   .image-header-div {
     height: 150px;
+  }
+
+  .char-description-p,
+  .char-extra-title {
+    font-size: 18px;
+  }
+
+  .char-extra-button {
+    font-size: 15px;
   }
 }
