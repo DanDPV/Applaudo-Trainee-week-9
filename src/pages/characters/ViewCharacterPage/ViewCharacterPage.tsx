@@ -89,12 +89,12 @@ const ViewCharacterPage = () => {
                 && (
                   <>
                     <p className="char-extra-title">
-                      {`Know more about ${character.name}`}
+                      {`Learn more about ${character.name}`}
                     </p>
                     <div className="char-extra-div">
                       {
                         character.urls.map(res => (
-                          <a key={res.url} href={res.url}>{res.type}</a>
+                          <a className="char-extra-button" key={res.type} href={res.url}>{res.type}</a>
                         ))
                       }
                     </div>
