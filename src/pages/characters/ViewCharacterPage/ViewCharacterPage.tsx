@@ -11,6 +11,7 @@ import { setViewItemAsyncContent } from 'actions/viewItem';
 import ICharacter from 'interfaces/ICharacter';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import Loading from 'components/Loading/Loading';
+import { imagePlaceholder } from 'utils/globals';
 import 'pages/characters/ViewCharacterPage/ViewCharacterPage.scss';
 
 const ViewCharacterPage = () => {
@@ -53,18 +54,56 @@ const ViewCharacterPage = () => {
   }, []);
 
   return (
-    <div className="main-content">
+    <div className="main-content mb-5">
       {loading && <Loading />}
       {error && <h2 className="error-message">Could not load character 😓</h2>}
       {character && (
-        <div className="image-header-div">
-          <button type="button" className="back-button back-button-decoration">
-            <FontAwesomeIcon icon={faChevronLeft} />
-            {'\u00A0'}
-            Back
-          </button>
-          <h1 className="image-header-title">{character.name}</h1>
-        </div>
+        <>
+          <div className="image-header-div">
+            <button
+              type="button"
+              className="back-button back-button-decoration"
+            >
+              <FontAwesomeIcon icon={faChevronLeft} />
+              {'\u00A0'}
+              Back
+            </button>
+            <h1 className="image-header-title">{character.name}</h1>
+          </div>
+          <div className="char-description">
+            <div
+              className="char-image"
+              style={{
+                backgroundImage: `url('${character.thumbnail
+                  ? `${character.thumbnail.path}/portrait_uncanny.${character.thumbnail.extension}`
+                  : imagePlaceholder}')`,
+              }}
+            />
+            <div className="char-info">
+              <p className="char-description-p">
+                {character.description}
+              </p>
+              {
+                character.urls
+                && character.urls.length > 0
+                && (
+                  <>
+                    <p className="char-extra-title">
+                      {`Know more about ${character.name}`}
+                    </p>
+                    <div className="char-extra-div">
+                      {
+                        character.urls.map(res => (
+                          <a key={res.url} href={res.url}>{res.type}</a>
+                        ))
+                      }
+                    </div>
+                  </>
+                )
+              }
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
