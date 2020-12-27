@@ -77,6 +77,8 @@ const ListStoriesPage = () => {
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => e.preventDefault();
 
+  const handleViewMore = (id: number) => history.push(`stories/${id}`);
+
   useEffect(() => {
     dispatch(setStoryBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/stories`));
   }, []);
@@ -138,8 +140,10 @@ const ListStoriesPage = () => {
             && results.map(story => (
               <Card
                 key={story.id}
+                id={story.id}
                 name={story.title}
                 description={story.description ?? ''}
+                handleViewMore={handleViewMore}
                 imageUrl={story.thumbnail
                   ? `${story.thumbnail.path}/portrait_uncanny.${story.thumbnail.extension}`
                   : imagePlaceholder}

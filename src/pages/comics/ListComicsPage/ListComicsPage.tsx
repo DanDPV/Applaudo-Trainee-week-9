@@ -91,6 +91,8 @@ const ListComicsPage = () => {
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => e.preventDefault();
 
+  const handleViewMore = (id: number) => history.push(`comics/${id}`);
+
   useEffect(() => {
     dispatch(setComicBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/comics`));
   }, []);
@@ -168,8 +170,10 @@ const ListComicsPage = () => {
             && results.map(comic => (
               <Card
                 key={comic.id}
+                id={comic.id}
                 name={comic.title}
                 description={comic.description ?? ''}
+                handleViewMore={handleViewMore}
                 imageUrl={comic.thumbnail
                   ? `${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}`
                   : imagePlaceholder}

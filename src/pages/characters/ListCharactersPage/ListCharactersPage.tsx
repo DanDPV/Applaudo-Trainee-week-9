@@ -115,6 +115,8 @@ const ListCharactersPage = () => {
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => e.preventDefault();
 
+  const handleViewMore = (id: number) => history.push(`characters/${id}`);
+
   useEffect(() => {
     dispatch(setBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/characters`));
 
@@ -241,8 +243,10 @@ const ListCharactersPage = () => {
             && results.map(char => (
               <Card
                 key={char.id}
+                id={char.id}
                 name={char.name}
                 description={char.description ?? ''}
+                handleViewMore={handleViewMore}
                 imageUrl={char.thumbnail
                   ? `${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`
                   : imagePlaceholder}
