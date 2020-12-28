@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +21,7 @@ const ViewStoryPage = () => {
     idStory: string;
   }
 
+  const isMounted = useRef(true);
   const history = useHistory();
   const dispatch = useDispatch();
   const { idStory } = useParams<pathParams>();
@@ -55,10 +56,14 @@ const ViewStoryPage = () => {
             .then(res => {
               const { data: comicData } = res ?? {};
               const { results: comicResult } = comicData ?? {};
-              setOriginalIssue(comicResult[0]);
+              if (isMounted.current) {
+                setOriginalIssue(comicResult[0]);
+              }
             })
             .catch(() => {
-              setOriginalIssue(null);
+              if (isMounted.current) {
+                setOriginalIssue(null);
+              }
             });
         }
       }
@@ -79,6 +84,10 @@ const ViewStoryPage = () => {
       .catch(() => {
         dispatch(setViewItemAsyncContent(false, 'Could not load story', null));
       });
+
+    return () => {
+      isMounted.current = false;
+    };
   }, []);
 
   return (
