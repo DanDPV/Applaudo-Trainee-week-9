@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import queryString from 'query-string';
@@ -22,6 +22,15 @@ const ViewStoryPage = () => {
 
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
+  const [story, setStory] = useState<IStory | null>(null);
+
+  useEffect(() => {
+    if (results) {
+      if (!('stories' in results[0])) {
+        setStory((results[0] as unknown) as IStory);
+      }
+    }
+  }, [results]);
 
   useEffect(() => {
     dispatch(setViewItemAsyncContent(true, '', null));
