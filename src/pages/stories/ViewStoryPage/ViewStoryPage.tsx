@@ -105,8 +105,8 @@ const ViewStoryPage = () => {
           </div>
           {originalIssue && (
             <>
-              <h3 className="original-issue-title">Original Issue</h3>
-              <div className="comic-description">
+              <h3 className="original-issue-title fade-in">Original Issue</h3>
+              <div className="comic-description fade-in">
                 <div
                   className="comic-image"
                   style={{
@@ -133,13 +133,13 @@ const ViewStoryPage = () => {
               </div>
             </>
           )}
-          <div className="related-items-div">
+          <div className="related-items-div fade-in">
             <h3 className="related-items-title">Characters</h3>
             {story.characters.returned > 0
               ? <CustomOrderedList items={story.characters.items} onClick={handleViewChar} />
               : <p className="not-found">No characters found 🤔</p>}
           </div>
-          <div className="related-items-div">
+          <div className="related-items-div fade-in">
             <h3 className="related-items-title">Comics</h3>
             {story.comics.returned > 0
               ? <CustomOrderedList items={story.comics.items} onClick={handleViewComic} />
