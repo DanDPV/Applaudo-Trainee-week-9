@@ -97,10 +97,10 @@ const ViewStoryPage = () => {
             </button>
             <h1 className="image-header-title">Marvel story</h1>
           </div>
-          <div className="story-info">
+          <div className="story-info mb-5">
             {story.title}
           </div>
-          <div className="story-info">
+          <div className="story-info mb-5">
             {story.description}
           </div>
           {originalIssue && (
@@ -121,7 +121,13 @@ const ViewStoryPage = () => {
                   <p className="comic-title">{originalIssue.title}</p>
                   <p className="comic-description-p">{originalIssue.description}</p>
                   <div className="comic-actions">
-                    <button type="button" className="view-comic-button">View comic</button>
+                    <button
+                      type="button"
+                      className="view-comic-button"
+                      onClick={() => handleViewComic(originalIssue.id.toString())}
+                    >
+                      View comic
+                    </button>
                   </div>
                 </div>
               </div>
