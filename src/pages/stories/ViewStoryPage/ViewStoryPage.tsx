@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -49,7 +48,9 @@ const ViewStoryPage = () => {
         setStory((results[0] as unknown) as IStory);
         const originalIssueMainData = results[0].originalIssue;
         if (originalIssueMainData) {
-          const url = `${originalIssueMainData.resourceURI}?${queryString.stringify({
+          const pathVars = originalIssueMainData.resourceURI.split('/');
+          const comicId = pathVars[pathVars.length - 1];
+          const url = `${process.env.REACT_APP_API_URL}v1/public/comics/${comicId}?${queryString.stringify({
             apikey: process.env.REACT_APP_PUBLIC_KEY,
           })}`;
           get<IGenericApiResponse<IComic>>(url)
