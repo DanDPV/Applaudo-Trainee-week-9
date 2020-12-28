@@ -213,6 +213,11 @@ $multicolumn: true;
   margin-bottom: 20px;
 }
 
+.not-found {
+  color: white;
+  text-align: center;
+}
+
 @media only screen and (max-width: 1140px) {
   .char-description {
     margin: 15px 5%;
@@ -263,5 +268,9 @@ $multicolumn: true;
 
   .char-comics-title {
     font-size: 1.8rem;
+  }
+
+  .not-found {
+    font-size: 18px;
   }
 }
