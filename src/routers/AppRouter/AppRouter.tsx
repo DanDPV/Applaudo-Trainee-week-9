@@ -7,6 +7,7 @@ import RouteNames from 'routers/RouteNames';
 
 const ViewCharacterPage = lazy(() => import('pages/characters/ViewCharacterPage/ViewCharacterPage'));
 const ViewComicPage = lazy(() => import('pages/comics/ViewComicPage/ViewComicPage'));
+const ViewStoryPage = lazy(() => import('pages/stories/ViewStoryPage/ViewStoryPage'));
 
 const AppRouter = () => (
   <Router>
@@ -21,6 +22,11 @@ const AppRouter = () => (
           exact
           path={RouteNames.ViewComicPage}
           component={ViewComicPage}
+        />
+        <FooterLayoutRoute
+          exact
+          path={RouteNames.ViewStoryPage}
+          component={ViewStoryPage}
         />
         <Route path={RouteNames.Home} component={MenuLayoutRouter} />
       </Switch>
