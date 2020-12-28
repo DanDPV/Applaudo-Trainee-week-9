@@ -1,5 +1,8 @@
+@import '../../../styles/base/settings';
+
 $bg-title-image: 'https://wallpaperaccess.com/full/229965.jpg';
 $red: #e74c3c;
+$multicolumn: true;
 
 :root {
   --font-sans: 'Rubik', sans-serif;
@@ -189,6 +192,64 @@ $red: #e74c3c;
 }
 .char-extra-button:focus {
   outline: 0;
+}
+
+.char-comics-div {
+  background-color: $primary;
+  padding: 15px 10%;
+}
+
+.char-comics-title {
+  color: #ffcc00;
+  font-family: 'Bangers', cursive;
+  text-align: center;
+  font-size: 2.5rem;
+  letter-spacing: 5px;
+  margin-bottom: 20px;
+}
+
+.custom-ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-gap: 1rem;
+
+  @if ($multicolumn) {
+    grid-template-columns: repeat(auto-fill, minmax(22ch, 1fr));
+  }
+}
+
+.custom-li {
+  display: grid;
+  grid-template-columns: 0 1fr;
+  grid-gap: 3em;
+  align-items: start;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: white;
+
+  @if ($multicolumn == false) {
+    max-width: 25ch;
+  }
+}
+
+.custom-ol {
+  counter-reset: orderedlist;
+
+  .custom-li::before {
+    counter-increment: orderedlist;
+    content: counter(orderedlist);
+    font-family: 'Bangers', cursive;
+    font-size: 1.25em;
+    line-height: 0.75;
+    width: 1.5rem;
+    padding-top: 0.25rem;
+    text-align: center;
+    color: #fff;
+    background-color: $red;
+    border-radius: 0.25em;
+  }
 }
 
 @media only screen and (max-width: 1140px) {
