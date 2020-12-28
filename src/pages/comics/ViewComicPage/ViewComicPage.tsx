@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -24,6 +24,15 @@ const ViewComicPage = () => {
 
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
+  const [comic, setComic] = useState<IComic | null>(null);
+
+  useEffect(() => {
+    if (results) {
+      if (!('comics' in results[0])) {
+        setComic((results[0] as unknown) as IComic);
+      }
+    }
+  }, [results]);
 
   useEffect(() => {
     dispatch(setViewItemAsyncContent(true, '', null));
@@ -35,7 +44,7 @@ const ViewComicPage = () => {
         dispatch(setViewItemAsyncContent(false, '', res));
       })
       .catch(() => {
-        dispatch(setViewItemAsyncContent(false, 'Could not load character', null));
+        dispatch(setViewItemAsyncContent(false, 'Could not load comic', null));
       });
   }, []);
 
