@@ -130,3 +130,70 @@ $red: #e74c3c;
 .image-header-title {
   text-align: center;
 }
+
+.comic-description {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 15px 15%;
+}
+
+.comic-image {
+  margin: 10px 10px 0px;
+  height: 350px;
+  width: 200px;
+  min-width: 250px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.comic-info {
+  width: 65%;
+  text-align: justify;
+  margin-left: 5px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.comic-description-p {
+  margin-bottom: 20px;
+}
+
+.comic-extra-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.comic-extra-div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.comic-extra-button {
+  margin: 10px;
+  padding: 10px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  width: 100px;
+  background-color: brown;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.26);
+  -webkit-transition: box-shadow 0.2s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  transition: box-shadow 0.2s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  text-transform: uppercase;
+}
+
+.comic-extra-button:hover {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.16), 0 6px 12px rgba(0, 0, 0, 0.32);
+  -webkit-transition: box-shadow 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: box-shadow 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-color: #d30000;
+  color: white;
+}
+.comic-extra-button:focus {
+  outline: 0;
+}
