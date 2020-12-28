@@ -114,17 +114,17 @@ const ViewCharacterPage = () => {
               )}
             </div>
           </div>
-          <div className="char-comics-div">
-            <h3 className="char-comics-title">Comics</h3>
+          <div className="related-items-div">
+            <h3 className="related-items-title">Comics</h3>
             {character.comics.returned > 0
               ? <CustomOrderedList items={character.comics.items} />
-              : <p className="not-found">Comics not found 🤔</p>}
+              : <p className="not-found">No comics found 🤔</p>}
           </div>
-          <div className="char-comics-div">
-            <h3 className="char-comics-title">Stories</h3>
+          <div className="related-items-div">
+            <h3 className="related-items-title">Stories</h3>
             {character.stories.returned > 0
               ? <CustomOrderedList items={character.stories.items} />
-              : <p className="not-found">Stories not found 🤔</p>}
+              : <p className="not-found">No stories found 🤔</p>}
           </div>
         </>
       )}
