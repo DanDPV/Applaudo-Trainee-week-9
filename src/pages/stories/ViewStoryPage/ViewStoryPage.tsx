@@ -35,6 +35,10 @@ const ViewStoryPage = () => {
     else history.goBack();
   };
 
+  const handleViewChar = (id: string) => history.push(`/characters/${id}`);
+
+  const handleViewComic = (id: string) => history.push(`/comics/${id}`);
+
   useEffect(() => {
     if (results) {
       if (!('stories' in results[0])) {
@@ -84,13 +88,13 @@ const ViewStoryPage = () => {
           <div className="related-items-div">
             <h3 className="related-items-title">Characters</h3>
             {story.characters.returned > 0
-              ? <CustomOrderedList items={story.characters.items} />
+              ? <CustomOrderedList items={story.characters.items} onClick={handleViewChar} />
               : <p className="not-found">No characters found 🤔</p>}
           </div>
           <div className="related-items-div">
             <h3 className="related-items-title">Comics</h3>
             {story.comics.returned > 0
-              ? <CustomOrderedList items={story.comics.items} />
+              ? <CustomOrderedList items={story.comics.items} onClick={handleViewComic} />
               : <p className="not-found">No comics found 🤔</p>}
           </div>
         </>
