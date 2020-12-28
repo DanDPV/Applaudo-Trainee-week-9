@@ -103,6 +103,30 @@ const ViewStoryPage = () => {
           <div className="story-info">
             {story.description}
           </div>
+          {originalIssue && (
+            <>
+              <h3 className="original-issue-title">Original Issue</h3>
+              <div className="comic-description">
+                <div
+                  className="comic-image"
+                  style={{
+                    backgroundImage: `url('${
+                      originalIssue.thumbnail
+                        ? `${originalIssue.thumbnail.path}/portrait_uncanny.${originalIssue.thumbnail.extension}`
+                        : imagePlaceholder
+                    }')`,
+                  }}
+                />
+                <div className="comic-info">
+                  <p className="comic-title">{originalIssue.title}</p>
+                  <p className="comic-description-p">{originalIssue.description}</p>
+                  <div className="comic-actions">
+                    <button type="button" className="view-comic-button">View comic</button>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
           <div className="related-items-div">
             <h3 className="related-items-title">Characters</h3>
             {story.characters.returned > 0
