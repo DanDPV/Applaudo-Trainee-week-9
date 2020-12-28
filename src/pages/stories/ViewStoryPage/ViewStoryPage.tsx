@@ -74,6 +74,12 @@ const ViewStoryPage = () => {
             </button>
             <h1 className="image-header-title">Marvel story</h1>
           </div>
+          <div className="story-info">
+            {story.title}
+          </div>
+          <div className="story-info">
+            {story.description}
+          </div>
         </>
       )}
     </div>
