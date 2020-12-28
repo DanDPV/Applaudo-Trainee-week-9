@@ -41,7 +41,7 @@ const ViewCharacterPage = () => {
 
   useEffect(() => {
     if (results) {
-      if (!('character' in results[0])) {
+      if (!('characters' in results[0])) {
         setCharacter((results[0] as unknown) as ICharacter);
       }
     }
@@ -65,7 +65,7 @@ const ViewCharacterPage = () => {
     <div className="main-content mb-5">
       {loading && <Loading />}
       {error && <h2 className="error-message">Could not load character 😓</h2>}
-      {!loading && character && (
+      {!loading && !error && character && (
         <>
           <div className="image-header-div">
             <button
