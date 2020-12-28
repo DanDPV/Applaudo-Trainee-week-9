@@ -13,6 +13,7 @@ import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import Loading from 'components/Loading/Loading';
 import { imagePlaceholder } from 'utils/globals';
 import RouteNames from 'routers/RouteNames';
+import { shortenText } from 'utils/utils';
 import 'pages/characters/ViewCharacterPage/ViewCharacterPage.scss';
 
 const ViewCharacterPage = () => {
@@ -119,7 +120,7 @@ const ViewCharacterPage = () => {
               ? (
                 <ol className="custom-ol">
                   {character.comics.items.map(comic => (
-                    <li className="custom-li" key={comic.resourceURI}>{comic.name}</li>
+                    <li className="custom-li" key={comic.resourceURI}>{shortenText(comic.name, 30)}</li>
                   ))}
                 </ol>
               )
