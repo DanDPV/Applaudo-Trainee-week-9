@@ -1,4 +1,3 @@
-/* eslint-disable lines-between-class-members */
 import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
