@@ -117,9 +117,9 @@ const ViewCharacterPage = () => {
             <h3 className="char-comics-title">Comics</h3>
             {character.comics.returned > 0
               ? (
-                <ol>
+                <ol className="custom-ol">
                   {character.comics.items.map(comic => (
-                    <li key={comic.resourceURI}>{comic.name}</li>
+                    <li className="custom-li" key={comic.resourceURI}>{comic.name}</li>
                   ))}
                 </ol>
               )
