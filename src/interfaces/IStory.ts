@@ -16,7 +16,7 @@ interface IStory {
   events: IExtendedObject;
   characters: IExtendedObject;
   creators: IExtendedObject;
-  originalissue: {
+  originalIssue: {
     resourceURI: string;
     name: string;
   };
