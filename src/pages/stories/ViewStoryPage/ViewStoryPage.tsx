@@ -11,6 +11,8 @@ import RouteNames from 'routers/RouteNames';
 import { setViewItemAsyncContent } from 'actions/viewItem';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IStory from 'interfaces/IStory';
+import IComic from 'interfaces/IComic';
+import { imagePlaceholder } from 'utils/globals';
 import CustomOrderedList from 'components/CustomOrderedList/CustomOrderedList';
 import 'pages/stories/ViewStoryPage/ViewStoryPage.scss';
 
@@ -29,6 +31,7 @@ const ViewStoryPage = () => {
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
   const [story, setStory] = useState<IStory | null>(null);
+  const [originalIssue, setOriginalIssue] = useState<IComic | null>(null);
 
   const handleBack = () => {
     if (history.length <= 2) history.push(RouteNames.Home);
@@ -43,6 +46,21 @@ const ViewStoryPage = () => {
     if (results) {
       if (!('stories' in results[0])) {
         setStory((results[0] as unknown) as IStory);
+        const originalIssueMainData = results[0].originalIssue;
+        if (originalIssueMainData) {
+          const url = `${originalIssueMainData.resourceURI}?${queryString.stringify({
+            apikey: process.env.REACT_APP_PUBLIC_KEY,
+          })}`;
+          get<IGenericApiResponse<IComic>>(url)
+            .then(res => {
+              const { data: comicData } = res ?? {};
+              const { results: comicResult } = comicData ?? {};
+              setOriginalIssue(comicResult[0]);
+            })
+            .catch(() => {
+              setOriginalIssue(null);
+            });
+        }
       }
     }
   }, [results]);
