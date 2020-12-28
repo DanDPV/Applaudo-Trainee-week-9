@@ -11,6 +11,7 @@ import RouteNames from 'routers/RouteNames';
 import { setViewItemAsyncContent } from 'actions/viewItem';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IStory from 'interfaces/IStory';
+import CustomOrderedList from 'components/CustomOrderedList/CustomOrderedList';
 import 'pages/stories/ViewStoryPage/ViewStoryPage.scss';
 
 const ViewStoryPage = () => {
@@ -79,6 +80,18 @@ const ViewStoryPage = () => {
           </div>
           <div className="story-info">
             {story.description}
+          </div>
+          <div className="related-items-div">
+            <h3 className="related-items-title">Characters</h3>
+            {story.characters.returned > 0
+              ? <CustomOrderedList items={story.characters.items} />
+              : <p className="not-found">No characters found 🤔</p>}
+          </div>
+          <div className="related-items-div">
+            <h3 className="related-items-title">Comics</h3>
+            {story.comics.returned > 0
+              ? <CustomOrderedList items={story.comics.items} />
+              : <p className="not-found">No comics found 🤔</p>}
           </div>
         </>
       )}
