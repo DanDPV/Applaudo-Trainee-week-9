@@ -118,13 +118,13 @@ const ViewComicPage = () => {
             <h3 className="related-items-title">Characters</h3>
             {comic.characters.returned > 0
               ? <CustomOrderedList items={comic.characters.items} />
-              : <p className="not-found">Characters not found 🤔</p>}
+              : <p className="not-found">No characters found 🤔</p>}
           </div>
           <div className="related-items-div">
             <h3 className="related-items-title">Stories</h3>
             {comic.stories.returned > 0
               ? <CustomOrderedList items={comic.stories.items} />
-              : <p className="not-found">Stories not found 🤔</p>}
+              : <p className="not-found">No stories found 🤔</p>}
           </div>
         </>
       )}
