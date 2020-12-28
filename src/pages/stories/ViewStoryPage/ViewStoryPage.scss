@@ -236,6 +236,26 @@ $red: #e74c3c;
   .story-info {
     margin: 15px 5%;
   }
+
+  .comic-description {
+    margin: 15px 5%;
+  }
+}
+
+@media only screen and (max-width: 890px) {
+  .comic-image {
+    margin: 5px;
+    width: 100%;
+  }
+
+  .comic-info {
+    width: 100%;
+    margin: 5px;
+  }
+
+  .comic-actions {
+    justify-content: center;
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -257,6 +277,15 @@ $red: #e74c3c;
 
   .story-info {
     font-size: 18px;
+  }
+
+  .comic-description-p,
+  .comic-title {
+    font-size: 18px;
+  }
+
+  .view-comic-button {
+    font-size: 15px;
   }
 
   .related-items-title {
