@@ -11,6 +11,7 @@ import { get } from 'API/FetchInfo';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IComic from 'interfaces/IComic';
 import Loading from 'components/Loading/Loading';
+import CustomOrderedList from 'components/CustomOrderedList/CustomOrderedList';
 import RouteNames from 'routers/RouteNames';
 import { imagePlaceholder } from 'utils/globals';
 import 'pages/comics/ViewComicPage/ViewComicPage.scss';
@@ -112,6 +113,18 @@ const ViewComicPage = () => {
                 </>
               )}
             </div>
+          </div>
+          <div className="related-items-div">
+            <h3 className="related-items-title">Characters</h3>
+            {comic.characters.returned > 0
+              ? <CustomOrderedList items={comic.characters.items} />
+              : <p className="not-found">Characters not found 🤔</p>}
+          </div>
+          <div className="related-items-div">
+            <h3 className="related-items-title">Stories</h3>
+            {comic.stories.returned > 0
+              ? <CustomOrderedList items={comic.stories.items} />
+              : <p className="not-found">Stories not found 🤔</p>}
           </div>
         </>
       )}
