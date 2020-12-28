@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -17,11 +19,9 @@ const ViewComicPage = () => {
 
   const { idComic } = useParams<pathParams>();
   const dispatch = useDispatch();
-  const {
-    loading,
-    error,
-    data: genericResponse,
-  } = useSelector((state: IRootState) => state.viewItem);
+  const { loading, error, data: genericResponse } = useSelector(
+    (state: IRootState) => state.viewItem,
+  );
 
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
@@ -37,7 +37,9 @@ const ViewComicPage = () => {
 
   useEffect(() => {
     dispatch(setViewItemAsyncContent(true, '', null));
-    const url = `${process.env.REACT_APP_API_URL}v1/public/comics/${idComic}?${queryString.stringify({
+    const url = `${
+      process.env.REACT_APP_API_URL
+    }v1/public/comics/${idComic}?${queryString.stringify({
       apikey: process.env.REACT_APP_PUBLIC_KEY,
     })}`;
     get<IGenericApiResponse<IComic>>(url)
@@ -49,13 +51,28 @@ const ViewComicPage = () => {
       });
   }, []);
 
-  return <div className="main-content mb-5">
+  return (
+    <div className="main-content mb-5">
       {loading && <Loading />}
       {error && <h2 className="error-message">Could not load comic 😓</h2>}
       {!loading && !error && comic && (
-
+        <>
+          <div className="image-header-div">
+            <button
+              type="button"
+              className="back-button back-button-decoration"
+              onClick={handleBack}
+            >
+              <FontAwesomeIcon icon={faChevronLeft} />
+              {'\u00A0'}
+              Back
+            </button>
+            <h1 className="image-header-title">{comic.title}</h1>
+          </div>
+        </>
       )}
-  </div>;
+    </div>
+  );
 };
 
 export default ViewComicPage;
