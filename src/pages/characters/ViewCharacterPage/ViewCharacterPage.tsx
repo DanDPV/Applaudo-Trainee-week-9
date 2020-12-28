@@ -11,9 +11,9 @@ import { setViewItemAsyncContent } from 'actions/viewItem';
 import ICharacter from 'interfaces/ICharacter';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import Loading from 'components/Loading/Loading';
+import CustomOrderedList from 'components/CustomOrderedList/CustomOrderedList';
 import { imagePlaceholder } from 'utils/globals';
 import RouteNames from 'routers/RouteNames';
-import { shortenText } from 'utils/utils';
 import 'pages/characters/ViewCharacterPage/ViewCharacterPage.scss';
 
 const ViewCharacterPage = () => {
@@ -117,14 +117,14 @@ const ViewCharacterPage = () => {
           <div className="char-comics-div">
             <h3 className="char-comics-title">Comics</h3>
             {character.comics.returned > 0
-              ? (
-                <ol className="custom-ol">
-                  {character.comics.items.map(comic => (
-                    <li className="custom-li" key={comic.resourceURI}>{shortenText(comic.name, 30)}</li>
-                  ))}
-                </ol>
-              )
+              ? <CustomOrderedList items={character.comics.items} />
               : <p className="not-found">Comics not found 🤔</p>}
+          </div>
+          <div className="char-comics-div">
+            <h3 className="char-comics-title">Stories</h3>
+            {character.stories.returned > 0
+              ? <CustomOrderedList items={character.stories.items} />
+              : <p className="not-found">Stories not found 🤔</p>}
           </div>
         </>
       )}
