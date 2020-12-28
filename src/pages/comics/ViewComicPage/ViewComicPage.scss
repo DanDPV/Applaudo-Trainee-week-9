@@ -199,6 +199,25 @@ $red: #e74c3c;
   outline: 0;
 }
 
+.related-items-div {
+  background-color: $primary;
+  padding: 25px 10%;
+}
+
+.related-items-title {
+  color: #ffcc00;
+  font-family: 'Bangers', cursive;
+  text-align: center;
+  font-size: 2.5rem;
+  letter-spacing: 5px;
+  margin-bottom: 20px;
+}
+
+.not-found {
+  color: white;
+  text-align: center;
+}
+
 @media only screen and (max-width: 1140px) {
   .comic-description {
     margin: 15px 5%;
@@ -245,5 +264,13 @@ $red: #e74c3c;
 
   .comic-extra-button {
     font-size: 15px;
+  }
+
+  .related-items-title {
+    font-size: 1.8rem;
+  }
+
+  .not-found {
+    font-size: 18px;
   }
 }
