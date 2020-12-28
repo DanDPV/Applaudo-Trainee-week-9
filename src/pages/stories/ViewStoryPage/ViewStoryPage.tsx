@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import queryString from 'query-string';
@@ -44,13 +46,28 @@ const ViewStoryPage = () => {
         dispatch(setViewItemAsyncContent(false, '', res));
       })
       .catch(() => {
-        dispatch(setViewItemAsyncContent(false, 'Could not load stpry', null));
+        dispatch(setViewItemAsyncContent(false, 'Could not load story', null));
       });
   }, []);
 
   return (
-    <div>
-      <h1>{idStory}</h1>
+    <div className="main-content mb-5">
+      {!loading && !error && story && (
+        <>
+          <div className="image-header-div">
+            <button
+              type="button"
+              className="back-button back-button-decoration"
+              onClick={handleBack}
+            >
+              <FontAwesomeIcon icon={faChevronLeft} />
+              {'\u00A0'}
+              Back
+            </button>
+            <h1 className="image-header-title">Marvel story</h1>
+          </div>
+        </>
+      )}
     </div>
   );
 };
