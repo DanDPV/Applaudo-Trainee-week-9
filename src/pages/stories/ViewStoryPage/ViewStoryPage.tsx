@@ -11,6 +11,7 @@ import RouteNames from 'routers/RouteNames';
 import { setViewItemAsyncContent } from 'actions/viewItem';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IStory from 'interfaces/IStory';
+import 'pages/stories/ViewStoryPage/ViewStoryPage.scss';
 
 const ViewStoryPage = () => {
   interface pathParams {
