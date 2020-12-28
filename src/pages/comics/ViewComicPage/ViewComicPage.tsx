@@ -12,6 +12,7 @@ import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IComic from 'interfaces/IComic';
 import Loading from 'components/Loading/Loading';
 import RouteNames from 'routers/RouteNames';
+import { imagePlaceholder } from 'utils/globals';
 import 'pages/comics/ViewComicPage/ViewComicPage.scss';
 
 const ViewComicPage = () => {
@@ -76,6 +77,41 @@ const ViewComicPage = () => {
               Back
             </button>
             <h1 className="image-header-title">{comic.title}</h1>
+          </div>
+          <div className="comic-description">
+            <div
+              className="comic-image"
+              style={{
+                backgroundImage: `url('${
+                  comic.thumbnail
+                    ? `${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}`
+                    : imagePlaceholder
+                }')`,
+              }}
+            />
+            <div className="comic-info">
+              <p className="comic-description-p">{comic.description}</p>
+              {comic.urls && comic.urls.length > 0 && (
+                <>
+                  <p className="comic-extra-title">
+                    {`Learn more about ${comic.title}`}
+                  </p>
+                  <div className="comic-extra-div">
+                    {comic.urls.map(res => (
+                      <a
+                        className="comic-extra-button"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        key={res.type}
+                        href={res.url}
+                      >
+                        {res.type}
+                      </a>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </>
       )}
