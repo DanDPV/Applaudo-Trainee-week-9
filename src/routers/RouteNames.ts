@@ -5,6 +5,7 @@ enum RouteNames {
   ListCharactersPage = '/characters',
   ViewCharacterPage = '/characters/:idCharacter',
   ListComicsPage = '/comics',
+  ViewComicPage = '/comics/:idComic',
   ListStoriesPage = '/stories',
 }
 
