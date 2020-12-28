@@ -82,7 +82,7 @@ const ViewCharacterPage = () => {
             </button>
             <h1 className="image-header-title">{character.name}</h1>
           </div>
-          <div className="char-description">
+          <div className="char-description fade-in">
             <div
               className="char-image"
               style={{
@@ -117,13 +117,13 @@ const ViewCharacterPage = () => {
               )}
             </div>
           </div>
-          <div className="related-items-div">
+          <div className="related-items-div fade-in">
             <h3 className="related-items-title">Comics</h3>
             {character.comics.returned > 0
               ? <CustomOrderedList items={character.comics.items} onClick={handleViewComic} />
               : <p className="not-found">No comics found 🤔</p>}
           </div>
-          <div className="related-items-div">
+          <div className="related-items-div fade-in">
             <h3 className="related-items-title">Stories</h3>
             {character.stories.returned > 0
               ? <CustomOrderedList items={character.stories.items} onClick={handleViewStory} />
