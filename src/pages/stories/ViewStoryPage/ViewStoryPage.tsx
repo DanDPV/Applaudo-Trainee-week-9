@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import queryString from 'query-string';
-import { setViewItemAsyncContent } from 'actions/viewItem';
 import { IRootState } from 'store/store';
 import { get } from 'API/FetchInfo';
+import RouteNames from 'routers/RouteNames';
+import { setViewItemAsyncContent } from 'actions/viewItem';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IStory from 'interfaces/IStory';
 
@@ -16,8 +17,9 @@ const ViewStoryPage = () => {
     idStory: string;
   }
 
-  const { idStory } = useParams<pathParams>();
+  const history = useHistory();
   const dispatch = useDispatch();
+  const { idStory } = useParams<pathParams>();
   const { loading, error, data: genericResponse } = useSelector(
     (state: IRootState) => state.viewItem,
   );
@@ -25,6 +27,11 @@ const ViewStoryPage = () => {
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
   const [story, setStory] = useState<IStory | null>(null);
+
+  const handleBack = () => {
+    if (history.length <= 2) history.push(RouteNames.Home);
+    else history.goBack();
+  };
 
   useEffect(() => {
     if (results) {
