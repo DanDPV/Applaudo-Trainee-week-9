@@ -4,21 +4,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { IRootState } from 'store/store';
 import { setViewItemAsyncContent } from 'actions/viewItem';
 import { get } from 'API/FetchInfo';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IComic from 'interfaces/IComic';
 import Loading from 'components/Loading/Loading';
+import RouteNames from 'routers/RouteNames';
+import 'pages/comics/ViewComicPage/ViewComicPage.scss';
 
 const ViewComicPage = () => {
   interface pathParams {
     idComic: string;
   }
 
-  const { idComic } = useParams<pathParams>();
+  const history = useHistory();
   const dispatch = useDispatch();
+  const { idComic } = useParams<pathParams>();
   const { loading, error, data: genericResponse } = useSelector(
     (state: IRootState) => state.viewItem,
   );
@@ -26,6 +29,11 @@ const ViewComicPage = () => {
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
   const [comic, setComic] = useState<IComic | null>(null);
+
+  const handleBack = () => {
+    if (history.length <= 2) history.push(RouteNames.Home);
+    else history.goBack();
+  };
 
   useEffect(() => {
     if (results) {
