@@ -8,6 +8,7 @@ import { setViewItemAsyncContent } from 'actions/viewItem';
 import { get } from 'API/FetchInfo';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IComic from 'interfaces/IComic';
+import Loading from 'components/Loading/Loading';
 
 const ViewComicPage = () => {
   interface pathParams {
@@ -48,7 +49,13 @@ const ViewComicPage = () => {
       });
   }, []);
 
-  return <h1>{idComic}</h1>;
+  return <div className="main-content mb-5">
+      {loading && <Loading />}
+      {error && <h2 className="error-message">Could not load comic 😓</h2>}
+      {!loading && !error && comic && (
+
+      )}
+  </div>;
 };
 
 export default ViewComicPage;
