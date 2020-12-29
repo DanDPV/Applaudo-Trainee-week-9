@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import { debounce } from 'lodash';
+import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { IRootState } from 'store/store';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
@@ -41,7 +43,7 @@ const ListStoriesPage = () => {
     error,
     data: genericResponse,
   } = useSelector((state: IRootState) => state.searchStory);
-  const { hiddenItems } = useSelector((state: IRootState) => state.localItems);
+  const { hiddenItems, bookmarks } = useSelector((state: IRootState) => state.localItems);
 
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
@@ -163,20 +165,24 @@ const ListStoriesPage = () => {
         <div className="cards-content">
           {!loading
             && stories
-            && stories.map(story => (
-              <Card
-                key={story.id}
-                id={story.id}
-                name={story.title}
-                description={story.description ?? ''}
-                handleViewMore={handleViewMore}
-                handleHideItem={handleHideItem}
-                handleBookmarkAction={handleAddBookmark}
-                imageUrl={story.thumbnail
-                  ? `${story.thumbnail.path}/portrait_uncanny.${story.thumbnail.extension}`
-                  : imagePlaceholder}
-              />
-            ))}
+            && stories.map(story => {
+              const inBookmark = bookmarks.find(item => item.type === 'STORY' && item.id === story.id);
+              return (
+                <Card
+                  key={story.id}
+                  id={story.id}
+                  name={story.title}
+                  description={story.description ?? ''}
+                  bookmarkIcon={inBookmark ? faBookmarkSolid : faBookmarkRegular}
+                  handleViewMore={handleViewMore}
+                  handleHideItem={handleHideItem}
+                  handleBookmarkAction={handleAddBookmark}
+                  imageUrl={story.thumbnail
+                    ? `${story.thumbnail.path}/portrait_uncanny.${story.thumbnail.extension}`
+                    : imagePlaceholder}
+                />
+              );
+            })}
         </div>
       </div>
       {results && results.length <= 0 && (

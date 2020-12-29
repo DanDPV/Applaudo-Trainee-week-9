@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
 import { debounce } from 'lodash';
+import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { IRootState } from 'store/store';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import IComic from 'interfaces/IComic';
@@ -45,7 +47,7 @@ const ListComicsPage = () => {
     error,
     data: genericResponse,
   } = useSelector((state: IRootState) => state.searchComic);
-  const { hiddenItems } = useSelector((state: IRootState) => state.localItems);
+  const { hiddenItems, bookmarks } = useSelector((state: IRootState) => state.localItems);
 
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
@@ -193,20 +195,24 @@ const ListComicsPage = () => {
         <div className="cards-content">
           {!loading
             && comics
-            && comics.map(comic => (
-              <Card
-                key={comic.id}
-                id={comic.id}
-                name={comic.title}
-                description={comic.description ?? ''}
-                handleViewMore={handleViewMore}
-                handleHideItem={handleHideItem}
-                handleBookmarkAction={handleAddBookmark}
-                imageUrl={comic.thumbnail
-                  ? `${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}`
-                  : imagePlaceholder}
-              />
-            ))}
+            && comics.map(comic => {
+              const inBookmark = bookmarks.find(item => item.type === 'COMIC' && item.id === comic.id);
+              return (
+                <Card
+                  key={comic.id}
+                  id={comic.id}
+                  name={comic.title}
+                  description={comic.description ?? ''}
+                  bookmarkIcon={inBookmark ? faBookmarkSolid : faBookmarkRegular}
+                  handleViewMore={handleViewMore}
+                  handleHideItem={handleHideItem}
+                  handleBookmarkAction={handleAddBookmark}
+                  imageUrl={comic.thumbnail
+                    ? `${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}`
+                    : imagePlaceholder}
+                />
+              );
+            })}
         </div>
       </div>
       {results && results.length <= 0 && (
