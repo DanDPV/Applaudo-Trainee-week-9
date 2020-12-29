@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { shortenText } from 'utils/utils';
 import 'components/Card/Card.scss';
 
@@ -27,13 +29,27 @@ const Card = ({
     <div className="content">
       <h2 className="title">{shortenText(name, 20)}</h2>
       <p className="copy">{shortenText(description, 50)}</p>
-      <button
-        type="button"
-        className="btn"
-        onClick={() => handleViewMore(id)}
-      >
-        View More
-      </button>
+      <div className="card-actions">
+        <button
+          type="button"
+          className="btn btn-more"
+          onClick={() => handleViewMore(id)}
+        >
+          View More
+        </button>
+        <button
+          type="button"
+          className="btn btn-action"
+        >
+          <FontAwesomeIcon icon={faEyeSlash} />
+        </button>
+        <button
+          type="button"
+          className="btn btn-action"
+        >
+          <FontAwesomeIcon icon={faBookmark} />
+        </button>
+      </div>
     </div>
   </div>
 );
