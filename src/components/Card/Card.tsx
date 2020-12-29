@@ -11,6 +11,7 @@ interface ICard {
   description: string;
   imageUrl: string;
   handleViewMore(id: number): void;
+  handleHideItem(id: number): void;
 }
 
 const Card = ({
@@ -19,6 +20,7 @@ const Card = ({
   description,
   imageUrl,
   handleViewMore,
+  handleHideItem,
 }: ICard) => (
   <div
     className="card"
@@ -40,6 +42,7 @@ const Card = ({
         <button
           type="button"
           className="btn btn-action"
+          onClick={() => handleHideItem(id)}
         >
           <FontAwesomeIcon icon={faEyeSlash} />
         </button>
