@@ -24,7 +24,7 @@ import Pagination from 'components/Pagination/Pagination';
 import { getQueryVariable } from 'utils/utils';
 import { get } from 'API/FetchInfo';
 import { imagePlaceholder } from 'utils/globals';
-import { hideLocalItem } from 'actions/localItems';
+import { addBookmark, hideLocalItem } from 'actions/localItems';
 import {
   reset,
   setAllParams,
@@ -122,6 +122,8 @@ const ListCharactersPage = () => {
   const handleViewMore = (id: number) => history.push(`characters/${id}`);
 
   const handleHideItem = (id: number) => dispatch(hideLocalItem({ id, type: 'CHARACTER' }));
+
+  const handleAddBookmark = (id: number) => dispatch(addBookmark({ id, type: 'CHARACTER' }));
 
   useEffect(() => {
     dispatch(setBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/characters`));
@@ -269,6 +271,7 @@ const ListCharactersPage = () => {
                 description={char.description ?? ''}
                 handleViewMore={handleViewMore}
                 handleHideItem={handleHideItem}
+                handleBookmarkAction={handleAddBookmark}
                 imageUrl={char.thumbnail
                   ? `${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`
                   : imagePlaceholder}
