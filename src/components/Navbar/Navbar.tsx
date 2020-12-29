@@ -45,6 +45,11 @@ const Navbar = () => {
             Stories
           </NavLink>
         </li>
+        <li>
+          <NavLink className="link" exact to={RouteNames.CharacterBookmars}>
+            Bookmarks
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );
