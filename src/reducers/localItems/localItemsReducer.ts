@@ -19,6 +19,12 @@ const localItemsReducer = (
         hiddenItems: [...state.hiddenItems, action.payload.item],
       };
 
+    case 'ADD_BOOKMARK':
+      return {
+        ...state,
+        bookmarks: [...state.bookmarks, action.payload.item],
+      };
+
     case 'RESET_LOCAL_ITEMS':
       return {
         ...initState,
