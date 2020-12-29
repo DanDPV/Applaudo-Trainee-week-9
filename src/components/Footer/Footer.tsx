@@ -42,6 +42,13 @@ const Footer = () => (
         >
           Stories
         </NavLink>
+        <NavLink
+          exact
+          to={RouteNames.CharacterBookmars}
+          className="footer-link"
+        >
+          Bookmarks
+        </NavLink>
       </p>
       <p>Marvel &copy; 2020</p>
     </div>
