@@ -58,9 +58,11 @@ const ListCharactersPage = () => {
     error,
     data: genericResponse,
   } = useSelector((state: IRootState) => state.search);
+  const { hiddenItems } = useSelector((state: IRootState) => state.localItems);
 
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
+  const [characters, setCharacters] = useState<ICharacter[] | null>(null);
 
   const changeUrlParams = (
     newPage: number,
@@ -195,6 +197,19 @@ const ListCharactersPage = () => {
     }
   }, [url]);
 
+  useEffect(() => {
+    if (results) {
+      const hiddenChars = hiddenItems.filter(item => item.type === 'CHARACTER');
+      setCharacters(results.filter(char => {
+        const hiddenCharFilter = hiddenChars.filter(item => item.id === char.id);
+        if (hiddenCharFilter.length > 0) {
+          return false;
+        }
+        return true;
+      }));
+    }
+  }, [results, hiddenItems]);
+
   return (
     <div className="main-content mb-5">
       <div className="page-title-div">
@@ -242,8 +257,9 @@ const ListCharactersPage = () => {
       {error && <h2 className="error-message">Could not load characters 😓</h2>}
       <div className="cards">
         <div className="cards-content">
-          {results
-            && results.map(char => (
+          {!loading
+            && characters
+            && characters.map(char => (
               <Card
                 key={char.id}
                 id={char.id}
@@ -260,6 +276,9 @@ const ListCharactersPage = () => {
       </div>
       {results && results.length <= 0 && (
         <h2 className="error-message">Characters not found 😮</h2>
+      )}
+      {!loading && characters && characters.length <= 0 && (
+        <h2 className="error-message">Characters on this page are hidden 🤐</h2>
       )}
       {!loading
       && !error
