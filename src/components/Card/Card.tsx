@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEyeSlash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { shortenText } from 'utils/utils';
 import 'components/Card/Card.scss';
 
@@ -10,6 +10,7 @@ interface ICard {
   name: string;
   description: string;
   imageUrl: string;
+  bookmarkIcon: IconDefinition;
   handleViewMore(id: number): void;
   handleHideItem(id: number): void;
   handleBookmarkAction(id: number): void;
@@ -20,6 +21,7 @@ const Card = ({
   name,
   description,
   imageUrl,
+  bookmarkIcon,
   handleViewMore,
   handleHideItem,
   handleBookmarkAction,
@@ -53,7 +55,7 @@ const Card = ({
           className="btn btn-action"
           onClick={() => handleBookmarkAction(id)}
         >
-          <FontAwesomeIcon icon={faBookmark} />
+          <FontAwesomeIcon icon={bookmarkIcon} />
         </button>
       </div>
     </div>
