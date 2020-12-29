@@ -25,6 +25,16 @@ const localItemsReducer = (
         bookmarks: [...state.bookmarks, action.payload.item],
       };
 
+    case 'REMOVE_BOOKMARK':
+      const { item } = action.payload;
+      const newBookmarks = state.bookmarks.filter(
+        bookM => !(bookM.id === item.id && bookM.type === item.type),
+      );
+      return {
+        ...state,
+        bookmarks: [...newBookmarks],
+      };
+
     case 'RESET_LOCAL_ITEMS':
       return {
         ...initState,
