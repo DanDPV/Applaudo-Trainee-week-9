@@ -19,6 +19,7 @@ import {
   setComicFormat,
   setComicTitle,
 } from 'actions/searchComic';
+import { hideLocalItem } from 'actions/localItems';
 import { getQueryVariable, shortenText } from 'utils/utils';
 import { get } from 'API/FetchInfo';
 import formatOptions from 'mocks/formatOptions';
@@ -92,6 +93,8 @@ const ListComicsPage = () => {
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => e.preventDefault();
 
   const handleViewMore = (id: number) => history.push(`comics/${id}`);
+
+  const handleHideItem = (id: number) => dispatch(hideLocalItem({ id, type: 'COMIC' }));
 
   useEffect(() => {
     dispatch(setComicBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/comics`));
@@ -174,6 +177,7 @@ const ListComicsPage = () => {
                 name={comic.title}
                 description={comic.description ?? ''}
                 handleViewMore={handleViewMore}
+                handleHideItem={handleHideItem}
                 imageUrl={comic.thumbnail
                   ? `${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}`
                   : imagePlaceholder}

@@ -21,6 +21,7 @@ import {
   setStoryAllParams,
   setStoryAsyncContent,
 } from 'actions/searchStory';
+import { hideLocalItem } from 'actions/localItems';
 import 'pages/stories/ListStoriesPage/ListStoriesPage.scss';
 
 const ListStoriesPage = () => {
@@ -78,6 +79,8 @@ const ListStoriesPage = () => {
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => e.preventDefault();
 
   const handleViewMore = (id: number) => history.push(`stories/${id}`);
+
+  const handleHideItem = (id: number) => dispatch(hideLocalItem({ id, type: 'STORY' }));
 
   useEffect(() => {
     dispatch(setStoryBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/stories`));
@@ -144,6 +147,7 @@ const ListStoriesPage = () => {
                 name={story.title}
                 description={story.description ?? ''}
                 handleViewMore={handleViewMore}
+                handleHideItem={handleHideItem}
                 imageUrl={story.thumbnail
                   ? `${story.thumbnail.path}/portrait_uncanny.${story.thumbnail.extension}`
                   : imagePlaceholder}

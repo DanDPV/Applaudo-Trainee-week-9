@@ -24,6 +24,7 @@ import Pagination from 'components/Pagination/Pagination';
 import { getQueryVariable } from 'utils/utils';
 import { get } from 'API/FetchInfo';
 import { imagePlaceholder } from 'utils/globals';
+import { hideLocalItem } from 'actions/localItems';
 import {
   setAllParams,
   setAsyncContent,
@@ -116,6 +117,8 @@ const ListCharactersPage = () => {
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => e.preventDefault();
 
   const handleViewMore = (id: number) => history.push(`characters/${id}`);
+
+  const handleHideItem = (id: number) => dispatch(hideLocalItem({ id, type: 'CHARACTER' }));
 
   useEffect(() => {
     dispatch(setBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/characters`));
@@ -247,6 +250,7 @@ const ListCharactersPage = () => {
                 name={char.name}
                 description={char.description ?? ''}
                 handleViewMore={handleViewMore}
+                handleHideItem={handleHideItem}
                 imageUrl={char.thumbnail
                   ? `${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`
                   : imagePlaceholder}
