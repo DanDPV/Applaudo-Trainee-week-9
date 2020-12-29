@@ -26,6 +26,7 @@ import { get } from 'API/FetchInfo';
 import { imagePlaceholder } from 'utils/globals';
 import { hideLocalItem } from 'actions/localItems';
 import {
+  reset,
   setAllParams,
   setAsyncContent,
   setBaseUrl,
@@ -159,6 +160,7 @@ const ListCharactersPage = () => {
 
     return () => {
       isMounted.current = false;
+      dispatch(reset());
     };
   }, []);
 
