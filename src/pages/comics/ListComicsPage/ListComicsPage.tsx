@@ -22,7 +22,7 @@ import {
   setComicFormat,
   setComicTitle,
 } from 'actions/searchComic';
-import { addBookmark, hideLocalItem } from 'actions/localItems';
+import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
 import { getQueryVariable, shortenText } from 'utils/utils';
 import { get } from 'API/FetchInfo';
 import formatOptions from 'mocks/formatOptions';
@@ -102,6 +102,8 @@ const ListComicsPage = () => {
   const handleHideItem = (id: number) => dispatch(hideLocalItem({ id, type: 'COMIC' }));
 
   const handleAddBookmark = (id: number) => dispatch(addBookmark({ id, type: 'COMIC' }));
+
+  const handleRemoveBookmark = (id: number) => dispatch(removeBookmark({ id, type: 'COMIC' }));
 
   useEffect(() => {
     dispatch(setComicBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/comics`));
@@ -206,7 +208,7 @@ const ListComicsPage = () => {
                   bookmarkIcon={inBookmark ? faBookmarkSolid : faBookmarkRegular}
                   handleViewMore={handleViewMore}
                   handleHideItem={handleHideItem}
-                  handleBookmarkAction={handleAddBookmark}
+                  handleBookmarkAction={inBookmark ? handleRemoveBookmark : handleAddBookmark}
                   imageUrl={comic.thumbnail
                     ? `${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}`
                     : imagePlaceholder}

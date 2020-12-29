@@ -24,7 +24,7 @@ import {
   setStoryAsyncContent,
   storyReset,
 } from 'actions/searchStory';
-import { addBookmark, hideLocalItem } from 'actions/localItems';
+import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
 import 'pages/stories/ListStoriesPage/ListStoriesPage.scss';
 
 const ListStoriesPage = () => {
@@ -88,6 +88,8 @@ const ListStoriesPage = () => {
   const handleHideItem = (id: number) => dispatch(hideLocalItem({ id, type: 'STORY' }));
 
   const handleAddBookmark = (id: number) => dispatch(addBookmark({ id, type: 'STORY' }));
+
+  const handleRemoveBookmark = (id: number) => dispatch(removeBookmark({ id, type: 'STORY' }));
 
   useEffect(() => {
     dispatch(setStoryBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/stories`));
@@ -176,7 +178,7 @@ const ListStoriesPage = () => {
                   bookmarkIcon={inBookmark ? faBookmarkSolid : faBookmarkRegular}
                   handleViewMore={handleViewMore}
                   handleHideItem={handleHideItem}
-                  handleBookmarkAction={handleAddBookmark}
+                  handleBookmarkAction={inBookmark ? handleRemoveBookmark : handleAddBookmark}
                   imageUrl={story.thumbnail
                     ? `${story.thumbnail.path}/portrait_uncanny.${story.thumbnail.extension}`
                     : imagePlaceholder}

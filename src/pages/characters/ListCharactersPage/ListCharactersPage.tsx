@@ -26,7 +26,7 @@ import Pagination from 'components/Pagination/Pagination';
 import { getQueryVariable } from 'utils/utils';
 import { get } from 'API/FetchInfo';
 import { imagePlaceholder } from 'utils/globals';
-import { addBookmark, hideLocalItem } from 'actions/localItems';
+import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
 import {
   reset,
   setAllParams,
@@ -126,6 +126,8 @@ const ListCharactersPage = () => {
   const handleHideItem = (id: number) => dispatch(hideLocalItem({ id, type: 'CHARACTER' }));
 
   const handleAddBookmark = (id: number) => dispatch(addBookmark({ id, type: 'CHARACTER' }));
+
+  const handleRemoveBookmark = (id: number) => dispatch(removeBookmark({ id, type: 'CHARACTER' }));
 
   useEffect(() => {
     dispatch(setBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/characters`));
@@ -276,7 +278,7 @@ const ListCharactersPage = () => {
                   bookmarkIcon={inBookmark ? faBookmarkSolid : faBookmarkRegular}
                   handleViewMore={handleViewMore}
                   handleHideItem={handleHideItem}
-                  handleBookmarkAction={handleAddBookmark}
+                  handleBookmarkAction={inBookmark ? handleRemoveBookmark : handleAddBookmark}
                   imageUrl={char.thumbnail
                     ? `${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`
                     : imagePlaceholder}
