@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint no-shadow: 0 */
 /* eslint no-unused-vars: 0 */
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
@@ -13,6 +13,7 @@ import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
 import Pagination from 'components/Pagination/Pagination';
 import {
+  comicReset,
   setComicAllParams,
   setComicAsyncContent,
   setComicBaseUrl,
@@ -44,9 +45,11 @@ const ListComicsPage = () => {
     error,
     data: genericResponse,
   } = useSelector((state: IRootState) => state.searchComic);
+  const { hiddenItems } = useSelector((state: IRootState) => state.localItems);
 
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
+  const [comics, setComics] = useState<IComic[] | null>(null);
 
   const changeUrlParams = (
     newPage: number,
@@ -98,6 +101,10 @@ const ListComicsPage = () => {
 
   useEffect(() => {
     dispatch(setComicBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/comics`));
+
+    return () => {
+      dispatch(comicReset());
+    };
   }, []);
 
   useEffect(() => {
@@ -130,6 +137,19 @@ const ListComicsPage = () => {
         });
     }
   }, [url]);
+
+  useEffect(() => {
+    if (results) {
+      const hiddenComics = hiddenItems.filter(item => item.type === 'COMIC');
+      setComics(results.filter(char => {
+        const hiddenComicFilter = hiddenComics.filter(item => item.id === char.id);
+        if (hiddenComicFilter.length > 0) {
+          return false;
+        }
+        return true;
+      }));
+    }
+  }, [results, hiddenItems]);
 
   return (
     <div className="comic-main-content mb-5">
@@ -169,8 +189,9 @@ const ListComicsPage = () => {
       {error && <h2 className="error-message">Could not load comics 😓</h2>}
       <div className="cards">
         <div className="cards-content">
-          {results
-            && results.map(comic => (
+          {!loading
+            && comics
+            && comics.map(comic => (
               <Card
                 key={comic.id}
                 id={comic.id}
@@ -187,6 +208,9 @@ const ListComicsPage = () => {
       </div>
       {results && results.length <= 0 && (
         <h2 className="error-message">Comics not found 😮</h2>
+      )}
+      {!loading && comics && comics.length <= 0 && (
+        <h2 className="error-message">Comics on this page are hidden 🤐</h2>
       )}
       {!loading
       && !error
