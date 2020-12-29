@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint no-shadow: 0 */
 /* eslint no-unused-vars: 0 */
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
@@ -20,6 +20,7 @@ import {
   setStoryTitle,
   setStoryAllParams,
   setStoryAsyncContent,
+  storyReset,
 } from 'actions/searchStory';
 import { hideLocalItem } from 'actions/localItems';
 import 'pages/stories/ListStoriesPage/ListStoriesPage.scss';
@@ -40,9 +41,11 @@ const ListStoriesPage = () => {
     error,
     data: genericResponse,
   } = useSelector((state: IRootState) => state.searchStory);
+  const { hiddenItems } = useSelector((state: IRootState) => state.localItems);
 
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
+  const [stories, setStories] = useState<IStory[] | null>(null);
 
   const changeUrlParams = (
     newPage: number,
@@ -84,6 +87,10 @@ const ListStoriesPage = () => {
 
   useEffect(() => {
     dispatch(setStoryBaseUrl(`${process.env.REACT_APP_API_URL}v1/public/stories`));
+
+    return () => {
+      dispatch(storyReset());
+    };
   }, []);
 
   useEffect(() => {
@@ -113,6 +120,19 @@ const ListStoriesPage = () => {
     }
   }, [url]);
 
+  useEffect(() => {
+    if (results) {
+      const hiddenStories = hiddenItems.filter(item => item.type === 'STORY');
+      setStories(results.filter(char => {
+        const hiddenStoryFilter = hiddenStories.filter(item => item.id === char.id);
+        if (hiddenStoryFilter.length > 0) {
+          return false;
+        }
+        return true;
+      }));
+    }
+  }, [results, hiddenItems]);
+
   return (
     <div className="story-main-content mb-5">
       <div className="story-page-title-div">
@@ -139,8 +159,9 @@ const ListStoriesPage = () => {
       {error && <h2 className="error-message">Could not load comics 😓</h2>}
       <div className="cards">
         <div className="cards-content">
-          {results
-            && results.map(story => (
+          {!loading
+            && stories
+            && stories.map(story => (
               <Card
                 key={story.id}
                 id={story.id}
@@ -157,6 +178,9 @@ const ListStoriesPage = () => {
       </div>
       {results && results.length <= 0 && (
         <h2 className="error-message">Stories not found 😮</h2>
+      )}
+      {!loading && stories && stories.length <= 0 && (
+        <h2 className="error-message">Stories on this page are hidden 🤐</h2>
       )}
       {!loading
       && !error
