@@ -14,10 +14,21 @@ export interface IAddBookmark {
   };
 }
 
+export interface IRemoveBookmark {
+  readonly type: 'REMOVE_BOOKMARK';
+  payload: {
+    item: ILocalItem;
+  };
+}
+
 export interface ILocalItemsReset {
   readonly type: 'RESET_LOCAL_ITEMS';
 }
 
-type LocalItemsActions = IHideLocalItem | ILocalItemsReset | IAddBookmark;
+type LocalItemsActions =
+  | IHideLocalItem
+  | ILocalItemsReset
+  | IAddBookmark
+  | IRemoveBookmark;
 
 export default LocalItemsActions;
