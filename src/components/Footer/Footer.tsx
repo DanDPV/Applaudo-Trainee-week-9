@@ -44,7 +44,7 @@ const Footer = () => (
         </NavLink>
         <NavLink
           exact
-          to={RouteNames.CharacterBookmars}
+          to={RouteNames.CharacterBookmarks}
           className="footer-link"
         >
           Bookmarks
