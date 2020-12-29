@@ -7,10 +7,17 @@ export interface IHideLocalItem {
   };
 }
 
+export interface IAddBookmark {
+  readonly type: 'ADD_BOOKMARK';
+  payload: {
+    item: ILocalItem;
+  };
+}
+
 export interface ILocalItemsReset {
   readonly type: 'RESET_LOCAL_ITEMS';
 }
 
-type LocalItemsActions = IHideLocalItem | ILocalItemsReset;
+type LocalItemsActions = IHideLocalItem | ILocalItemsReset | IAddBookmark;
 
 export default LocalItemsActions;
