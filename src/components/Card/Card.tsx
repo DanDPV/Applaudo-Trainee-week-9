@@ -12,6 +12,7 @@ interface ICard {
   imageUrl: string;
   handleViewMore(id: number): void;
   handleHideItem(id: number): void;
+  handleBookmarkAction(id: number): void;
 }
 
 const Card = ({
@@ -21,6 +22,7 @@ const Card = ({
   imageUrl,
   handleViewMore,
   handleHideItem,
+  handleBookmarkAction,
 }: ICard) => (
   <div
     className="card"
@@ -49,6 +51,7 @@ const Card = ({
         <button
           type="button"
           className="btn btn-action"
+          onClick={() => handleBookmarkAction(id)}
         >
           <FontAwesomeIcon icon={faBookmark} />
         </button>
