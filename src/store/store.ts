@@ -4,12 +4,14 @@ import searchReducer from 'reducers/search/searchReducer';
 import searchComicReducer from 'reducers/searchComic/searchComicReducer';
 import searchStoryReducer from 'reducers/searchStory/searchStoryReducer';
 import viewItemReducer from 'reducers/viewItem/viewItemReducer';
+import localItemsReducer from 'reducers/localItems/localItemsReducer';
 
 const rootReducer = combineReducers({
   search: searchReducer,
   searchComic: searchComicReducer,
   searchStory: searchStoryReducer,
   viewItem: viewItemReducer,
+  localItems: localItemsReducer,
 });
 
 const store = createStore(
