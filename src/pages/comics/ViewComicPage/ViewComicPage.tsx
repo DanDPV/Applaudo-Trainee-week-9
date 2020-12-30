@@ -117,6 +117,34 @@ const ViewComicPage = () => {
               )}
             </div>
           </div>
+          <div className="actions-title-div">
+            <p className="actions-title">Actions:</p>
+          </div>
+          <div className="actions-menu">
+            <button
+              type="button"
+              className="action-btn add-bookmark"
+              onClick={() => {
+                if (inBookmark) handleRemoveBookmark(parseFloat(idCharacter));
+                else handleAddBookmark(parseFloat(idCharacter));
+              }}
+            >
+              <FontAwesomeIcon icon={bookmarkIcon} />
+              {'\u00A0'}
+              {inBookmark ? 'Remove bookmark' : 'Add bookmark'}
+            </button>
+            {!hidden && (
+              <button
+                type="button"
+                className="action-btn hide-item"
+                onClick={() => { handleHideItem(parseFloat(idCharacter)); }}
+              >
+                <FontAwesomeIcon icon={faEyeSlash} />
+                {'\u00A0'}
+                Hide item
+              </button>
+            )}
+          </div>
           <div className="related-items-div fade-in">
             <h3 className="related-items-title">Characters</h3>
             {comic.characters.returned > 0
