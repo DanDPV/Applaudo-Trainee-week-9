@@ -64,6 +64,18 @@ $bg-title-image: 'https://arc-anglerfish-arc2-prod-tbt.s3.amazonaws.com/public/H
   background-size: cover;
 }
 
+.bookmark-menu-title-div {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.bookmark-menu-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .bookmark-menu {
   display: flex;
   flex-wrap: wrap;
