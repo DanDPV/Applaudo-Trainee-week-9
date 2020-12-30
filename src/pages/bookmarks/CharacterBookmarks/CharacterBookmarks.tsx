@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark as faBookmarkSolid, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -85,6 +86,21 @@ const CharacterBookmarks = () => {
         >
           Stories
         </Link>
+      </div>
+      <div className="bookmark-menu-title-div">
+        <p className="bookmark-menu-title">
+          Actions:
+        </p>
+      </div>
+      <div className="bookmark-menu">
+        <button
+          type="button"
+          className="bookmark-action-btn delete-bookmarks"
+        >
+          <FontAwesomeIcon icon={faTrash} />
+          {'\u00A0'}
+          Delete all bookmarks
+        </button>
       </div>
       {loading && <Loading />}
       <div className="cards">
