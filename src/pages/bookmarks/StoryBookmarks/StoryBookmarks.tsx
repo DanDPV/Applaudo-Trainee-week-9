@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import IStory from 'interfaces/IStory';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +13,7 @@ import { imagePlaceholder } from 'utils/globals';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
 import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
+import RouteNames from 'routers/RouteNames';
 import 'pages/bookmarks/common/styles.scss';
 
 const StoryBookmarks = () => {
@@ -64,6 +65,27 @@ const StoryBookmarks = () => {
     <div className="main-content mb-5">
       <div className="bookmarks-title-div">
         <h1>Story Bookmarks</h1>
+      </div>
+      <div className="bookmark-menu-title-div">
+        <p className="bookmark-menu-title">
+          View your bookmarks in:
+        </p>
+      </div>
+      <div className="bookmark-menu">
+        <Link
+          type="button"
+          className="bookmark-menu-btn"
+          to={RouteNames.CharacterBookmarks}
+        >
+          Characters
+        </Link>
+        <Link
+          type="button"
+          className="bookmark-menu-btn"
+          to={RouteNames.ComicBookmarks}
+        >
+          Comics
+        </Link>
       </div>
       {loading && <Loading />}
       <div className="cards">
