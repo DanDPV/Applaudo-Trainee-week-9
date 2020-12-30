@@ -11,6 +11,7 @@ import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import ICharacter from 'interfaces/ICharacter';
 import { imagePlaceholder } from 'utils/globals';
 import Card from 'components/Card/Card';
+import Loading from 'components/Loading/Loading';
 import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
 import 'pages/bookmarks/common/styles.scss';
 
@@ -45,6 +46,7 @@ const CharacterBookmarks = () => {
           if (index === arr.length - 1) setLoading(false);
         });
     });
+    setLoading(false);
   }, []);
 
   return (
@@ -52,6 +54,7 @@ const CharacterBookmarks = () => {
       <div className="bookmarks-title-div">
         <h1>Character Bookmarks</h1>
       </div>
+      {loading && <Loading />}
       <div className="cards">
         <div className="cards-content">
           {!loading
@@ -76,6 +79,9 @@ const CharacterBookmarks = () => {
             })}
         </div>
       </div>
+      {!loading && characters && characters.length <= 0 && (
+        <h2 className="error-message">You don&apos;t have bookmarks in characters</h2>
+      )}
     </div>
   );
 };
