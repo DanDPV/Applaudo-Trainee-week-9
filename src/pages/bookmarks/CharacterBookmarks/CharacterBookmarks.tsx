@@ -16,6 +16,7 @@ import { imagePlaceholder } from 'utils/globals';
 import RouteNames from 'routers/RouteNames';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
+import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
 import {
   addBookmark,
   hideLocalItem,
@@ -25,12 +26,15 @@ import {
 import 'pages/bookmarks/common/styles.scss';
 
 const CharacterBookmarks = () => {
-  const { hiddenItems, bookmarks } = useSelector((state: IRootState) => state.localItems);
+  const { hiddenItems, bookmarks } = useSelector(
+    (state: IRootState) => state.localItems,
+  );
   const history = useHistory();
   const dispatch = useDispatch();
 
   const [characters, setCharacters] = useState<ICharacter[]>([]);
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleViewMore = (id: number) => history.push(`/characters/${id}`);
 
@@ -51,23 +55,31 @@ const CharacterBookmarks = () => {
     setCharacters([]);
   };
 
+  const handleAction = (confirmed: boolean) => {
+    setShowModal(false);
+    if (confirmed) handleResetBookmarks();
+  };
+
   useEffect(() => {
     setLoading(true);
     const charBookmarks = bookmarks.filter(item => item.type === 'CHARACTER');
     const hiddenChars = hiddenItems.filter(item => item.type === 'CHARACTER');
     charBookmarks.forEach((bChar, index, arr) => {
-      const validateVisibility = hiddenChars.filter(item => item.id === bChar.id);
+      const validateVisibility = hiddenChars.filter(
+        item => item.id === bChar.id,
+      );
       if (validateVisibility.length === 0) {
-        const url = `${process.env.REACT_APP_API_URL}v1/public/characters/${bChar.id}?${queryString.stringify({
+        const url = `${process.env.REACT_APP_API_URL}v1/public/characters/${
+          bChar.id
+        }?${queryString.stringify({
           apikey: process.env.REACT_APP_PUBLIC_KEY,
         })}`;
-        get<IGenericApiResponse<ICharacter>>(url)
-          .then(res => {
-            const { data: charData } = res ?? {};
-            const { results: charResult } = charData ?? {};
-            setCharacters(chars => [...chars, charResult[0]]);
-            if (index === arr.length - 1) setLoading(false);
-          });
+        get<IGenericApiResponse<ICharacter>>(url).then(res => {
+          const { data: charData } = res ?? {};
+          const { results: charResult } = charData ?? {};
+          setCharacters(chars => [...chars, charResult[0]]);
+          if (index === arr.length - 1) setLoading(false);
+        });
       }
       if (index === arr.length - 1) setLoading(false);
     });
@@ -75,76 +87,95 @@ const CharacterBookmarks = () => {
   }, []);
 
   return (
-    <div className="main-content mb-5">
-      <div className="bookmarks-title-div">
-        <h1>Character Bookmarks</h1>
-      </div>
-      <div className="bookmark-menu-title-div">
-        <p className="bookmark-menu-title">
-          View your bookmarks in:
+    <>
+      <ConfirmModal
+        title="Delete all bookmarks?"
+        confirmText="Yes, delete!"
+        open={showModal}
+        handleAction={handleAction}
+      >
+        <p>
+          Are you sure you want to delete all of your bookmarks in characters,
+          comics and stories?
         </p>
-      </div>
-      <div className="bookmark-menu">
-        <Link
-          type="button"
-          className="bookmark-menu-btn"
-          to={RouteNames.ComicBookmarks}
-        >
-          Comics
-        </Link>
-        <Link
-          type="button"
-          className="bookmark-menu-btn"
-          to={RouteNames.StoryBookmarks}
-        >
-          Stories
-        </Link>
-      </div>
-      <div className="bookmark-menu-title-div">
-        <p className="bookmark-menu-title">
-          Actions:
-        </p>
-      </div>
-      <div className="bookmark-menu">
-        <button
-          type="button"
-          className="bookmark-action-btn delete-bookmarks"
-          onClick={handleResetBookmarks}
-        >
-          <FontAwesomeIcon icon={faTrash} />
-          {'\u00A0'}
-          Delete all bookmarks
-        </button>
-      </div>
-      {loading && <Loading />}
-      <div className="cards">
-        <div className="cards-content">
-          {!loading
-            && characters
-            && characters.map(char => {
-              const inBookmark = bookmarks.find(item => item.type === 'CHARACTER' && item.id === char.id);
-              return (
-                <Card
-                  key={char.id}
-                  id={char.id}
-                  name={char.name}
-                  description={char.description ?? ''}
-                  bookmarkIcon={inBookmark ? faBookmarkSolid : faBookmarkRegular}
-                  handleViewMore={handleViewMore}
-                  handleHideItem={handleHideItem}
-                  handleBookmarkAction={inBookmark ? handleRemoveBookmark : handleAddBookmark}
-                  imageUrl={char.thumbnail
-                    ? `${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`
-                    : imagePlaceholder}
-                />
-              );
-            })}
+      </ConfirmModal>
+      <div className="main-content mb-5">
+        <div className="bookmarks-title-div">
+          <h1>Character Bookmarks</h1>
         </div>
+        <div className="bookmark-menu-title-div">
+          <p className="bookmark-menu-title">View your bookmarks in:</p>
+        </div>
+        <div className="bookmark-menu">
+          <Link
+            type="button"
+            className="bookmark-menu-btn"
+            to={RouteNames.ComicBookmarks}
+          >
+            Comics
+          </Link>
+          <Link
+            type="button"
+            className="bookmark-menu-btn"
+            to={RouteNames.StoryBookmarks}
+          >
+            Stories
+          </Link>
+        </div>
+        <div className="bookmark-menu-title-div">
+          <p className="bookmark-menu-title">Actions:</p>
+        </div>
+        <div className="bookmark-menu">
+          <button
+            type="button"
+            className="bookmark-action-btn delete-bookmarks"
+            onClick={() => setShowModal(true)}
+          >
+            <FontAwesomeIcon icon={faTrash} />
+            {'\u00A0'}
+            Delete all bookmarks
+          </button>
+        </div>
+        {loading && <Loading />}
+        <div className="cards">
+          <div className="cards-content">
+            {!loading
+              && characters
+              && characters.map(char => {
+                const inBookmark = bookmarks.find(
+                  item => item.type === 'CHARACTER' && item.id === char.id,
+                );
+                return (
+                  <Card
+                    key={char.id}
+                    id={char.id}
+                    name={char.name}
+                    description={char.description ?? ''}
+                    bookmarkIcon={
+                      inBookmark ? faBookmarkSolid : faBookmarkRegular
+                    }
+                    handleViewMore={handleViewMore}
+                    handleHideItem={handleHideItem}
+                    handleBookmarkAction={
+                      inBookmark ? handleRemoveBookmark : handleAddBookmark
+                    }
+                    imageUrl={
+                      char.thumbnail
+                        ? `${char.thumbnail.path}/portrait_uncanny.${char.thumbnail.extension}`
+                        : imagePlaceholder
+                    }
+                  />
+                );
+              })}
+          </div>
+        </div>
+        {!loading && characters && characters.length <= 0 && (
+          <h2 className="error-message">
+            You don&apos;t have bookmarks in characters
+          </h2>
+        )}
       </div>
-      {!loading && characters && characters.length <= 0 && (
-        <h2 className="error-message">You don&apos;t have bookmarks in characters</h2>
-      )}
-    </div>
+    </>
   );
 };
 
