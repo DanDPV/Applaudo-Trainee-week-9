@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark as faBookmarkSolid, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
@@ -11,8 +12,14 @@ import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import { imagePlaceholder } from 'utils/globals';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
+import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
 import RouteNames from 'routers/RouteNames';
-import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
+import {
+  addBookmark,
+  hideLocalItem,
+  removeBookmark,
+  resetBookmarks,
+} from 'actions/localItems';
 import 'pages/bookmarks/common/styles.scss';
 
 const ComicBookmarks = () => {
@@ -22,6 +29,7 @@ const ComicBookmarks = () => {
 
   const [comics, setComics] = useState<IComic[]>([]);
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleViewMore = (id: number) => history.push(`/comics/${id}`);
 
@@ -35,6 +43,16 @@ const ComicBookmarks = () => {
   const handleRemoveBookmark = (id: number) => {
     dispatch(removeBookmark({ id, type: 'COMIC' }));
     setComics(char => [...char.filter(c => c.id !== id)]);
+  };
+
+  const handleResetBookmarks = () => {
+    dispatch(resetBookmarks());
+    setComics([]);
+  };
+
+  const handleAction = (confirmed: boolean) => {
+    setShowModal(false);
+    if (confirmed) handleResetBookmarks();
   };
 
   useEffect(() => {
@@ -61,60 +79,87 @@ const ComicBookmarks = () => {
   }, []);
 
   return (
-    <div className="main-content mb-5">
-      <div className="bookmarks-title-div">
-        <h1>Comic Bookmarks</h1>
-      </div>
-      <div className="bookmark-menu-title-div">
-        <p className="bookmark-menu-title">
-          View your bookmarks in:
+    <>
+      <ConfirmModal
+        title="Delete all bookmarks?"
+        confirmText="Yes, delete!"
+        open={showModal}
+        handleAction={handleAction}
+      >
+        <p>
+          Are you sure you want to delete all of your bookmarks in characters,
+          comics and stories?
         </p>
-      </div>
-      <div className="bookmark-menu">
-        <Link
-          type="button"
-          className="bookmark-menu-btn"
-          to={RouteNames.CharacterBookmarks}
-        >
-          Characters
-        </Link>
-        <Link
-          type="button"
-          className="bookmark-menu-btn"
-          to={RouteNames.StoryBookmarks}
-        >
-          Stories
-        </Link>
-      </div>
-      {loading && <Loading />}
-      <div className="cards">
-        <div className="cards-content">
-          {!loading
-            && comics
-            && comics.map(comic => {
-              const inBookmark = bookmarks.find(item => item.type === 'COMIC' && item.id === comic.id);
-              return (
-                <Card
-                  key={comic.id}
-                  id={comic.id}
-                  name={comic.title}
-                  description={comic.description ?? ''}
-                  bookmarkIcon={inBookmark ? faBookmarkSolid : faBookmarkRegular}
-                  handleViewMore={handleViewMore}
-                  handleHideItem={handleHideItem}
-                  handleBookmarkAction={inBookmark ? handleRemoveBookmark : handleAddBookmark}
-                  imageUrl={comic.thumbnail
-                    ? `${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}`
-                    : imagePlaceholder}
-                />
-              );
-            })}
+      </ConfirmModal>
+      <div className="main-content mb-5">
+        <div className="bookmarks-title-div">
+          <h1>Comic Bookmarks</h1>
         </div>
+        <div className="bookmark-menu-title-div">
+          <p className="bookmark-menu-title">
+            View your bookmarks in:
+          </p>
+        </div>
+        <div className="bookmark-menu">
+          <Link
+            type="button"
+            className="bookmark-menu-btn"
+            to={RouteNames.CharacterBookmarks}
+          >
+            Characters
+          </Link>
+          <Link
+            type="button"
+            className="bookmark-menu-btn"
+            to={RouteNames.StoryBookmarks}
+          >
+            Stories
+          </Link>
+        </div>
+        <div className="bookmark-menu-title-div">
+          <p className="bookmark-menu-title">Actions:</p>
+        </div>
+        <div className="bookmark-menu">
+          <button
+            type="button"
+            className="bookmark-action-btn delete-bookmarks"
+            onClick={() => setShowModal(true)}
+          >
+            <FontAwesomeIcon icon={faTrash} />
+            {'\u00A0'}
+            Delete all bookmarks
+          </button>
+        </div>
+        {loading && <Loading />}
+        <div className="cards">
+          <div className="cards-content">
+            {!loading
+              && comics
+              && comics.map(comic => {
+                const inBookmark = bookmarks.find(item => item.type === 'COMIC' && item.id === comic.id);
+                return (
+                  <Card
+                    key={comic.id}
+                    id={comic.id}
+                    name={comic.title}
+                    description={comic.description ?? ''}
+                    bookmarkIcon={inBookmark ? faBookmarkSolid : faBookmarkRegular}
+                    handleViewMore={handleViewMore}
+                    handleHideItem={handleHideItem}
+                    handleBookmarkAction={inBookmark ? handleRemoveBookmark : handleAddBookmark}
+                    imageUrl={comic.thumbnail
+                      ? `${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}`
+                      : imagePlaceholder}
+                  />
+                );
+              })}
+          </div>
+        </div>
+        {!loading && comics && comics.length <= 0 && (
+          <h2 className="error-message">You don&apos;t have bookmarks in comics</h2>
+        )}
       </div>
-      {!loading && comics && comics.length <= 0 && (
-        <h2 className="error-message">You don&apos;t have bookmarks in comics</h2>
-      )}
-    </div>
+    </>
   );
 };
 
