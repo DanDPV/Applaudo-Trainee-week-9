@@ -13,6 +13,7 @@ import { imagePlaceholder } from 'utils/globals';
 import Card from 'components/Card/Card';
 import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
 import 'pages/bookmarks/common/styles.scss';
+import Loading from 'components/Loading/Loading';
 
 const ComicBookmarks = () => {
   const { hiddenItems, bookmarks } = useSelector((state: IRootState) => state.localItems);
@@ -64,6 +65,7 @@ const ComicBookmarks = () => {
       <div className="bookmarks-title-div">
         <h1>Comic Bookmarks</h1>
       </div>
+      {loading && <Loading />}
       <div className="cards">
         <div className="cards-content">
           {!loading
@@ -88,6 +90,9 @@ const ComicBookmarks = () => {
             })}
         </div>
       </div>
+      {!loading && comics && comics.length <= 0 && (
+        <h2 className="error-message">You don&apos;t have bookmarks in comics</h2>
+      )}
     </div>
   );
 };
