@@ -1,11 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint no-shadow: 0 */
-/* eslint no-unused-vars: 0 */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
-import { debounce } from 'lodash';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { IRootState } from 'store/store';
@@ -19,7 +18,6 @@ import { get } from 'API/FetchInfo';
 import { imagePlaceholder } from 'utils/globals';
 import {
   setStoryBaseUrl,
-  setStoryTitle,
   setStoryAllParams,
   setStoryAsyncContent,
   storyReset,
@@ -66,23 +64,6 @@ const ListStoriesPage = () => {
     changeUrlParams(newPage, title);
   };
 
-  const debouncedTitleChange = useCallback(
-    debounce(
-      (title: string) => changeUrlParams(1, title),
-      1000,
-    ),
-    [],
-  );
-
-  const handleTitleChange = ({
-    target,
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setStoryTitle(target.value));
-    debouncedTitleChange(target.value);
-  };
-
-  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => e.preventDefault();
-
   const handleViewMore = (id: number) => history.push(`stories/${id}`);
 
   const handleHideItem = (id: number) => dispatch(hideLocalItem({ id, type: 'STORY' }));
@@ -120,7 +101,7 @@ const ListStoriesPage = () => {
         .then(res => {
           dispatch(setStoryAsyncContent(false, '', res));
         })
-        .catch(err => {
+        .catch(() => {
           dispatch(setStoryAsyncContent(false, 'Could not load stories', null));
         });
     }
@@ -143,23 +124,6 @@ const ListStoriesPage = () => {
     <div className="story-main-content mb-5">
       <div className="story-page-title-div">
         <h1>Stories</h1>
-      </div>
-      <div className="story-search-filters-form mb-5">
-        <form onSubmit={handleSubmit}>
-          <div className="story-search-title">Search your story</div>
-          <div className="search-header">Title</div>
-          <div className="search-value">
-            <input
-              type="text"
-              name="title"
-              placeholder="Story's title"
-              autoComplete="off"
-              className="search-input"
-              value={title}
-              onChange={handleTitleChange}
-            />
-          </div>
-        </form>
       </div>
       {loading && <Loading />}
       {error && <h2 className="error-message">Could not load comics 😓</h2>}
