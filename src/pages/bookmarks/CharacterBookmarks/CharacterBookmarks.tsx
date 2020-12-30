@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark as faBookmarkSolid, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBookmark as faBookmarkSolid,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +16,12 @@ import { imagePlaceholder } from 'utils/globals';
 import RouteNames from 'routers/RouteNames';
 import Card from 'components/Card/Card';
 import Loading from 'components/Loading/Loading';
-import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
+import {
+  addBookmark,
+  hideLocalItem,
+  removeBookmark,
+  resetBookmarks,
+} from 'actions/localItems';
 import 'pages/bookmarks/common/styles.scss';
 
 const CharacterBookmarks = () => {
@@ -36,6 +44,11 @@ const CharacterBookmarks = () => {
   const handleRemoveBookmark = (id: number) => {
     dispatch(removeBookmark({ id, type: 'CHARACTER' }));
     setCharacters(char => [...char.filter(c => c.id !== id)]);
+  };
+
+  const handleResetBookmarks = () => {
+    dispatch(resetBookmarks());
+    setCharacters([]);
   };
 
   useEffect(() => {
@@ -96,6 +109,7 @@ const CharacterBookmarks = () => {
         <button
           type="button"
           className="bookmark-action-btn delete-bookmarks"
+          onClick={handleResetBookmarks}
         >
           <FontAwesomeIcon icon={faTrash} />
           {'\u00A0'}
