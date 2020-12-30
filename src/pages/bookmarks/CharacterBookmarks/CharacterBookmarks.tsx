@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBookmark as faBookmarkSolid,
+  faEye,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
@@ -22,6 +23,7 @@ import {
   hideLocalItem,
   removeBookmark,
   resetBookmarks,
+  resetHiddenItems,
 } from 'actions/localItems';
 import 'pages/bookmarks/common/styles.scss';
 
@@ -55,12 +57,18 @@ const CharacterBookmarks = () => {
     setCharacters([]);
   };
 
+  const handleResetHiddenItems = () => {
+    dispatch(resetHiddenItems());
+    window.location.reload();
+  };
+
   const handleAction = (confirmed: boolean) => {
     setShowModal(false);
     if (confirmed) handleResetBookmarks();
   };
 
   useEffect(() => {
+    setCharacters([]);
     setLoading(true);
     const charBookmarks = bookmarks.filter(item => item.type === 'CHARACTER');
     const hiddenChars = hiddenItems.filter(item => item.type === 'CHARACTER');
@@ -134,6 +142,15 @@ const CharacterBookmarks = () => {
             <FontAwesomeIcon icon={faTrash} />
             {'\u00A0'}
             Delete all bookmarks
+          </button>
+          <button
+            type="button"
+            className="bookmark-action-btn reset-hidden-items"
+            onClick={() => handleResetHiddenItems()}
+          >
+            <FontAwesomeIcon icon={faEye} />
+            {'\u00A0'}
+            Reset hidden items
           </button>
         </div>
         {loading && <Loading />}
