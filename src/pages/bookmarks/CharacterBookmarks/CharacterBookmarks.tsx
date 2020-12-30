@@ -37,6 +37,10 @@ const CharacterBookmarks = () => {
   const [characters, setCharacters] = useState<ICharacter[]>([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [titleModal, setTitleModal] = useState('Delete all bookmarks?');
+  const [bodyModal, setBodyModal] = useState('Are you sure you want to delete all of your bookmarks in characters,comics and stories?');
+  const [confirmTextModal, setConfirmTextModal] = useState('Yes, delete!');
+  const [typeModal, setTypeModal] = useState<'BOOKMARK' | 'HIDDEN'>('BOOKMARK');
 
   const handleViewMore = (id: number) => history.push(`/characters/${id}`);
 
@@ -64,7 +68,19 @@ const CharacterBookmarks = () => {
 
   const handleAction = (confirmed: boolean) => {
     setShowModal(false);
-    if (confirmed) handleResetBookmarks();
+    if (confirmed) {
+      switch (typeModal) {
+        case 'BOOKMARK':
+          handleResetBookmarks();
+          break;
+        case 'HIDDEN':
+          handleResetHiddenItems();
+          break;
+        default:
+          handleResetBookmarks();
+          break;
+      }
+    }
   };
 
   useEffect(() => {
@@ -97,14 +113,13 @@ const CharacterBookmarks = () => {
   return (
     <>
       <ConfirmModal
-        title="Delete all bookmarks?"
-        confirmText="Yes, delete!"
+        title={titleModal}
+        confirmText={confirmTextModal}
         open={showModal}
         handleAction={handleAction}
       >
         <p>
-          Are you sure you want to delete all of your bookmarks in characters,
-          comics and stories?
+          {bodyModal}
         </p>
       </ConfirmModal>
       <div className="main-content mb-5">
@@ -137,7 +152,13 @@ const CharacterBookmarks = () => {
           <button
             type="button"
             className="bookmark-action-btn delete-bookmarks"
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+              setTitleModal('Delete all bookmarks?');
+              setBodyModal('Are you sure you want to delete all of your bookmarks in characters,comics and stories?');
+              setConfirmTextModal('Yes, delete!');
+              setTypeModal('BOOKMARK');
+              setShowModal(true);
+            }}
           >
             <FontAwesomeIcon icon={faTrash} />
             {'\u00A0'}
@@ -146,7 +167,13 @@ const CharacterBookmarks = () => {
           <button
             type="button"
             className="bookmark-action-btn reset-hidden-items"
-            onClick={() => handleResetHiddenItems()}
+            onClick={() => {
+              setTitleModal('Reset hidden items?');
+              setBodyModal('Are you sure you want to reset all hidden items?');
+              setConfirmTextModal('Yes!');
+              setTypeModal('HIDDEN');
+              setShowModal(true);
+            }}
           >
             <FontAwesomeIcon icon={faEye} />
             {'\u00A0'}
