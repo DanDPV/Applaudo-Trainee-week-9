@@ -86,6 +86,11 @@ $bg-title-image: 'https://arc-anglerfish-arc2-prod-tbt.s3.amazonaws.com/public/H
   }
 }
 
+.error-message {
+  text-align: center;
+  margin: 50px 15%;
+}
+
 @media only screen and (max-width: 600px) {
   .bookmarks-title-div {
     h1 {
