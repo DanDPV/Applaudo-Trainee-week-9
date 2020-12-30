@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import IComic from 'interfaces/IComic';
 import { IRootState } from 'store/store';
@@ -10,13 +11,30 @@ import { get } from 'API/FetchInfo';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import { imagePlaceholder } from 'utils/globals';
 import Card from 'components/Card/Card';
+import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
 import 'pages/bookmarks/common/styles.scss';
 
 const ComicBookmarks = () => {
   const { hiddenItems, bookmarks } = useSelector((state: IRootState) => state.localItems);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const [comics, setComics] = useState<IComic[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const handleViewMore = (id: number) => history.push(`/comics/${id}`);
+
+  const handleHideItem = (id: number) => {
+    dispatch(hideLocalItem({ id, type: 'COMIC' }));
+    setComics(char => [...char.filter(c => c.id !== id)]);
+  };
+
+  const handleAddBookmark = (id: number) => dispatch(addBookmark({ id, type: 'COMIC' }));
+
+  const handleRemoveBookmark = (id: number) => {
+    dispatch(removeBookmark({ id, type: 'COMIC' }));
+    setComics(char => [...char.filter(c => c.id !== id)]);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -44,7 +62,7 @@ const ComicBookmarks = () => {
   return (
     <div className="main-content mb-5">
       <div className="bookmarks-title-div">
-        <h1>Character Bookmarks</h1>
+        <h1>Comic Bookmarks</h1>
       </div>
       <div className="cards">
         <div className="cards-content">
