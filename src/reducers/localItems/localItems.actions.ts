@@ -21,6 +21,10 @@ export interface IRemoveBookmark {
   };
 }
 
+export interface IBookmarksReset {
+  readonly type: 'RESET_BOOKMARKS';
+}
+
 export interface ILocalItemsReset {
   readonly type: 'RESET_LOCAL_ITEMS';
 }
@@ -29,6 +33,7 @@ type LocalItemsActions =
   | IHideLocalItem
   | ILocalItemsReset
   | IAddBookmark
+  | IBookmarksReset
   | IRemoveBookmark;
 
 export default LocalItemsActions;
