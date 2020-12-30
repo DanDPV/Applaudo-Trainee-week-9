@@ -1,3 +1,5 @@
+@import '../../styles/base/settings';
+
 $topPosition: 50%;
 
 .modal {
@@ -13,7 +15,7 @@ $topPosition: 50%;
 
 .modal-header {
   padding: 15px 16px;
-  background-color: #5cb85c;
+  background-color: $primary;
   color: white;
 }
 
@@ -38,7 +40,7 @@ $topPosition: 50%;
 
 .modal-footer {
   padding: 10px 16px;
-  background-color: #5cb85c;
+  background-color: $primary;
   color: white;
   display: flex;
   flex-wrap: wrap;
@@ -80,10 +82,10 @@ $topPosition: 50%;
 }
 
 .confirm {
-  background-color: #5cb85c;
+  background-color: red;
 
   &:hover {
-    background-color: darken($color: #5cb85c, $amount: 10);
+    background-color: darken($color: red, $amount: 10);
   }
 }
 
