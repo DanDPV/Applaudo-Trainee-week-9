@@ -146,6 +146,15 @@ $bg-title-image: 'https://arc-anglerfish-arc2-prod-tbt.s3.amazonaws.com/public/H
   }
 }
 
+.reset-hidden-items {
+  background-color: $primary;
+  color: white;
+
+  &:hover {
+    background-color: darken($color: $primary, $amount: 10);
+  }
+}
+
 .cards {
   display: grid;
   place-items: center;
