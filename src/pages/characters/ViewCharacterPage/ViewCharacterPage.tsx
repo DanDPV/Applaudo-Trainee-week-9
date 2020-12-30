@@ -3,7 +3,13 @@ import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark, faChevronLeft, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronLeft,
+  faEyeSlash,
+  faBookmark as faBookmarkSolid,
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { get } from 'API/FetchInfo';
 import { IRootState } from 'store/store';
 import { setViewItemAsyncContent } from 'actions/viewItem';
@@ -13,6 +19,7 @@ import Loading from 'components/Loading/Loading';
 import CustomOrderedList from 'components/CustomOrderedList/CustomOrderedList';
 import { imagePlaceholder } from 'utils/globals';
 import RouteNames from 'routers/RouteNames';
+import { addBookmark, removeBookmark } from 'actions/localItems';
 import 'pages/characters/ViewCharacterPage/ViewCharacterPage.scss';
 
 const ViewCharacterPage = () => {
@@ -28,10 +35,19 @@ const ViewCharacterPage = () => {
     error,
     data: genericResponse,
   } = useSelector((state: IRootState) => state.viewItem);
+  const { bookmarks } = useSelector((state: IRootState) => state.localItems);
 
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
   const [character, setCharacter] = useState<ICharacter | null>(null);
+  const [inBookmark, setInBookmark] = useState(
+    !!bookmarks.find(
+      item => item.type === 'CHARACTER' && item.id === parseFloat(idCharacter),
+    ),
+  );
+  const [bookmarkIcon, setBookmarkIcon] = useState<IconDefinition>(
+    inBookmark ? faBookmarkSolid : faBookmarkRegular,
+  );
 
   const handleBack = () => {
     if (history.length <= 2) history.push(RouteNames.Home);
@@ -41,6 +57,18 @@ const ViewCharacterPage = () => {
   const handleViewComic = (id: string) => history.push(`/comics/${id}`);
 
   const handleViewStory = (id: string) => history.push(`/stories/${id}`);
+
+  const handleAddBookmark = (id: number) => {
+    dispatch(addBookmark({ id, type: 'CHARACTER' }));
+    setBookmarkIcon(faBookmarkSolid);
+    setInBookmark(true);
+  };
+
+  const handleRemoveBookmark = (id: number) => {
+    dispatch(removeBookmark({ id, type: 'CHARACTER' }));
+    setBookmarkIcon(faBookmarkRegular);
+    setInBookmark(false);
+  };
 
   useEffect(() => {
     if (results) {
@@ -124,9 +152,12 @@ const ViewCharacterPage = () => {
             <button
               type="button"
               className="action-btn add-bookmark"
-              onClick={() => {}}
+              onClick={() => {
+                if (inBookmark) handleRemoveBookmark(parseFloat(idCharacter));
+                else handleAddBookmark(parseFloat(idCharacter));
+              }}
             >
-              <FontAwesomeIcon icon={faBookmark} />
+              <FontAwesomeIcon icon={bookmarkIcon} />
               {'\u00A0'}
               Add bookmark
             </button>
