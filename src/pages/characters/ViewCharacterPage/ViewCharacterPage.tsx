@@ -169,7 +169,7 @@ const ViewCharacterPage = () => {
             >
               <FontAwesomeIcon icon={bookmarkIcon} />
               {'\u00A0'}
-              Add bookmark
+              {inBookmark ? 'Remove bookmark' : 'Add bookmark'}
             </button>
             {!hidden && (
               <button
