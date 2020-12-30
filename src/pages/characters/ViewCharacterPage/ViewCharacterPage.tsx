@@ -19,7 +19,7 @@ import Loading from 'components/Loading/Loading';
 import CustomOrderedList from 'components/CustomOrderedList/CustomOrderedList';
 import { imagePlaceholder } from 'utils/globals';
 import RouteNames from 'routers/RouteNames';
-import { addBookmark, removeBookmark } from 'actions/localItems';
+import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
 import 'pages/characters/ViewCharacterPage/ViewCharacterPage.scss';
 
 const ViewCharacterPage = () => {
@@ -35,7 +35,7 @@ const ViewCharacterPage = () => {
     error,
     data: genericResponse,
   } = useSelector((state: IRootState) => state.viewItem);
-  const { bookmarks } = useSelector((state: IRootState) => state.localItems);
+  const { hiddenItems, bookmarks } = useSelector((state: IRootState) => state.localItems);
 
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
@@ -47,6 +47,11 @@ const ViewCharacterPage = () => {
   );
   const [bookmarkIcon, setBookmarkIcon] = useState<IconDefinition>(
     inBookmark ? faBookmarkSolid : faBookmarkRegular,
+  );
+  const [hidden] = useState(
+    !!hiddenItems.find(
+      item => item.type === 'CHARACTER' && item.id === parseFloat(idCharacter),
+    ),
   );
 
   const handleBack = () => {
@@ -68,6 +73,11 @@ const ViewCharacterPage = () => {
     dispatch(removeBookmark({ id, type: 'CHARACTER' }));
     setBookmarkIcon(faBookmarkRegular);
     setInBookmark(false);
+  };
+
+  const handleHideItem = (id: number) => {
+    dispatch(hideLocalItem({ id, type: 'CHARACTER' }));
+    handleBack();
   };
 
   useEffect(() => {
@@ -161,15 +171,17 @@ const ViewCharacterPage = () => {
               {'\u00A0'}
               Add bookmark
             </button>
-            <button
-              type="button"
-              className="action-btn hide-item"
-              onClick={() => {}}
-            >
-              <FontAwesomeIcon icon={faEyeSlash} />
-              {'\u00A0'}
-              Hide item
-            </button>
+            {!hidden && (
+              <button
+                type="button"
+                className="action-btn hide-item"
+                onClick={() => { handleHideItem(parseFloat(idCharacter)); }}
+              >
+                <FontAwesomeIcon icon={faEyeSlash} />
+                {'\u00A0'}
+                Hide item
+              </button>
+            )}
           </div>
           <div className="related-items-div fade-in">
             <h3 className="related-items-title">Comics</h3>
