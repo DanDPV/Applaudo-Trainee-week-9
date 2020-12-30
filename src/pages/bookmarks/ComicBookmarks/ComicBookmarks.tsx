@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import IComic from 'interfaces/IComic';
 import { IRootState } from 'store/store';
@@ -11,9 +11,10 @@ import { get } from 'API/FetchInfo';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import { imagePlaceholder } from 'utils/globals';
 import Card from 'components/Card/Card';
+import Loading from 'components/Loading/Loading';
+import RouteNames from 'routers/RouteNames';
 import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
 import 'pages/bookmarks/common/styles.scss';
-import Loading from 'components/Loading/Loading';
 
 const ComicBookmarks = () => {
   const { hiddenItems, bookmarks } = useSelector((state: IRootState) => state.localItems);
@@ -64,6 +65,22 @@ const ComicBookmarks = () => {
     <div className="main-content mb-5">
       <div className="bookmarks-title-div">
         <h1>Comic Bookmarks</h1>
+      </div>
+      <div className="bookmark-menu">
+        <Link
+          type="button"
+          className="bookmark-menu-btn"
+          to={RouteNames.CharacterBookmarks}
+        >
+          Characters
+        </Link>
+        <Link
+          type="button"
+          className="bookmark-menu-btn"
+          to={RouteNames.StoryBookmarks}
+        >
+          Stories
+        </Link>
       </div>
       {loading && <Loading />}
       <div className="cards">
