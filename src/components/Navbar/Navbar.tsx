@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <nav>
       <button type="button" className="logo logo-button">
-        { width > 350 ? 'Marvel Heroes' : 'Marvel'}
+        { width > 1000 ? 'Marvel Heroes' : 'Marvel'}
       </button>
       <label htmlFor="toggle" className="menu-label">
         <FontAwesomeIcon icon={faBars} />
