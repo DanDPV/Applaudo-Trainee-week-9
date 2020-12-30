@@ -16,7 +16,7 @@ import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
 import 'pages/bookmarks/common/styles.scss';
 
 const CharacterBookmarks = () => {
-  const { bookmarks } = useSelector((state: IRootState) => state.localItems);
+  const { hiddenItems, bookmarks } = useSelector((state: IRootState) => state.localItems);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -34,17 +34,22 @@ const CharacterBookmarks = () => {
   useEffect(() => {
     setLoading(true);
     const charBookmarks = bookmarks.filter(item => item.type === 'CHARACTER');
+    const hiddenChars = hiddenItems.filter(item => item.type === 'CHARACTER');
     charBookmarks.forEach((bChar, index, arr) => {
-      const url = `${process.env.REACT_APP_API_URL}v1/public/characters/${bChar.id}?${queryString.stringify({
-        apikey: process.env.REACT_APP_PUBLIC_KEY,
-      })}`;
-      get<IGenericApiResponse<ICharacter>>(url)
-        .then(res => {
-          const { data: charData } = res ?? {};
-          const { results: charResult } = charData ?? {};
-          setCharacters(chars => [...chars, charResult[0]]);
-          if (index === arr.length - 1) setLoading(false);
-        });
+      const validateVisibility = hiddenChars.filter(item => item.id === bChar.id);
+      if (validateVisibility.length === 0) {
+        const url = `${process.env.REACT_APP_API_URL}v1/public/characters/${bChar.id}?${queryString.stringify({
+          apikey: process.env.REACT_APP_PUBLIC_KEY,
+        })}`;
+        get<IGenericApiResponse<ICharacter>>(url)
+          .then(res => {
+            const { data: charData } = res ?? {};
+            const { results: charResult } = charData ?? {};
+            setCharacters(chars => [...chars, charResult[0]]);
+            if (index === arr.length - 1) setLoading(false);
+          });
+      }
+      if (index === arr.length - 1) setLoading(false);
     });
     setLoading(false);
   }, []);
