@@ -11,6 +11,7 @@ const ListCharactersPage = lazy(() => import('pages/characters/ListCharactersPag
 const ListComicsPage = lazy(() => import('pages/comics/ListComicsPage/ListComicsPage'));
 const ListStoriesPage = lazy(() => import('pages/stories/ListStoriesPage/ListStoriesPage'));
 const CharacterBookmarks = lazy(() => import('pages/bookmarks/CharacterBookmarks/CharacterBookmarks'));
+const ComicBookmarks = lazy(() => import('pages/bookmarks/ComicBookmarks/ComicBookmarks'));
 
 const MenuLayoutRouter = () => (
   <div className="page-container">
@@ -22,6 +23,7 @@ const MenuLayoutRouter = () => (
           <Route exact path={RouteNames.ListComicsPage} component={ListComicsPage} />
           <Route exact path={RouteNames.ListStoriesPage} component={ListStoriesPage} />
           <Route exact path={RouteNames.CharacterBookmarks} component={CharacterBookmarks} />
+          <Route exact path={RouteNames.ComicBookmarks} component={ComicBookmarks} />
           <Route path={RouteNames.Home} component={HomePage} />
         </Switch>
       </Suspense>
