@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faChevronLeft, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { get } from 'API/FetchInfo';
 import { IRootState } from 'store/store';
 import { setViewItemAsyncContent } from 'actions/viewItem';
@@ -116,6 +116,29 @@ const ViewCharacterPage = () => {
                 </>
               )}
             </div>
+          </div>
+          <div className="actions-title-div">
+            <p className="actions-title">Actions:</p>
+          </div>
+          <div className="actions-menu">
+            <button
+              type="button"
+              className="action-btn add-bookmark"
+              onClick={() => {}}
+            >
+              <FontAwesomeIcon icon={faBookmark} />
+              {'\u00A0'}
+              Add bookmark
+            </button>
+            <button
+              type="button"
+              className="action-btn hide-item"
+              onClick={() => {}}
+            >
+              <FontAwesomeIcon icon={faEyeSlash} />
+              {'\u00A0'}
+              Hide item
+            </button>
           </div>
           <div className="related-items-div fade-in">
             <h3 className="related-items-title">Comics</h3>
