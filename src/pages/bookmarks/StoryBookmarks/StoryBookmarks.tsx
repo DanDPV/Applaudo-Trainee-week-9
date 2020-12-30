@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import { IRootState } from 'store/store';
 import { get } from 'API/FetchInfo';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
+import { imagePlaceholder } from 'utils/globals';
+import Card from 'components/Card/Card';
 import 'pages/bookmarks/common/styles.scss';
 
 const StoryBookmarks = () => {
@@ -41,6 +43,30 @@ const StoryBookmarks = () => {
     <div className="main-content mb-5">
       <div className="bookmarks-title-div">
         <h1>Story Bookmarks</h1>
+      </div>
+      <div className="cards">
+        <div className="cards-content">
+          {!loading
+            && stories
+            && stories.map(story => {
+              const inBookmark = bookmarks.find(item => item.type === 'STORY' && item.id === story.id);
+              return (
+                <Card
+                  key={story.id}
+                  id={story.id}
+                  name={story.title}
+                  description={story.description ?? ''}
+                  bookmarkIcon={inBookmark ? faBookmarkSolid : faBookmarkRegular}
+                  handleViewMore={handleViewMore}
+                  handleHideItem={handleHideItem}
+                  handleBookmarkAction={inBookmark ? handleRemoveBookmark : handleAddBookmark}
+                  imageUrl={story.thumbnail
+                    ? `${story.thumbnail.path}/portrait_uncanny.${story.thumbnail.extension}`
+                    : imagePlaceholder}
+                />
+              );
+            })}
+        </div>
       </div>
     </div>
   );
