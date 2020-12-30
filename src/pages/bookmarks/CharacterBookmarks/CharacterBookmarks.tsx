@@ -32,7 +32,10 @@ const CharacterBookmarks = () => {
 
   const handleAddBookmark = (id: number) => dispatch(addBookmark({ id, type: 'CHARACTER' }));
 
-  const handleRemoveBookmark = (id: number) => dispatch(removeBookmark({ id, type: 'CHARACTER' }));
+  const handleRemoveBookmark = (id: number) => {
+    dispatch(removeBookmark({ id, type: 'CHARACTER' }));
+    setCharacters(char => [...char.filter(c => c.id !== id)]);
+  };
 
   useEffect(() => {
     setLoading(true);
