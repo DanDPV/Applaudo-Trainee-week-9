@@ -11,6 +11,7 @@ import { get } from 'API/FetchInfo';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
 import { imagePlaceholder } from 'utils/globals';
 import Card from 'components/Card/Card';
+import Loading from 'components/Loading/Loading';
 import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
 import 'pages/bookmarks/common/styles.scss';
 
@@ -22,7 +23,7 @@ const StoryBookmarks = () => {
   const [stories, setStories] = useState<IStory[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const handleViewMore = (id: number) => history.push(`/comics/${id}`);
+  const handleViewMore = (id: number) => history.push(`/stories/${id}`);
 
   const handleHideItem = (id: number) => {
     dispatch(hideLocalItem({ id, type: 'STORY' }));
@@ -64,6 +65,7 @@ const StoryBookmarks = () => {
       <div className="bookmarks-title-div">
         <h1>Story Bookmarks</h1>
       </div>
+      {loading && <Loading />}
       <div className="cards">
         <div className="cards-content">
           {!loading
@@ -88,6 +90,9 @@ const StoryBookmarks = () => {
             })}
         </div>
       </div>
+      {!loading && stories && stories.length <= 0 && (
+        <h2 className="error-message">You don&apos;t have bookmarks in stories</h2>
+      )}
     </div>
   );
 };
