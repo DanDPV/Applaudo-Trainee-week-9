@@ -7,7 +7,6 @@ interface IConfirmModal {
   title: string;
   children: ReactNode;
   confirmText: string;
-  mainColor: string;
   open: boolean;
   handleAction(confirmed: boolean): void;
 }
@@ -16,7 +15,6 @@ const ConfirmModal = ({
   title,
   children,
   confirmText,
-  mainColor,
   open,
   handleAction,
 }: IConfirmModal) => {
@@ -50,7 +48,7 @@ const ConfirmModal = ({
             className="modal-btn"
             onClick={() => handleAction(false)}
           >
-            cancel
+            Cancel
           </button>
         </div>
       </div>
