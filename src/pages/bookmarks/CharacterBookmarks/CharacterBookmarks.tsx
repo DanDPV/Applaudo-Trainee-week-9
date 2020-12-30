@@ -25,7 +25,10 @@ const CharacterBookmarks = () => {
 
   const handleViewMore = (id: number) => history.push(`/characters/${id}`);
 
-  const handleHideItem = (id: number) => dispatch(hideLocalItem({ id, type: 'CHARACTER' }));
+  const handleHideItem = (id: number) => {
+    dispatch(hideLocalItem({ id, type: 'CHARACTER' }));
+    setCharacters(char => [...char.filter(c => c.id !== id)]);
+  };
 
   const handleAddBookmark = (id: number) => dispatch(addBookmark({ id, type: 'CHARACTER' }));
 
