@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronLeft,
+  faEyeSlash,
+  faBookmark as faBookmarkSolid,
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import queryString from 'query-string';
@@ -13,6 +19,7 @@ import IStory from 'interfaces/IStory';
 import IComic from 'interfaces/IComic';
 import { imagePlaceholder } from 'utils/globals';
 import CustomOrderedList from 'components/CustomOrderedList/CustomOrderedList';
+import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
 import 'pages/stories/ViewStoryPage/ViewStoryPage.scss';
 
 const ViewStoryPage = () => {
@@ -27,11 +34,25 @@ const ViewStoryPage = () => {
   const { loading, error, data: genericResponse } = useSelector(
     (state: IRootState) => state.viewItem,
   );
+  const { hiddenItems, bookmarks } = useSelector((state: IRootState) => state.localItems);
 
   const { data } = genericResponse ?? {};
   const { results } = data ?? {};
   const [story, setStory] = useState<IStory | null>(null);
   const [originalIssue, setOriginalIssue] = useState<IComic | null>(null);
+  const [inBookmark, setInBookmark] = useState(
+    !!bookmarks.find(
+      item => item.type === 'STORY' && item.id === parseFloat(idStory),
+    ),
+  );
+  const [bookmarkIcon, setBookmarkIcon] = useState<IconDefinition>(
+    inBookmark ? faBookmarkSolid : faBookmarkRegular,
+  );
+  const [hidden] = useState(
+    !!hiddenItems.find(
+      item => item.type === 'STORY' && item.id === parseFloat(idStory),
+    ),
+  );
 
   const handleBack = () => {
     if (history.length <= 2) history.push(RouteNames.Home);
@@ -41,6 +62,23 @@ const ViewStoryPage = () => {
   const handleViewChar = (id: string) => history.push(`/characters/${id}`);
 
   const handleViewComic = (id: string) => history.push(`/comics/${id}`);
+
+  const handleAddBookmark = (id: number) => {
+    dispatch(addBookmark({ id, type: 'STORY' }));
+    setBookmarkIcon(faBookmarkSolid);
+    setInBookmark(true);
+  };
+
+  const handleRemoveBookmark = (id: number) => {
+    dispatch(removeBookmark({ id, type: 'STORY' }));
+    setBookmarkIcon(faBookmarkRegular);
+    setInBookmark(false);
+  };
+
+  const handleHideItem = (id: number) => {
+    dispatch(hideLocalItem({ id, type: 'STORY' }));
+    handleBack();
+  };
 
   useEffect(() => {
     if (results) {
