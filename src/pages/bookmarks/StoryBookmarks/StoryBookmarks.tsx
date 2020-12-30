@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { IRootState } from 'store/store';
 import { get } from 'API/FetchInfo';
 import IGenericApiResponse from 'interfaces/IGenericApiResponse';
+import 'pages/bookmarks/common/styles.scss';
 
 const StoryBookmarks = () => {
   const { hiddenItems, bookmarks } = useSelector((state: IRootState) => state.localItems);
@@ -37,8 +38,10 @@ const StoryBookmarks = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Story bookmarks</h1>
+    <div className="main-content mb-5">
+      <div className="bookmarks-title-div">
+        <h1>Story Bookmarks</h1>
+      </div>
     </div>
   );
 };
