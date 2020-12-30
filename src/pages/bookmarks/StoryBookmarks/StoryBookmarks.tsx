@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark as faBookmarkSolid, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as faBookmarkSolid, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
@@ -19,6 +19,7 @@ import {
   hideLocalItem,
   removeBookmark,
   resetBookmarks,
+  resetHiddenItems,
 } from 'actions/localItems';
 import RouteNames from 'routers/RouteNames';
 import 'pages/bookmarks/common/styles.scss';
@@ -31,6 +32,10 @@ const StoryBookmarks = () => {
   const [stories, setStories] = useState<IStory[]>([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [titleModal, setTitleModal] = useState('Delete all bookmarks?');
+  const [bodyModal, setBodyModal] = useState('Are you sure you want to delete all of your bookmarks in characters,comics and stories?');
+  const [confirmTextModal, setConfirmTextModal] = useState('Yes, delete!');
+  const [typeModal, setTypeModal] = useState<'BOOKMARK' | 'HIDDEN'>('BOOKMARK');
 
   const handleViewMore = (id: number) => history.push(`/stories/${id}`);
 
@@ -51,12 +56,30 @@ const StoryBookmarks = () => {
     setStories([]);
   };
 
+  const handleResetHiddenItems = () => {
+    dispatch(resetHiddenItems());
+    window.location.reload();
+  };
+
   const handleAction = (confirmed: boolean) => {
     setShowModal(false);
-    if (confirmed) handleResetBookmarks();
+    if (confirmed) {
+      switch (typeModal) {
+        case 'BOOKMARK':
+          handleResetBookmarks();
+          break;
+        case 'HIDDEN':
+          handleResetHiddenItems();
+          break;
+        default:
+          handleResetBookmarks();
+          break;
+      }
+    }
   };
 
   useEffect(() => {
+    setStories([]);
     setLoading(true);
     const storiesBookmarks = bookmarks.filter(item => item.type === 'STORY');
     const hiddenStories = hiddenItems.filter(item => item.type === 'STORY');
@@ -82,14 +105,13 @@ const StoryBookmarks = () => {
   return (
     <>
       <ConfirmModal
-        title="Delete all bookmarks?"
-        confirmText="Yes, delete!"
+        title={titleModal}
+        confirmText={confirmTextModal}
         open={showModal}
         handleAction={handleAction}
       >
         <p>
-          Are you sure you want to delete all of your bookmarks in characters,
-          comics and stories?
+          {bodyModal}
         </p>
       </ConfirmModal>
       <div className="main-content mb-5">
@@ -124,11 +146,32 @@ const StoryBookmarks = () => {
           <button
             type="button"
             className="bookmark-action-btn delete-bookmarks"
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+              setTitleModal('Delete all bookmarks?');
+              setBodyModal('Are you sure you want to delete all of your bookmarks in characters,comics and stories?');
+              setConfirmTextModal('Yes, delete!');
+              setTypeModal('BOOKMARK');
+              setShowModal(true);
+            }}
           >
             <FontAwesomeIcon icon={faTrash} />
             {'\u00A0'}
             Delete all bookmarks
+          </button>
+          <button
+            type="button"
+            className="bookmark-action-btn reset-hidden-items"
+            onClick={() => {
+              setTitleModal('Reset hidden items?');
+              setBodyModal('Are you sure you want to reset all hidden items?');
+              setConfirmTextModal('Yes!');
+              setTypeModal('HIDDEN');
+              setShowModal(true);
+            }}
+          >
+            <FontAwesomeIcon icon={faEye} />
+            {'\u00A0'}
+            Reset hidden items
           </button>
         </div>
         {loading && <Loading />}
