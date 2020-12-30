@@ -65,6 +65,11 @@ const CharacterBookmarks = () => {
       <div className="bookmarks-title-div">
         <h1>Character Bookmarks</h1>
       </div>
+      <div className="bookmark-menu-title-div">
+        <p className="bookmark-menu-title">
+          View your bookmarks in:
+        </p>
+      </div>
       <div className="bookmark-menu">
         <Link
           type="button"
