@@ -41,6 +41,12 @@ const localItemsReducer = (
         bookmarks: [...initState.bookmarks],
       };
 
+    case 'RESET_HIDDEN_ITEMS':
+      return {
+        ...state,
+        hiddenItems: [...initState.hiddenItems],
+      };
+
     case 'RESET_LOCAL_ITEMS':
       return {
         ...initState,
