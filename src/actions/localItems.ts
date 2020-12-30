@@ -1,6 +1,7 @@
 import { ILocalItem } from 'reducers/localItems/ILocalItemsState';
 import {
   IAddBookmark,
+  IBookmarksReset,
   IHideLocalItem,
   ILocalItemsReset,
   IRemoveBookmark,
@@ -27,6 +28,10 @@ const removeBookmark = (item: ILocalItem): IRemoveBookmark => ({
   },
 });
 
+const resetBookmarks = (): IBookmarksReset => ({
+  type: 'RESET_BOOKMARKS',
+});
+
 const resetLocalItems = (): ILocalItemsReset => ({
   type: 'RESET_LOCAL_ITEMS',
 });
@@ -35,5 +40,6 @@ export {
   hideLocalItem,
   addBookmark,
   removeBookmark,
+  resetBookmarks,
   resetLocalItems,
 };
