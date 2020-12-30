@@ -90,7 +90,7 @@ $bg-title-image: 'https://arc-anglerfish-arc2-prod-tbt.s3.amazonaws.com/public/H
   text-decoration: none;
   font-size: 15px;
   width: 150px;
-  background-color: brown;
+  background-color: rgb(42, 126, 165);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.26);
   -webkit-transition: box-shadow 0.2s cubic-bezier(0.895, 0.03, 0.685, 0.22);
   transition: box-shadow 0.2s cubic-bezier(0.895, 0.03, 0.685, 0.22);
@@ -102,11 +102,48 @@ $bg-title-image: 'https://arc-anglerfish-arc2-prod-tbt.s3.amazonaws.com/public/H
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.16), 0 6px 12px rgba(0, 0, 0, 0.32);
   -webkit-transition: box-shadow 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: box-shadow 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  background-color: #d30000;
+  background-color: darken($color: rgb(42, 126, 165), $amount: 10);
   color: white;
 }
 .bookmark-menu-btn:focus {
   outline: 0;
+}
+
+.bookmark-action-btn {
+  outline: 0;
+  margin: 10px;
+  padding: 10px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  max-width: 250px;
+  width: 100%;
+  background-color: gray;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.26);
+  -webkit-transition: box-shadow 0.2s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  transition: box-shadow 0.2s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  cursor: pointer;
+}
+
+.bookmark-action-btn:hover {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.16), 0 6px 12px rgba(0, 0, 0, 0.32);
+  -webkit-transition: box-shadow 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: box-shadow 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-color: darken($color: gray, $amount: 10);
+  color: white;
+}
+.bookmark-action-btn:focus {
+  outline: 0;
+}
+
+.delete-bookmarks {
+  background-color: red;
+  color: white;
+
+  &:hover {
+    background-color: darken($color: red, $amount: 10);
+  }
 }
 
 .cards {
