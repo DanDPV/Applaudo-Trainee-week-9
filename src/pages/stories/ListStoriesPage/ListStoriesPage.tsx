@@ -154,7 +154,12 @@ const ListStoriesPage = () => {
       {results && results.length <= 0 && (
         <h2 className="error-message">Stories not found 😮</h2>
       )}
-      {!loading && stories && stories.length <= 0 && (
+      {!loading
+      && results
+      && results.length > 0
+      && stories
+      && stories.length <= 0
+      && (
         <h2 className="error-message">Stories on this page are hidden 🤐</h2>
       )}
       {!loading
