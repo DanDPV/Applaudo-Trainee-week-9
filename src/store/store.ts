@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, StoreEnhancer } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import searchReducer from 'reducers/search/searchReducer';
@@ -7,6 +7,14 @@ import searchComicReducer from 'reducers/searchComic/searchComicReducer';
 import searchStoryReducer from 'reducers/searchStory/searchStoryReducer';
 import viewItemReducer from 'reducers/viewItem/viewItemReducer';
 import localItemsReducer from 'reducers/localItems/localItemsReducer';
+
+type WindowWithDevTools = Window & {
+  __REDUX_DEVTOOLS_EXTENSION__: () => StoreEnhancer<unknown, {}>;
+};
+
+const isReduxDevtoolsExtenstionExist = (
+  arg: Window | WindowWithDevTools,
+): arg is WindowWithDevTools => '__REDUX_DEVTOOLS_EXTENSION__' in arg;
 
 const persistConfig = {
   key: 'root',
@@ -26,7 +34,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = createStore(
   persistedReducer,
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
+  isReduxDevtoolsExtenstionExist(window)
+    ? window.__REDUX_DEVTOOLS_EXTENSION__() : undefined,
 );
 
 export const persistor = persistStore(store);
