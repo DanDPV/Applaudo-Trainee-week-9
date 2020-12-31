@@ -290,7 +290,12 @@ const ListCharactersPage = () => {
       {results && results.length <= 0 && (
         <h2 className="error-message">Characters not found 😮</h2>
       )}
-      {!loading && characters && characters.length <= 0 && (
+      {!loading
+      && results
+      && results.length > 0
+      && characters
+      && characters.length <= 0
+      && (
         <h2 className="error-message">Characters on this page are hidden 🤐</h2>
       )}
       {!loading

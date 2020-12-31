@@ -220,7 +220,12 @@ const ListComicsPage = () => {
       {results && results.length <= 0 && (
         <h2 className="error-message">Comics not found 😮</h2>
       )}
-      {!loading && comics && comics.length <= 0 && (
+      {!loading
+      && results
+      && results.length > 0
+      && comics
+      && comics.length <= 0
+      && (
         <h2 className="error-message">Comics on this page are hidden 🤐</h2>
       )}
       {!loading
