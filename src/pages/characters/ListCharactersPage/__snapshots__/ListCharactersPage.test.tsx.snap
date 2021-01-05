@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test on ListCharactersPage component Should render component correctly 1`] = `
+<body>
+  <div>
+    <div
+      class="main-content mb-5"
+    >
+      <div
+        class="page-title-div"
+      >
+        <h1>
+          Characters
+        </h1>
+      </div>
+      <div
+        class="search-filters-form mb-5"
+      >
+        <form>
+          <div
+            class="search-title"
+          >
+            Search your hero
+          </div>
+          <div
+            class="search-header"
+          >
+            Name
+          </div>
+          <div
+            class="search-header"
+          >
+            Comic
+          </div>
+          <div
+            class="search-header"
+          >
+            Story
+          </div>
+          <div
+            class="search-value"
+          >
+            <input
+              autocomplete="off"
+              class="search-input"
+              name="name"
+              placeholder="Hero´s name"
+              type="text"
+              value=""
+            />
+          </div>
+          <div
+            class="search-value"
+          >
+            <select
+              class="search-select"
+            >
+              <option
+                value=""
+              >
+                Select a comic
+              </option>
+            </select>
+          </div>
+          <div
+            class="search-value"
+          >
+            <select
+              class="search-select"
+            >
+              <option
+                value=""
+              >
+                Select a story
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div
+        class="loading-container"
+      >
+        <img
+          alt="dr stange"
+          class="loading-image"
+          src="dr-strange-sprite.gif"
+        />
+        <h2
+          class="loading-text bop"
+        >
+          Loading...
+        </h2>
+        <img
+          alt="dr stange"
+          class="loading-image flip-image"
+          src="dr-strange-sprite.gif"
+        />
+      </div>
+      
+      <div
+        class="cards"
+      >
+        <div
+          class="cards-content"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;
