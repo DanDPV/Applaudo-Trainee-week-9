@@ -25,4 +25,23 @@ describe('Test on ListCharactersPage component', () => {
       expect(container).toMatchSnapshot();
     });
   });
+
+  test('should filtered characters by name', async () => {
+    const searchValue = 'spid';
+    const { container } = render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <ListCharactersPage />
+        </BrowserRouter>
+      </Provider>,
+    );
+
+    userEvent.type(screen.getByPlaceholderText(/Hero´s name/i), searchValue);
+
+    await waitFor(() => {
+      expect(container.querySelector('.card')).not.toBeNull();
+      expect(container.querySelector('.loading-container')).toBeNull();
+      expect((screen.getByPlaceholderText(/Hero´s name/i) as HTMLInputElement).value).toBe(searchValue);
+    });
+  });
 });
