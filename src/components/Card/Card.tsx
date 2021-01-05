@@ -52,7 +52,7 @@ const Card = ({
         </button>
         <button
           type="button"
-          className="btn btn-action"
+          className="btn btn-action btn-bookmark"
           onClick={() => handleBookmarkAction(id)}
         >
           <FontAwesomeIcon icon={bookmarkIcon} />
