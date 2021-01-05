@@ -6,10 +6,11 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import userEvent, { TargetElement } from '@testing-library/user-event';
 import configureStore from 'redux-mock-store';
 import store from 'store/store';
-import { setAllParams, setName } from 'actions/search';
+import { setName } from 'actions/search';
+import { addBookmark } from 'actions/localItems';
 import ListCharactersPage from './ListCharactersPage';
 
 describe('Test on ListCharactersPage component', () => {
@@ -58,7 +59,25 @@ describe('Mock store tests', () => {
       story: '',
       loading: false,
       error: '',
-      data: null,
+      data: {
+        data: {
+          offset: 0,
+          limit: 12,
+          total: 1,
+          count: 1,
+          results: [
+            {
+              id: 1,
+              name: 'spiderman',
+              description: 'description',
+              thumbnail: {
+                path: 'path',
+                extension: 'jpg',
+              },
+            },
+          ],
+        },
+      },
     },
     localItems: {
       hiddenItems: [],
@@ -95,5 +114,19 @@ describe('Mock store tests', () => {
     const searchValueArray = searchValue.split('');
     // eslint-disable-next-line max-len
     searchValueArray.forEach(letter => expect(testStore.dispatch).toHaveBeenCalledWith(setName(letter)));
+  });
+
+  test('should dispatch add bookmark', () => {
+    const { container } = render(
+      <Provider store={testStore}>
+        <MemoryRouter>
+          <ListCharactersPage />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    expect(container.querySelector('.card')).not.toBeNull();
+    userEvent.click(container.querySelector('.btn-bookmark') as TargetElement);
+    expect(testStore.dispatch).toHaveBeenCalledWith(addBookmark({ id: 1, type: 'CHARACTER' }));
   });
 });
