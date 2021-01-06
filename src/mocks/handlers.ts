@@ -8,6 +8,7 @@ import {
   comicResponse,
   comicsResponse,
   storiesResponse,
+  storyResponse,
 } from './testData';
 
 const handlers = [
@@ -39,6 +40,12 @@ const handlers = [
     return res(
       ctx.status(200),
       ctx.json(storiesResponse()),
+    );
+  }),
+  rest.get(`${process.env.REACT_APP_API_URL}v1/public/stories/:idStory`, (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json(storyResponse()),
     );
   }),
 ];
