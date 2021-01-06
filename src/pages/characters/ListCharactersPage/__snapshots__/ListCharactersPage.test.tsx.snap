@@ -80,7 +80,7 @@ exports[`Test on ListCharactersPage component Should render component correctly 
             <option
               value="1"
             >
-              comic spiderman
+              story spiderman
             </option>
           </select>
         </div>
