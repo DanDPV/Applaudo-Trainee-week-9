@@ -107,6 +107,60 @@ const comicsResponse = () =>
     },
   ]);
 
+const comicResponse = () =>
+  createGenericApiResponse<IComic>([
+    {
+      id: 1,
+      title: 'comic spiderman',
+      description: 'description',
+      thumbnail: {
+        path: 'path',
+        extension: 'jpg',
+      },
+      modified: new Date(),
+      resourceURI: '',
+      urls: [],
+      characters: {
+        available: 1,
+        returned: 1,
+        collectionURI: '',
+        items: [{
+          resourceURI: '',
+          name: 'Spiderman',
+        }],
+      },
+      stories: {
+        available: 1,
+        returned: 1,
+        collectionURI: '',
+        items: [{
+          resourceURI: '',
+          name: 'Spiderman Story',
+        }],
+      },
+      events: {} as any,
+      series: {} as any,
+      variants: {} as any,
+      collections: {} as any,
+      collectedIssues: {} as any,
+      creators: {} as any,
+      digitalId: 0,
+      issueNumber: 0,
+      variantDescription: '',
+      isbn: '',
+      upc: '',
+      diamondCode: '',
+      ean: '',
+      issn: '',
+      format: '',
+      pageCount: 10,
+      textObjects: [],
+      dates: [],
+      prices: [],
+      images: [],
+    },
+  ]);
+
 const storiesResponse = () =>
   createGenericApiResponse<IStory>([
     {
@@ -134,5 +188,6 @@ export {
   charactersResponse,
   characterResponse,
   comicsResponse,
+  comicResponse,
   storiesResponse,
 };
