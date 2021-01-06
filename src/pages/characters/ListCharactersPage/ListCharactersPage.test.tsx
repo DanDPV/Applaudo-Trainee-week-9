@@ -83,7 +83,7 @@ describe('Test on ListCharactersPage component', () => {
 
     userEvent.click(container.querySelector('.btn-hide') as TargetElement);
 
-    expect(container.querySelector('.card')).toBe(null);
+    expect(container.querySelector('.card')).toBeNull();
   });
 });
 
