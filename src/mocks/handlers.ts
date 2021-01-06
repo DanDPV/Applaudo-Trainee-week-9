@@ -63,7 +63,7 @@ const handlers = [
           results: [
             {
               id: 1,
-              title: 'comic spiderman',
+              title: 'story spiderman',
               description: 'description',
               thumbnail: {
                 path: 'path',
