@@ -4,7 +4,7 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent, { TargetElement } from '@testing-library/user-event';
 import configureStore from 'redux-mock-store';
@@ -17,9 +17,9 @@ describe('Test on ListCharactersPage component', () => {
   test('Should render component correctly', async () => {
     const { container } = render(
       <Provider store={store}>
-        <BrowserRouter>
+        <MemoryRouter>
           <ListCharactersPage />
-        </BrowserRouter>
+        </MemoryRouter>
       </Provider>,
     );
 
@@ -34,9 +34,9 @@ describe('Test on ListCharactersPage component', () => {
     const search = 'spid';
     render(
       <Provider store={store}>
-        <BrowserRouter>
+        <MemoryRouter>
           <ListCharactersPage />
-        </BrowserRouter>
+        </MemoryRouter>
       </Provider>,
     );
 
@@ -47,9 +47,9 @@ describe('Test on ListCharactersPage component', () => {
   test('should add/remove bookmark', async () => {
     const { container } = render(
       <Provider store={store}>
-        <BrowserRouter>
+        <MemoryRouter>
           <ListCharactersPage />
-        </BrowserRouter>
+        </MemoryRouter>
       </Provider>,
     );
 
@@ -70,9 +70,9 @@ describe('Test on ListCharactersPage component', () => {
   test('should hide card', async () => {
     const { container } = render(
       <Provider store={store}>
-        <BrowserRouter>
+        <MemoryRouter>
           <ListCharactersPage />
-        </BrowserRouter>
+        </MemoryRouter>
       </Provider>,
     );
 
