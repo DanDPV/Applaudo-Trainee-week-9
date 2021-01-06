@@ -47,7 +47,7 @@ const Card = ({
         </button>
         <button
           type="button"
-          className="btn btn-action"
+          className="btn btn-action btn-hide"
           onClick={() => handleHideItem(id)}
         >
           <FontAwesomeIcon icon={faEyeSlash} />
