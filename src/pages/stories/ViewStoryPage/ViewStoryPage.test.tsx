@@ -5,8 +5,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createMemoryHistory } from 'history';
 import store from 'store/store';
 import { renderWithRouter } from 'tests/utils';
+import { renderWithCustomHistory } from 'tests/componentUtils';
 import ViewStoryPage from './ViewStoryPage';
 
 describe('Test on ViewStoryPage', () => {
@@ -58,5 +60,24 @@ describe('Test on ViewStoryPage', () => {
     expect(screen.getByText(/Remove bookmark/i)).toBeInTheDocument();
     userEvent.click(screen.getByText(/Remove bookmark/i));
     expect(screen.getByText(/Add bookmark/i)).toBeInTheDocument();
+  });
+
+  test('should hide item', async () => {
+    const history = createMemoryHistory();
+    history.push('/stories');
+    history.push('/stories/1');
+    const { container } = renderWithCustomHistory(history);
+
+    await waitFor(() => {
+      expect(container.querySelector('.image-header-title')).not.toBeNull();
+    });
+
+    expect(screen.getByText(/Hide item/i)).toBeInTheDocument();
+    userEvent.click(screen.getByText(/Hide item/i));
+    await waitFor(() => {
+      expect(container.querySelector('.card')).toBeNull();
+      expect(container.querySelector('.loading-container')).toBeNull();
+      expect(screen.getByText(/Stories on this page are hidden 🤐/i)).toBeInTheDocument();
+    });
   });
 });
