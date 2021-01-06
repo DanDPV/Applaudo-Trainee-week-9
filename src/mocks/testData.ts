@@ -126,7 +126,7 @@ const comicResponse = () =>
         collectionURI: '',
         items: [{
           resourceURI: '',
-          name: 'Spiderman',
+          name: 'Char Spiderman',
         }],
       },
       stories: {
