@@ -23,4 +23,20 @@ describe('Test on ViewStoryPage', () => {
       expect(container).toMatchSnapshot();
     });
   });
+
+  test('should show character and comic list correctly', async () => {
+    const { container } = renderWithRouter(
+      <Provider store={store}>
+        <ViewStoryPage />
+      </Provider>,
+      { route: '/stories/1' },
+    );
+
+    await waitFor(() => {
+      expect(container.querySelector('.image-header-title')).not.toBeNull();
+    });
+
+    expect(screen.getByText(/Char Spiderman/i)).toBeInTheDocument();
+    expect(screen.getByText(/Spiderman Comic/i)).toBeInTheDocument();
+  });
 });
