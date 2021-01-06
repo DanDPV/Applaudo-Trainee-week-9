@@ -66,6 +66,25 @@ describe('Test on ListCharactersPage component', () => {
 
     expect(container.querySelector('.bookmark-selected')).toBe(null);
   });
+
+  test('should hide card', async () => {
+    const { container } = render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <ListCharactersPage />
+        </BrowserRouter>
+      </Provider>,
+    );
+
+    await waitFor(() => {
+      expect(container.querySelector('.card')).not.toBeNull();
+      expect(container.querySelector('.loading-container')).toBeNull();
+    });
+
+    userEvent.click(container.querySelector('.btn-hide') as TargetElement);
+
+    expect(container.querySelector('.card')).toBe(null);
+  });
 });
 
 describe('Mock store tests', () => {
