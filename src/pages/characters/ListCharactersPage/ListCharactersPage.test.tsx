@@ -43,6 +43,29 @@ describe('Test on ListCharactersPage component', () => {
     userEvent.type(screen.getByPlaceholderText(/Hero´s name/i), search);
     expect((screen.getByPlaceholderText(/Hero´s name/i) as HTMLInputElement).value).toBe(search);
   });
+
+  test('should add/remove bookmark', async () => {
+    const { container } = render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <ListCharactersPage />
+        </BrowserRouter>
+      </Provider>,
+    );
+
+    await waitFor(() => {
+      expect(container.querySelector('.card')).not.toBeNull();
+      expect(container.querySelector('.loading-container')).toBeNull();
+    });
+
+    userEvent.click(container.querySelector('.btn-bookmark') as TargetElement);
+
+    expect(container.querySelector('.bookmark-selected')).not.toBe(null);
+
+    userEvent.click(container.querySelector('.btn-bookmark') as TargetElement);
+
+    expect(container.querySelector('.bookmark-selected')).toBe(null);
+  });
 });
 
 describe('Mock store tests', () => {
