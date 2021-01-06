@@ -120,7 +120,7 @@ exports[`Test on ListCharactersPage component Should render component correctly 
                 View More
               </button>
               <button
-                class="btn btn-action"
+                class="btn btn-action btn-hide"
                 type="button"
               >
                 <svg
