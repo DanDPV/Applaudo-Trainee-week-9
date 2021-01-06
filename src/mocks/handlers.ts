@@ -5,6 +5,7 @@ import { rest } from 'msw';
 import {
   characterResponse,
   charactersResponse,
+  comicResponse,
   comicsResponse,
   storiesResponse,
 } from './testData';
@@ -26,6 +27,12 @@ const handlers = [
     return res(
       ctx.status(200),
       ctx.json(comicsResponse()),
+    );
+  }),
+  rest.get(`${process.env.REACT_APP_API_URL}v1/public/comics/:idComic`, (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json(comicResponse()),
     );
   }),
   rest.get(`${process.env.REACT_APP_API_URL}v1/public/stories`, (req, res, ctx) => {
