@@ -275,6 +275,7 @@ const ListCharactersPage = () => {
                   id={char.id}
                   name={char.name}
                   description={char.description ?? ''}
+                  bookmarkClassName={inBookmark ? 'btn btn-action btn-bookmark bookmark-selected' : 'btn btn-action btn-bookmark'}
                   bookmarkIcon={inBookmark ? faBookmarkSolid : faBookmarkRegular}
                   handleViewMore={handleViewMore}
                   handleHideItem={handleHideItem}

@@ -139,6 +139,7 @@ const ListStoriesPage = () => {
                   id={story.id}
                   name={story.title}
                   description={story.description ?? ''}
+                  bookmarkClassName={inBookmark ? 'btn btn-action btn-bookmark bookmark-selected' : 'btn btn-action btn-bookmark'}
                   bookmarkIcon={inBookmark ? faBookmarkSolid : faBookmarkRegular}
                   handleViewMore={handleViewMore}
                   handleHideItem={handleHideItem}

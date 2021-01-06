@@ -10,6 +10,7 @@ interface ICard {
   name: string;
   description: string;
   imageUrl: string;
+  bookmarkClassName: string;
   bookmarkIcon: IconDefinition;
   handleViewMore(id: number): void;
   handleHideItem(id: number): void;
@@ -21,6 +22,7 @@ const Card = ({
   name,
   description,
   imageUrl,
+  bookmarkClassName,
   bookmarkIcon,
   handleViewMore,
   handleHideItem,
@@ -52,7 +54,7 @@ const Card = ({
         </button>
         <button
           type="button"
-          className="btn btn-action btn-bookmark"
+          className={bookmarkClassName}
           onClick={() => handleBookmarkAction(id)}
         >
           <FontAwesomeIcon icon={bookmarkIcon} />
