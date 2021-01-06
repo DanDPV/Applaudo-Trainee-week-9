@@ -183,6 +183,47 @@ const storiesResponse = () =>
     },
   ]);
 
+const storyResponse = () =>
+  createGenericApiResponse<IStory>([
+    {
+      id: 1,
+      title: 'story spiderman',
+      description: 'description',
+      thumbnail: {
+        path: 'path',
+        extension: 'jpg',
+      },
+      modified: new Date(),
+      resourceURI: '',
+      comics: {
+        available: 1,
+        returned: 1,
+        collectionURI: '',
+        items: [{
+          resourceURI: '',
+          name: 'Spiderman Comic',
+        }],
+      },
+      characters: {
+        available: 1,
+        returned: 1,
+        collectionURI: '',
+        items: [{
+          resourceURI: '',
+          name: 'Char Spiderman',
+        }],
+      },
+      events: {} as any,
+      series: {} as any,
+      creators: {} as any,
+      originalIssue: {
+        resourceURI: 'apiUrl/comics/1',
+        name: 'Spiderman Comic',
+      },
+      type: '',
+    },
+  ]);
+
 export {
   createGenericApiResponse,
   charactersResponse,
@@ -190,4 +231,5 @@ export {
   comicsResponse,
   comicResponse,
   storiesResponse,
+  storyResponse,
 };
