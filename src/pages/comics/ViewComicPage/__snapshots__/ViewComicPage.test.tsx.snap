@@ -125,7 +125,7 @@ exports[`Test on ViewComicPage component should render component correctly 1`] =
         <li
           class="custom-li"
         >
-          Spiderman
+          Char Spiderman
         </li>
       </ol>
     </div>
