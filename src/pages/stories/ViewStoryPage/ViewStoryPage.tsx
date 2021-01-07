@@ -19,6 +19,7 @@ import IStory from 'interfaces/IStory';
 import IComic from 'interfaces/IComic';
 import { imagePlaceholder } from 'utils/globals';
 import CustomOrderedList from 'components/CustomOrderedList/CustomOrderedList';
+import Loading from 'components/Loading/Loading';
 import { addBookmark, hideLocalItem, removeBookmark } from 'actions/localItems';
 import 'pages/stories/ViewStoryPage/ViewStoryPage.scss';
 
@@ -131,6 +132,8 @@ const ViewStoryPage = () => {
 
   return (
     <div className="main-content mb-5">
+      {loading && <Loading />}
+      {error && <h2 className="error-message">Could not load story 😓</h2>}
       {!loading && !error && story && (
         <>
           <div className="image-header-div">
