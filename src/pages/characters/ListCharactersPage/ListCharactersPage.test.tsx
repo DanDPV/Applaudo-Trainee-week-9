@@ -71,7 +71,7 @@ describe('Test on ListCharactersPage component', () => {
     expect(container.querySelector('.bookmark-selected')).toBe(null);
   });
 
-  test('should hide card', async () => {
+  test('should hide card and show hidden characters message', async () => {
     const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
@@ -88,6 +88,7 @@ describe('Test on ListCharactersPage component', () => {
     userEvent.click(container.querySelector('.btn-hide') as TargetElement);
 
     expect(container.querySelector('.card')).toBeNull();
+    expect(screen.getByText(/Characters on this page are hidden 🤐/i)).toBeInTheDocument();
   });
 
   test('should handle api error', async () => {
