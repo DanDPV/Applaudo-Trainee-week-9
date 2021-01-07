@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/extensions */
 /* eslint-disable no-undef */
@@ -5,10 +6,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { rest } from 'msw';
 import { createMemoryHistory } from 'history';
+
 import store from 'store/store';
 import { renderWithRouter } from 'tests/utils';
 import { renderWithCustomHistory } from 'tests/componentUtils';
+import server from 'mocks/server';
 import ViewCharacterPage from './ViewCharacterPage';
 
 describe('Test in ViewCharacterPage component', () => {
@@ -93,6 +97,27 @@ describe('Test in ViewCharacterPage component', () => {
       expect(container.querySelector('.card')).toBeNull();
       expect(container.querySelector('.loading-container')).toBeNull();
       expect(screen.getByText(/Characters on this page are hidden 🤐/i)).toBeInTheDocument();
+    });
+  });
+
+  test('should handle api error', async () => {
+    server.use(
+      rest.get(`${process.env.REACT_APP_API_URL}v1/public/characters/:idCharacter`, (req, res, ctx) => {
+        return res(
+          ctx.status(404),
+        );
+      }),
+    );
+
+    renderWithRouter(
+      <Provider store={store}>
+        <ViewCharacterPage />
+      </Provider>,
+      { route: '/characters/1' },
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/Could not load character 😓/i)).toBeInTheDocument();
     });
   });
 });
