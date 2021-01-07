@@ -48,6 +48,14 @@ const handlers = [
       ctx.json(storyResponse()),
     );
   }),
+  rest.get('*', (req, res, ctx) => {
+    // eslint-disable-next-line no-console
+    console.error(`Please add request handler for ${req.url.toString()}`);
+    return res(
+      ctx.status(500),
+      ctx.json({ error: 'Please add handler' }),
+    );
+  }),
 ];
 
 export default handlers;
