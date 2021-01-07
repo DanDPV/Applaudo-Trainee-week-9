@@ -52,6 +52,31 @@ exports[`Test in ViewCharacterPage component should render component correctly 1
         >
           description
         </p>
+        <p
+          class="char-extra-title"
+        >
+          Learn more about spiderman
+        </p>
+        <div
+          class="char-extra-div"
+        >
+          <a
+            class="char-extra-button"
+            href="http://marvel.com/characters/2854/adam_warlock?utm_campaign=apiRef&utm_source=10dea460449717d1dce670f173fe30b9"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            detail
+          </a>
+          <a
+            class="char-extra-button"
+            href="http://marvel.com/universe/Warlock,_Adam?utm_campaign=apiRef&utm_source=10dea460449717d1dce670f173fe30b9"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            wiki
+          </a>
+        </div>
       </div>
     </div>
     <div
