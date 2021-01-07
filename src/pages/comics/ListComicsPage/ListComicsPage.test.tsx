@@ -12,6 +12,7 @@ import { rest } from 'msw';
 
 import store from 'store/store';
 import server from 'mocks/server';
+import { emptyResponse } from 'mocks/testData';
 import ListComicsPage from './ListComicsPage';
 
 describe('Test on ListComicsPage', () => {
@@ -85,6 +86,31 @@ describe('Test on ListComicsPage', () => {
     userEvent.click(container.querySelector('.btn-hide') as TargetElement);
 
     expect(container.querySelector('.card')).toBeNull();
+  });
+
+  test('should handle no results', async () => {
+    server.use(
+      rest.get(`${process.env.REACT_APP_API_URL}v1/public/comics`, (req, res, ctx) => {
+        return res(
+          ctx.status(200),
+          ctx.json(emptyResponse()),
+        );
+      }),
+    );
+
+    const { container } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <ListComicsPage />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/Comics not found 😮/i)).toBeInTheDocument();
+      expect(container.querySelector('.card')).toBeNull();
+      expect(container.querySelector('.pagination-options')).toBeNull();
+    });
   });
 
   test('should handle api error', async () => {
