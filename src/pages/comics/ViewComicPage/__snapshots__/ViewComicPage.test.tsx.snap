@@ -52,6 +52,31 @@ exports[`Test on ViewComicPage component should render component correctly 1`] =
         >
           description
         </p>
+        <p
+          class="comic-extra-title"
+        >
+          Learn more about comic spiderman
+        </p>
+        <div
+          class="comic-extra-div"
+        >
+          <a
+            class="comic-extra-button"
+            href="http://marvel.com/characters/2854/adam_warlock?utm_campaign=apiRef&utm_source=10dea460449717d1dce670f173fe30b9"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            detail
+          </a>
+          <a
+            class="comic-extra-button"
+            href="http://marvel.com/universe/Warlock,_Adam?utm_campaign=apiRef&utm_source=10dea460449717d1dce670f173fe30b9"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            wiki
+          </a>
+        </div>
       </div>
     </div>
     <div
