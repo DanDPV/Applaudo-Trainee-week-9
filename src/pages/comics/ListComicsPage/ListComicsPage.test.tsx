@@ -69,7 +69,7 @@ describe('Test on ListComicsPage', () => {
     expect(container.querySelector('.bookmark-selected')).toBe(null);
   });
 
-  test('should hide card', async () => {
+  test('should hide card and show hidden characters message', async () => {
     const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
@@ -86,6 +86,7 @@ describe('Test on ListComicsPage', () => {
     userEvent.click(container.querySelector('.btn-hide') as TargetElement);
 
     expect(container.querySelector('.card')).toBeNull();
+    expect(screen.getByText(/Comics on this page are hidden 🤐/i)).toBeInTheDocument();
   });
 
   test('should handle no results', async () => {
