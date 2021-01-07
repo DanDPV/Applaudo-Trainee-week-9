@@ -42,6 +42,21 @@ describe('Test on ViewComicPage component', () => {
     expect(screen.getByText(/Spiderman Story/i)).toBeInTheDocument();
   });
 
+  test('should show extra information buttons', async () => {
+    const { container } = renderWithRouter(
+      <Provider store={store}>
+        <ViewComicPage />
+      </Provider>,
+      { route: '/comics/1' },
+    );
+
+    await waitFor(() => {
+      expect(container.querySelector('.image-header-title')).not.toBeNull();
+    });
+
+    expect(screen.getByText(/Learn more about/i)).toBeInTheDocument();
+  });
+
   test('should Add/Remove bookmark', async () => {
     const { container } = renderWithRouter(
       <Provider store={store}>
