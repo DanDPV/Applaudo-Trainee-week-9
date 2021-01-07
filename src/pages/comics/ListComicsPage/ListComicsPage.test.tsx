@@ -69,7 +69,7 @@ describe('Test on ListComicsPage', () => {
     expect(container.querySelector('.bookmark-selected')).toBe(null);
   });
 
-  test('should hide card and show hidden characters message', async () => {
+  test('should hide card and show hidden comics message', async () => {
     const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
