@@ -45,7 +45,14 @@ const characterResponse = () =>
       },
       modified: new Date(),
       resourceURI: '',
-      urls: [],
+      urls: [{
+        type: 'detail',
+        url: 'http://marvel.com/characters/2854/adam_warlock?utm_campaign=apiRef&utm_source=10dea460449717d1dce670f173fe30b9',
+      },
+      {
+        type: 'wiki',
+        url: 'http://marvel.com/universe/Warlock,_Adam?utm_campaign=apiRef&utm_source=10dea460449717d1dce670f173fe30b9',
+      }],
       comics: {
         available: 1,
         returned: 1,
