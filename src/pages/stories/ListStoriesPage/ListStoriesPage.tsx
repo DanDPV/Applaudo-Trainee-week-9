@@ -126,7 +126,7 @@ const ListStoriesPage = () => {
         <h1>Stories</h1>
       </div>
       {loading && <Loading />}
-      {error && <h2 className="error-message">Could not load comics 😓</h2>}
+      {error && <h2 className="error-message">Could not load stories 😓</h2>}
       <div className="cards">
         <div className="cards-content">
           {!loading
