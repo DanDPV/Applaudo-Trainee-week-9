@@ -12,6 +12,7 @@ import { rest } from 'msw';
 
 import store from 'store/store';
 import server from 'mocks/server';
+import { emptyResponse } from 'mocks/testData';
 import ListStoriesPage from './ListStoriesPage';
 
 describe('Test on ListStoriesPage', () => {
@@ -71,6 +72,31 @@ describe('Test on ListStoriesPage', () => {
     userEvent.click(container.querySelector('.btn-hide') as TargetElement);
 
     expect(container.querySelector('.card')).toBeNull();
+  });
+
+  test('should handle no results', async () => {
+    server.use(
+      rest.get(`${process.env.REACT_APP_API_URL}v1/public/stories`, (req, res, ctx) => {
+        return res(
+          ctx.status(200),
+          ctx.json(emptyResponse()),
+        );
+      }),
+    );
+
+    const { container } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <ListStoriesPage />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/Stories not found 😮/i)).toBeInTheDocument();
+      expect(container.querySelector('.card')).toBeNull();
+      expect(container.querySelector('.pagination-options')).toBeNull();
+    });
   });
 
   test('should handle api error', async () => {
