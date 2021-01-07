@@ -15,6 +15,7 @@ import store from 'store/store';
 import { setName } from 'actions/search';
 import { addBookmark } from 'actions/localItems';
 import server from 'mocks/server';
+import { emptyResponse } from 'mocks/testData';
 import ListCharactersPage from './ListCharactersPage';
 
 describe('Test on ListCharactersPage component', () => {
@@ -89,6 +90,31 @@ describe('Test on ListCharactersPage component', () => {
 
     expect(container.querySelector('.card')).toBeNull();
     expect(screen.getByText(/Characters on this page are hidden 🤐/i)).toBeInTheDocument();
+  });
+
+  test('should handle no results', async () => {
+    server.use(
+      rest.get(`${process.env.REACT_APP_API_URL}v1/public/characters`, (req, res, ctx) => {
+        return res(
+          ctx.status(200),
+          ctx.json(emptyResponse()),
+        );
+      }),
+    );
+
+    const { container } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <ListCharactersPage />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/Characters not found 😮/i)).toBeInTheDocument();
+      expect(container.querySelector('.card')).toBeNull();
+      expect(container.querySelector('.pagination-options')).toBeNull();
+    });
   });
 
   test('should handle api error', async () => {
