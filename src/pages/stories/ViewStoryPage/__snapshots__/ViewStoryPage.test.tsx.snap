@@ -5,6 +5,7 @@ exports[`Test on ViewStoryPage should render component correctly 1`] = `
   <div
     class="main-content mb-5"
   >
+    
     <div
       class="image-header-div"
     >
