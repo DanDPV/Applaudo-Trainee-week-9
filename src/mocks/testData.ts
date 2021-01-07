@@ -13,6 +13,16 @@ const createGenericApiResponse = <T>(results: T[]) => ({
   },
 });
 
+const emptyResponse = () => ({
+  data: {
+    offset: 0,
+    limit: 12,
+    total: 0,
+    count: 0,
+    results: [],
+  },
+});
+
 const charactersResponse = () =>
   createGenericApiResponse<ICharacter>([
     {
@@ -240,6 +250,7 @@ const storyResponse = () =>
 
 export {
   createGenericApiResponse,
+  emptyResponse,
   charactersResponse,
   characterResponse,
   comicsResponse,
